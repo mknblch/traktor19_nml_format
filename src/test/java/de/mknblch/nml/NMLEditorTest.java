@@ -32,9 +32,7 @@ public class NMLEditorTest {
     @Test
     public void testGetPlaylistNode() throws Exception {
 
-
         dump(editor.getPlaylistNode("test"));
-
     }
 
     @Test
@@ -47,7 +45,6 @@ public class NMLEditorTest {
     public void testGetPlaylistKeys() throws Exception {
 
         dump(editor.getPlaylistKeys("test"));
-
     }
 
     @Test

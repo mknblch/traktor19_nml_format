@@ -51,7 +51,7 @@
             <xs:attribute type="xs:int" name="DISPL_ORDER" use="optional"/>
             <xs:attribute type="xs:int" name="TYPE" use="optional"/>
             <xs:attribute type="xs:double" name="START" use="optional"/>
-            <xs:attribute type="xs:int" name="LEN" use="optional"/>
+            <xs:attribute type="xs:double" name="LEN" use="optional"/>
             <xs:attribute type="xs:int" name="REPEATS" use="optional"/>
             <xs:attribute type="xs:int" name="HOTCUE" use="optional"/>
         </xs:complexType>
