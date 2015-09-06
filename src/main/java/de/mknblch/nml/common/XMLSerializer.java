@@ -24,6 +24,7 @@ public class XMLSerializer<T> {
         jaxbContext = JAXBContext.newInstance(clazz);
         marshaller = jaxbContext.createMarshaller();
         unmarshaller = jaxbContext.createUnmarshaller();
+//        unmarshaller.setProperty();
     }
 
     public T unmarshal(File file) throws JAXBException {

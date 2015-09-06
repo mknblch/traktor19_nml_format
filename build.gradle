@@ -53,7 +53,7 @@ task jaxb () {
 
         ant.taskdef(name: 'xjc', classname: 'com.sun.tools.xjc.XJCTask', classpath: configurations.jaxb.asPath)
 //        ant.jaxbTargetDir = file("${buildDir}/generated-sources")
-        ant.jaxbTargetDir = file("${sourceDir}")
+        ant.jaxbTargetDir = file("src/main/java")
 
         // My-Webservice v1.10
         ant.xjc(

@@ -47,17 +47,13 @@ public class NMLEditor {
         context.removePath("/PLAYLISTS//NODE[@NAME=$PLNAME]");
     }
 
-    public List<Path> getPlaylistFiles(String name) {
+    public List<PRIMARYKEY> getPlaylistKeys(String name) {
 
         context.getVariables().declareVariable("PLNAME", name);
-        return selectMany("/PLAYLISTS//NODE[@NAME=$PLNAME]//content/PRIMARYKEY", PRIMARYKEY.class)
-                .stream()
-                .map(PRIMARYKEY::getKEY)
-                .map(NMLHelper::getFilePath)
-                .collect(Collectors.toList());
+        return selectMany("/PLAYLISTS//NODE[@NAME=$PLNAME]", PRIMARYKEY.class);
     }
 
-    private <T> List<T> selectMany(String xpath, Class<T> clazz) {
+    public <T> List<T> selectMany(String xpath, Class<T> clazz) {
         final ArrayList<T> list = new ArrayList<>();
         for (Iterator<Pointer> i = context.iteratePointers(xpath); i.hasNext(); ) {
             list.add((T) i.next().getNode());

@@ -3,6 +3,7 @@ package de.mknblch.nml;
 import de.mknblch.nml.common.NMLEditor;
 import de.mknblch.nml.common.XMLSerializer;
 import de.mknblch.nml.entities.NML;
+import de.mknblch.nml.entities.PRIMARYKEY;
 import de.mknblch.objectdump.ObjectDump;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -32,15 +33,20 @@ public class NMLEditorTest {
     public void testGetPlaylistNode() throws Exception {
 
 
-        dump(editor.getPlaylistNode("Demo Tracks"));
+        dump(editor.getPlaylistNode("test"));
 
+    }
+
+    @Test
+    public void test() throws Exception {
+
+        dump(editor.selectMany("/PLAYLISTS//NODE[@NAME='test']/PLAYLIST/ENTRY", Object.class));
     }
 
     @Test
     public void testGetPlaylistKeys() throws Exception {
 
-        dump(editor.getPlaylistFiles("$ROOT"));
-//        dump(editor.getPlaylistFiles("TOOLS"));
+        dump(editor.getPlaylistKeys("test"));
 
     }
 
