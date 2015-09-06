@@ -2,14 +2,12 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2015.08.24 um 11:28:02 AM CEST 
+// Generiert: 2015.09.05 um 08:37:16 PM CEST 
 //
 
 
 package de.mknblch.nml.entities;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -33,9 +31,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element ref="{}COLLECTION"/>
  *         &lt;element ref="{}SETS"/>
  *         &lt;element ref="{}PLAYLISTS"/>
- *         &lt;element ref="{}SORTING_ORDER" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
- *       &lt;attribute name="VERSION" type="{http://www.w3.org/2001/XMLSchema}byte" />
+ *       &lt;attribute name="VERSION" type="{http://www.w3.org/2001/XMLSchema}int" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -49,8 +46,7 @@ import javax.xml.bind.annotation.XmlType;
     "musicfolders",
     "collection",
     "sets",
-    "playlists",
-    "sortingorder"
+    "playlists"
 })
 @XmlRootElement(name = "NML")
 public class NML {
@@ -65,10 +61,8 @@ public class NML {
     protected SETS sets;
     @XmlElement(name = "PLAYLISTS", required = true)
     protected PLAYLISTS playlists;
-    @XmlElement(name = "SORTING_ORDER")
-    protected List<SORTINGORDER> sortingorder;
     @XmlAttribute(name = "VERSION")
-    protected Byte version;
+    protected Integer version;
 
     /**
      * Ruft den Wert der head-Eigenschaft ab.
@@ -191,43 +185,14 @@ public class NML {
     }
 
     /**
-     * Gets the value of the sortingorder property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the sortingorder property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getSORTINGORDER().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link SORTINGORDER }
-     * 
-     * 
-     */
-    public List<SORTINGORDER> getSORTINGORDER() {
-        if (sortingorder == null) {
-            sortingorder = new ArrayList<SORTINGORDER>();
-        }
-        return this.sortingorder;
-    }
-
-    /**
      * Ruft den Wert der version-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getVERSION() {
+    public Integer getVERSION() {
         return version;
     }
 
@@ -236,10 +201,10 @@ public class NML {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setVERSION(Byte value) {
+    public void setVERSION(Integer value) {
         this.version = value;
     }
 

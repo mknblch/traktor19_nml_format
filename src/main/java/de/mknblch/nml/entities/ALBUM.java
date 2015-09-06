@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2015.08.24 um 11:28:02 AM CEST 
+// Generiert: 2015.09.05 um 08:37:16 PM CEST 
 //
 
 
@@ -24,9 +24,8 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;attribute name="TRACK" type="{http://www.w3.org/2001/XMLSchema}int" />
  *       &lt;attribute name="TITLE" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="TRACK" type="{http://www.w3.org/2001/XMLSchema}short" />
- *       &lt;attribute name="OF_TRACKS" type="{http://www.w3.org/2001/XMLSchema}byte" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -39,12 +38,34 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "ALBUM")
 public class ALBUM {
 
+    @XmlAttribute(name = "TRACK")
+    protected Integer track;
     @XmlAttribute(name = "TITLE")
     protected String title;
-    @XmlAttribute(name = "TRACK")
-    protected Short track;
-    @XmlAttribute(name = "OF_TRACKS")
-    protected Byte oftracks;
+
+    /**
+     * Ruft den Wert der track-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getTRACK() {
+        return track;
+    }
+
+    /**
+     * Legt den Wert der track-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setTRACK(Integer value) {
+        this.track = value;
+    }
 
     /**
      * Ruft den Wert der title-Eigenschaft ab.
@@ -68,54 +89,6 @@ public class ALBUM {
      */
     public void setTITLE(String value) {
         this.title = value;
-    }
-
-    /**
-     * Ruft den Wert der track-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Short }
-     *     
-     */
-    public Short getTRACK() {
-        return track;
-    }
-
-    /**
-     * Legt den Wert der track-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Short }
-     *     
-     */
-    public void setTRACK(Short value) {
-        this.track = value;
-    }
-
-    /**
-     * Ruft den Wert der oftracks-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Byte }
-     *     
-     */
-    public Byte getOFTRACKS() {
-        return oftracks;
-    }
-
-    /**
-     * Legt den Wert der oftracks-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Byte }
-     *     
-     */
-    public void setOFTRACKS(Byte value) {
-        this.oftracks = value;
     }
 
 }

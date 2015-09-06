@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2015.08.24 um 11:28:02 AM CEST 
+// Generiert: 2015.09.05 um 08:37:16 PM CEST 
 //
 
 
@@ -26,21 +26,17 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;attribute name="BITRATE" type="{http://www.w3.org/2001/XMLSchema}int" />
  *       &lt;attribute name="GENRE" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="KEY" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="PLAYCOUNT" type="{http://www.w3.org/2001/XMLSchema}short" />
- *       &lt;attribute name="PLAYTIME" type="{http://www.w3.org/2001/XMLSchema}short" />
- *       &lt;attribute name="PLAYTIME_FLOAT" type="{http://www.w3.org/2001/XMLSchema}float" />
- *       &lt;attribute name="IMPORT_DATE" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="LAST_PLAYED" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="FLAGS" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *       &lt;attribute name="FILESIZE" type="{http://www.w3.org/2001/XMLSchema}int" />
- *       &lt;attribute name="RANKING" type="{http://www.w3.org/2001/XMLSchema}short" />
- *       &lt;attribute name="LABEL" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="COVERARTID" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="RELEASE_DATE" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="COMMENT" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="REMIXER" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="KEY_LYRICS" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="COVERARTID" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="PLAYTIME" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="PLAYTIME_FLOAT" type="{http://www.w3.org/2001/XMLSchema}double" />
+ *       &lt;attribute name="IMPORT_DATE" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="RELEASE_DATE" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="FLAGS" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="FILESIZE" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="LABEL" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="KEY" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="LAST_PLAYED" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -57,36 +53,28 @@ public class INFO {
     protected Integer bitrate;
     @XmlAttribute(name = "GENRE")
     protected String genre;
-    @XmlAttribute(name = "KEY")
-    protected String key;
-    @XmlAttribute(name = "PLAYCOUNT")
-    protected Short playcount;
-    @XmlAttribute(name = "PLAYTIME")
-    protected Short playtime;
-    @XmlAttribute(name = "PLAYTIME_FLOAT")
-    protected Float playtimefloat;
-    @XmlAttribute(name = "IMPORT_DATE")
-    protected String importdate;
-    @XmlAttribute(name = "LAST_PLAYED")
-    protected String lastplayed;
-    @XmlAttribute(name = "FLAGS")
-    protected Byte flags;
-    @XmlAttribute(name = "FILESIZE")
-    protected Integer filesize;
-    @XmlAttribute(name = "RANKING")
-    protected Short ranking;
-    @XmlAttribute(name = "LABEL")
-    protected String label;
-    @XmlAttribute(name = "COVERARTID")
-    protected String coverartid;
-    @XmlAttribute(name = "RELEASE_DATE")
-    protected String releasedate;
     @XmlAttribute(name = "COMMENT")
     protected String comment;
-    @XmlAttribute(name = "REMIXER")
-    protected String remixer;
-    @XmlAttribute(name = "KEY_LYRICS")
-    protected String keylyrics;
+    @XmlAttribute(name = "COVERARTID")
+    protected String coverartid;
+    @XmlAttribute(name = "PLAYTIME")
+    protected Integer playtime;
+    @XmlAttribute(name = "PLAYTIME_FLOAT")
+    protected Double playtimefloat;
+    @XmlAttribute(name = "IMPORT_DATE")
+    protected String importdate;
+    @XmlAttribute(name = "RELEASE_DATE")
+    protected String releasedate;
+    @XmlAttribute(name = "FLAGS")
+    protected Integer flags;
+    @XmlAttribute(name = "FILESIZE")
+    protected Integer filesize;
+    @XmlAttribute(name = "LABEL")
+    protected String label;
+    @XmlAttribute(name = "KEY")
+    protected String key;
+    @XmlAttribute(name = "LAST_PLAYED")
+    protected String lastplayed;
 
     /**
      * Ruft den Wert der bitrate-Eigenschaft ab.
@@ -137,51 +125,51 @@ public class INFO {
     }
 
     /**
-     * Ruft den Wert der key-Eigenschaft ab.
+     * Ruft den Wert der comment-Eigenschaft ab.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getKEY() {
-        return key;
+    public String getCOMMENT() {
+        return comment;
     }
 
     /**
-     * Legt den Wert der key-Eigenschaft fest.
+     * Legt den Wert der comment-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setKEY(String value) {
-        this.key = value;
+    public void setCOMMENT(String value) {
+        this.comment = value;
     }
 
     /**
-     * Ruft den Wert der playcount-Eigenschaft ab.
+     * Ruft den Wert der coverartid-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link Short }
+     *     {@link String }
      *     
      */
-    public Short getPLAYCOUNT() {
-        return playcount;
+    public String getCOVERARTID() {
+        return coverartid;
     }
 
     /**
-     * Legt den Wert der playcount-Eigenschaft fest.
+     * Legt den Wert der coverartid-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link Short }
+     *     {@link String }
      *     
      */
-    public void setPLAYCOUNT(Short value) {
-        this.playcount = value;
+    public void setCOVERARTID(String value) {
+        this.coverartid = value;
     }
 
     /**
@@ -189,10 +177,10 @@ public class INFO {
      * 
      * @return
      *     possible object is
-     *     {@link Short }
+     *     {@link Integer }
      *     
      */
-    public Short getPLAYTIME() {
+    public Integer getPLAYTIME() {
         return playtime;
     }
 
@@ -201,10 +189,10 @@ public class INFO {
      * 
      * @param value
      *     allowed object is
-     *     {@link Short }
+     *     {@link Integer }
      *     
      */
-    public void setPLAYTIME(Short value) {
+    public void setPLAYTIME(Integer value) {
         this.playtime = value;
     }
 
@@ -213,10 +201,10 @@ public class INFO {
      * 
      * @return
      *     possible object is
-     *     {@link Float }
+     *     {@link Double }
      *     
      */
-    public Float getPLAYTIMEFLOAT() {
+    public Double getPLAYTIMEFLOAT() {
         return playtimefloat;
     }
 
@@ -225,10 +213,10 @@ public class INFO {
      * 
      * @param value
      *     allowed object is
-     *     {@link Float }
+     *     {@link Double }
      *     
      */
-    public void setPLAYTIMEFLOAT(Float value) {
+    public void setPLAYTIMEFLOAT(Double value) {
         this.playtimefloat = value;
     }
 
@@ -257,27 +245,27 @@ public class INFO {
     }
 
     /**
-     * Ruft den Wert der lastplayed-Eigenschaft ab.
+     * Ruft den Wert der releasedate-Eigenschaft ab.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getLASTPLAYED() {
-        return lastplayed;
+    public String getRELEASEDATE() {
+        return releasedate;
     }
 
     /**
-     * Legt den Wert der lastplayed-Eigenschaft fest.
+     * Legt den Wert der releasedate-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setLASTPLAYED(String value) {
-        this.lastplayed = value;
+    public void setRELEASEDATE(String value) {
+        this.releasedate = value;
     }
 
     /**
@@ -285,10 +273,10 @@ public class INFO {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getFLAGS() {
+    public Integer getFLAGS() {
         return flags;
     }
 
@@ -297,10 +285,10 @@ public class INFO {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setFLAGS(Byte value) {
+    public void setFLAGS(Integer value) {
         this.flags = value;
     }
 
@@ -329,30 +317,6 @@ public class INFO {
     }
 
     /**
-     * Ruft den Wert der ranking-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Short }
-     *     
-     */
-    public Short getRANKING() {
-        return ranking;
-    }
-
-    /**
-     * Legt den Wert der ranking-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Short }
-     *     
-     */
-    public void setRANKING(Short value) {
-        this.ranking = value;
-    }
-
-    /**
      * Ruft den Wert der label-Eigenschaft ab.
      * 
      * @return
@@ -377,123 +341,51 @@ public class INFO {
     }
 
     /**
-     * Ruft den Wert der coverartid-Eigenschaft ab.
+     * Ruft den Wert der key-Eigenschaft ab.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getCOVERARTID() {
-        return coverartid;
+    public String getKEY() {
+        return key;
     }
 
     /**
-     * Legt den Wert der coverartid-Eigenschaft fest.
+     * Legt den Wert der key-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setCOVERARTID(String value) {
-        this.coverartid = value;
+    public void setKEY(String value) {
+        this.key = value;
     }
 
     /**
-     * Ruft den Wert der releasedate-Eigenschaft ab.
+     * Ruft den Wert der lastplayed-Eigenschaft ab.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getRELEASEDATE() {
-        return releasedate;
+    public String getLASTPLAYED() {
+        return lastplayed;
     }
 
     /**
-     * Legt den Wert der releasedate-Eigenschaft fest.
+     * Legt den Wert der lastplayed-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setRELEASEDATE(String value) {
-        this.releasedate = value;
-    }
-
-    /**
-     * Ruft den Wert der comment-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCOMMENT() {
-        return comment;
-    }
-
-    /**
-     * Legt den Wert der comment-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setCOMMENT(String value) {
-        this.comment = value;
-    }
-
-    /**
-     * Ruft den Wert der remixer-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getREMIXER() {
-        return remixer;
-    }
-
-    /**
-     * Legt den Wert der remixer-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setREMIXER(String value) {
-        this.remixer = value;
-    }
-
-    /**
-     * Ruft den Wert der keylyrics-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getKEYLYRICS() {
-        return keylyrics;
-    }
-
-    /**
-     * Legt den Wert der keylyrics-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setKEYLYRICS(String value) {
-        this.keylyrics = value;
+    public void setLASTPLAYED(String value) {
+        this.lastplayed = value;
     }
 
 }

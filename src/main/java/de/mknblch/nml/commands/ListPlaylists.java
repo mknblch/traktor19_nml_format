@@ -23,12 +23,7 @@ public class ListPlaylists extends ANMLCommand implements Runnable {
             nml = getNML();
             final NODE node = nml.getPLAYLISTS().getNODE();
 
-            System.out.println(node.getNAME());
-            final List<ENTRY> entries = node.getPLAYLIST().getENTRY();
-            for (ENTRY entry : entries) {
-                System.out.println(entry.getLOCATION().getFILE());
-
-            }
+            // TODO
         } catch (JAXBException e) {
             e.printStackTrace();
         }

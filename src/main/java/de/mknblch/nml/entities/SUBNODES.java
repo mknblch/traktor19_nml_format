@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2015.08.24 um 11:28:02 AM CEST 
+// Generiert: 2015.09.05 um 08:37:16 PM CEST 
 //
 
 
@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element ref="{}NODE" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
- *       &lt;attribute name="COUNT" type="{http://www.w3.org/2001/XMLSchema}byte" />
+ *       &lt;attribute name="COUNT" type="{http://www.w3.org/2001/XMLSchema}int" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -48,7 +48,7 @@ public class SUBNODES {
     @XmlElement(name = "NODE")
     protected List<NODE> node;
     @XmlAttribute(name = "COUNT")
-    protected Byte count;
+    protected Integer count;
 
     /**
      * Gets the value of the node property.
@@ -84,10 +84,10 @@ public class SUBNODES {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getCOUNT() {
+    public Integer getCOUNT() {
         return count;
     }
 
@@ -96,10 +96,10 @@ public class SUBNODES {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setCOUNT(Byte value) {
+    public void setCOUNT(Integer value) {
         this.count = value;
     }
 

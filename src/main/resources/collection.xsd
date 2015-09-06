@@ -10,143 +10,116 @@
 
         </xs:complexType>
     </xs:element>
-    <xs:element name="ALBUM">
-        <xs:complexType>
-
-            <xs:attribute type="xs:string" name="TITLE" use="optional"/>
-            <xs:attribute type="xs:short" name="TRACK" use="optional"/>
-            <xs:attribute type="xs:byte" name="OF_TRACKS" use="optional"/>
-
-        </xs:complexType>
-    </xs:element>
     <xs:element name="MODIFICATION_INFO">
         <xs:complexType>
             <xs:attribute type="xs:string" name="AUTHOR_TYPE" use="optional"/>
-
         </xs:complexType>
     </xs:element>
     <xs:element name="INFO">
         <xs:complexType>
             <xs:attribute type="xs:int" name="BITRATE" use="optional"/>
             <xs:attribute type="xs:string" name="GENRE" use="optional"/>
-            <xs:attribute type="xs:string" name="KEY" use="optional"/>
-            <xs:attribute type="xs:short" name="PLAYCOUNT" use="optional"/>
-            <xs:attribute type="xs:short" name="PLAYTIME" use="optional"/>
-            <xs:attribute type="xs:float" name="PLAYTIME_FLOAT" use="optional"/>
-            <xs:attribute type="xs:string" name="IMPORT_DATE" use="optional"/>
-            <xs:attribute type="xs:string" name="LAST_PLAYED" use="optional"/>
-            <xs:attribute type="xs:byte" name="FLAGS" use="optional"/>
-            <xs:attribute type="xs:int" name="FILESIZE" use="optional"/>
-            <xs:attribute type="xs:short" name="RANKING" use="optional"/>
-            <xs:attribute type="xs:string" name="LABEL" use="optional"/>
-            <xs:attribute type="xs:string" name="COVERARTID" use="optional"/>
-            <xs:attribute type="xs:string" name="RELEASE_DATE" use="optional"/>
             <xs:attribute type="xs:string" name="COMMENT" use="optional"/>
-            <xs:attribute type="xs:string" name="REMIXER" use="optional"/>
-            <xs:attribute type="xs:string" name="KEY_LYRICS" use="optional"/>
-
+            <xs:attribute type="xs:string" name="COVERARTID" use="optional"/>
+            <xs:attribute type="xs:int" name="PLAYTIME" use="optional"/>
+            <xs:attribute type="xs:double" name="PLAYTIME_FLOAT" use="optional"/>
+            <xs:attribute type="xs:string" name="IMPORT_DATE" use="optional"/>
+            <xs:attribute type="xs:string" name="RELEASE_DATE" use="optional"/>
+            <xs:attribute type="xs:int" name="FLAGS" use="optional"/>
+            <xs:attribute type="xs:int" name="FILESIZE" use="optional"/>
+            <xs:attribute type="xs:string" name="LABEL" use="optional"/>
+            <xs:attribute type="xs:string" name="KEY" use="optional"/>
+            <xs:attribute type="xs:string" name="LAST_PLAYED" use="optional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="TEMPO">
         <xs:complexType>
-            <xs:attribute type="xs:float" name="BPM" use="optional"/>
-            <xs:attribute type="xs:byte" name="BPM_QUALITY" use="optional"/>
-            <xs:attribute type="xs:float" name="BPM_TRANSIENTCOHERENCE" use="optional"/>
-
+            <xs:attribute type="xs:double" name="BPM" use="optional"/>
+            <xs:attribute type="xs:int" name="BPM_QUALITY" use="optional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="LOUDNESS">
         <xs:complexType>
-            <xs:attribute type="xs:float" name="PERCEIVED_DB" use="optional"/>
-            <xs:attribute type="xs:float" name="PEAK_DB" use="optional"/>
-            <xs:attribute type="xs:float" name="ANALYZED_DB" use="optional"/>
-
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="MUSICAL_KEY">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="VALUE"/>
+            <xs:attribute type="xs:double" name="PEAK_DB" use="optional"/>
+            <xs:attribute type="xs:double" name="PERCEIVED_DB" use="optional"/>
+            <xs:attribute type="xs:double" name="ANALYZED_DB" use="optional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="CUE_V2">
         <xs:complexType>
-
             <xs:attribute type="xs:string" name="NAME" use="optional"/>
-            <xs:attribute type="xs:byte" name="DISPL_ORDER" use="optional"/>
-            <xs:attribute type="xs:byte" name="TYPE" use="optional"/>
-            <xs:attribute type="xs:float" name="START" use="optional"/>
-            <xs:attribute type="xs:float" name="LEN" use="optional"/>
-            <xs:attribute type="xs:byte" name="REPEATS" use="optional"/>
-            <xs:attribute type="xs:byte" name="HOTCUE" use="optional"/>
-
+            <xs:attribute type="xs:int" name="DISPL_ORDER" use="optional"/>
+            <xs:attribute type="xs:int" name="TYPE" use="optional"/>
+            <xs:attribute type="xs:double" name="START" use="optional"/>
+            <xs:attribute type="xs:int" name="LEN" use="optional"/>
+            <xs:attribute type="xs:int" name="REPEATS" use="optional"/>
+            <xs:attribute type="xs:int" name="HOTCUE" use="optional"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="LOOPINFO">
+    <xs:element name="MUSICAL_KEY">
         <xs:complexType>
-
-            <xs:attribute type="xs:string" name="ORIGINAL_TITLE" use="optional"/>
-            <xs:attribute type="xs:string" name="ORIGINAL_TRACKID" use="optional"/>
-            <xs:attribute type="xs:float" name="ORIGINAL_LOOP_SIZE" use="optional"/>
-            <xs:attribute type="xs:byte" name="ORIGINAL_LOOP_START" use="optional"/>
-            <xs:attribute type="xs:byte" name="SAMPLE_TYPE_INFO" use="optional"/>
-
+            <xs:attribute type="xs:int" name="VALUE"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ALBUM">
+        <xs:complexType>
+            <xs:attribute type="xs:int" name="TRACK"/>
+            <xs:attribute type="xs:string" name="TITLE"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="ENTRY">
         <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="LOCATION" minOccurs="0"/>
-                <xs:element ref="ALBUM" minOccurs="0"/>
-                <xs:element ref="MODIFICATION_INFO" minOccurs="0"/>
-                <xs:element ref="INFO" minOccurs="0"/>
-                <xs:element ref="TEMPO" minOccurs="0"/>
-                <xs:element ref="LOUDNESS" minOccurs="0"/>
-                <xs:element ref="MUSICAL_KEY" minOccurs="0"/>
-                <xs:element ref="LOOPINFO" minOccurs="0"/>
-                <xs:element ref="CUE_V2" maxOccurs="unbounded" minOccurs="0"/>
-                <xs:element ref="PRIMARYKEY" minOccurs="0"/>
-            </xs:sequence>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+                <xs:element ref="LOCATION"/>
+                <xs:element ref="MODIFICATION_INFO"/>
+                <xs:element ref="INFO"/>
+                <xs:element ref="TEMPO"/>
+                <xs:element ref="LOUDNESS"/>
+                <xs:element ref="CUE_V2"/>
+                <xs:element ref="MUSICAL_KEY"/>
+                <xs:element ref="ALBUM"/>
+                <xs:element ref="PRIMARYKEY"/>
+            </xs:choice>
             <xs:attribute type="xs:string" name="MODIFIED_DATE" use="optional"/>
             <xs:attribute type="xs:int" name="MODIFIED_TIME" use="optional"/>
+            <xs:attribute type="xs:int" name="LOCK" use="optional"/>
+            <xs:attribute type="xs:dateTime" name="LOCK_MODIFICATION_TIME" use="optional"/>
             <xs:attribute type="xs:string" name="AUDIO_ID" use="optional"/>
             <xs:attribute type="xs:string" name="TITLE" use="optional"/>
             <xs:attribute type="xs:string" name="ARTIST" use="optional"/>
-            <xs:attribute type="xs:byte" name="LOCK" use="optional"/>
-            <xs:attribute type="xs:dateTime" name="LOCK_MODIFICATION_TIME" use="optional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="CELL">
         <xs:complexType>
-            <xs:attribute type="xs:byte" name="INDEX" use="optional"/>
+            <xs:attribute type="xs:int" name="INDEX" use="optional"/>
             <xs:attribute type="xs:string" name="CELLNAME" use="optional"/>
-            <xs:attribute type="xs:byte" name="COLOR" use="optional"/>
-            <xs:attribute type="xs:byte" name="SYNC" use="optional"/>
-            <xs:attribute type="xs:byte" name="REVERSE" use="optional"/>
-            <xs:attribute type="xs:byte" name="MODE" use="optional"/>
-            <xs:attribute type="xs:byte" name="TYPE" use="optional"/>
-            <xs:attribute type="xs:byte" name="SPEED" use="optional"/>
-            <xs:attribute type="xs:float" name="TRANSPOSE" use="optional"/>
-            <xs:attribute type="xs:byte" name="OFFSET" use="optional"/>
-            <xs:attribute type="xs:byte" name="NUDGE" use="optional"/>
-            <xs:attribute type="xs:float" name="GAIN" use="optional"/>
-            <xs:attribute type="xs:byte" name="START_MARKER" use="optional"/>
-            <xs:attribute type="xs:float" name="END_MARKER" use="optional"/>
-            <xs:attribute type="xs:float" name="BPM" use="optional"/>
+            <xs:attribute type="xs:int" name="COLOR" use="optional"/>
+            <xs:attribute type="xs:int" name="SYNC" use="optional"/>
+            <xs:attribute type="xs:int" name="REVERSE" use="optional"/>
+            <xs:attribute type="xs:int" name="MODE" use="optional"/>
+            <xs:attribute type="xs:int" name="TYPE" use="optional"/>
+            <xs:attribute type="xs:int" name="SPEED" use="optional"/>
+            <xs:attribute type="xs:double" name="TRANSPOSE" use="optional"/>
+            <xs:attribute type="xs:double" name="OFFSET" use="optional"/>
+            <xs:attribute type="xs:int" name="NUDGE" use="optional"/>
+            <xs:attribute type="xs:double" name="GAIN" use="optional"/>
+            <xs:attribute type="xs:int" name="START_MARKER" use="optional"/>
+            <xs:attribute type="xs:int" name="END_MARKER" use="optional"/>
+            <xs:attribute type="xs:double" name="BPM" use="optional"/>
             <xs:attribute type="xs:string" name="DIR" use="optional"/>
             <xs:attribute type="xs:string" name="FILE" use="optional"/>
             <xs:attribute type="xs:string" name="VOLUME" use="optional"/>
-
         </xs:complexType>
     </xs:element>
     <xs:element name="SLOT">
-        <xs:complexType mixed="true">
+        <xs:complexType>
             <xs:sequence>
                 <xs:element ref="CELL" maxOccurs="unbounded" minOccurs="0"/>
             </xs:sequence>
-            <xs:attribute type="xs:byte" name="KEYLOCK" use="optional"/>
-            <xs:attribute type="xs:byte" name="FXENABLE" use="optional"/>
-            <xs:attribute type="xs:byte" name="PUNCHMODE" use="optional"/>
-            <xs:attribute type="xs:byte" name="ACTIVE_CELL_INDEX" use="optional"/>
+            <xs:attribute type="xs:int" name="KEYLOCK" use="optional"/>
+            <xs:attribute type="xs:int" name="FXENABLE" use="optional"/>
+            <xs:attribute type="xs:int" name="PUNCHMODE" use="optional"/>
+            <xs:attribute type="xs:int" name="ACTIVE_CELL_INDEX" use="optional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="SET">
@@ -159,8 +132,9 @@
                 <xs:element ref="SLOT" maxOccurs="unbounded" minOccurs="0"/>
             </xs:sequence>
             <xs:attribute type="xs:string" name="TITLE" use="optional"/>
-            <xs:attribute type="xs:byte" name="QUANT_VAlUE" use="optional"/>
-            <xs:attribute type="xs:byte" name="QUANT_STATE" use="optional"/>
+            <xs:attribute type="xs:string" name="ARTIST" use="optional"/>
+            <xs:attribute type="xs:int" name="QUANT_VAlUE" use="optional"/>
+            <xs:attribute type="xs:int" name="QUANT_STATE" use="optional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="PRIMARYKEY">
@@ -170,11 +144,11 @@
         </xs:complexType>
     </xs:element>
     <xs:element name="PLAYLIST">
-        <xs:complexType>
+        <xs:complexType mixed="true">
             <xs:sequence>
                 <xs:element ref="ENTRY" maxOccurs="unbounded" minOccurs="0"/>
             </xs:sequence>
-            <xs:attribute type="xs:byte" name="ENTRIES" use="optional"/>
+            <xs:attribute type="xs:int" name="ENTRIES" use="optional"/>
             <xs:attribute type="xs:string" name="TYPE" use="optional"/>
             <xs:attribute type="xs:string" name="UUID" use="optional"/>
         </xs:complexType>
@@ -194,21 +168,13 @@
             <xs:sequence>
                 <xs:element ref="NODE" maxOccurs="unbounded" minOccurs="0"/>
             </xs:sequence>
-            <xs:attribute type="xs:byte" name="COUNT"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="SORTING_DATA">
-        <xs:complexType>
-            <xs:attribute type="xs:byte" name="IDX" use="optional"/>
-            <xs:attribute type="xs:byte" name="ORD" use="optional"/>
-
+            <xs:attribute type="xs:int" name="COUNT"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="HEAD">
         <xs:complexType>
             <xs:attribute type="xs:anyURI" name="COMPANY"/>
             <xs:attribute type="xs:string" name="PROGRAM"/>
-
         </xs:complexType>
     </xs:element>
     <xs:element name="MUSICFOLDERS" type="xs:string"/>
@@ -217,7 +183,7 @@
             <xs:sequence>
                 <xs:element ref="ENTRY" maxOccurs="unbounded" minOccurs="0"/>
             </xs:sequence>
-            <xs:attribute type="xs:short" name="ENTRIES"/>
+            <xs:attribute type="xs:int" name="ENTRIES"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="SETS">
@@ -225,7 +191,7 @@
             <xs:sequence>
                 <xs:element ref="SET" maxOccurs="unbounded" minOccurs="0"/>
             </xs:sequence>
-            <xs:attribute type="xs:byte" name="ENTRIES"/>
+            <xs:attribute type="xs:int" name="ENTRIES"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="PLAYLISTS">
@@ -233,14 +199,6 @@
             <xs:sequence>
                 <xs:element ref="NODE"/>
             </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="SORTING_ORDER">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="SORTING_DATA" maxOccurs="unbounded" minOccurs="0"/>
-            </xs:sequence>
-            <xs:attribute type="xs:string" name="PATH" use="optional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="NML">
@@ -251,9 +209,8 @@
                 <xs:element ref="COLLECTION"/>
                 <xs:element ref="SETS"/>
                 <xs:element ref="PLAYLISTS"/>
-                <xs:element ref="SORTING_ORDER" maxOccurs="unbounded" minOccurs="0"/>
             </xs:sequence>
-            <xs:attribute type="xs:byte" name="VERSION"/>
+            <xs:attribute type="xs:int" name="VERSION"/>
         </xs:complexType>
     </xs:element>
 </xs:schema>

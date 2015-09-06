@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2015.08.24 um 11:28:02 AM CEST 
+// Generiert: 2015.09.05 um 08:37:16 PM CEST 
 //
 
 
@@ -13,8 +13,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElementRef;
-import javax.xml.bind.annotation.XmlMixed;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -31,10 +30,10 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element ref="{}CELL" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
- *       &lt;attribute name="KEYLOCK" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *       &lt;attribute name="FXENABLE" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *       &lt;attribute name="PUNCHMODE" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *       &lt;attribute name="ACTIVE_CELL_INDEX" type="{http://www.w3.org/2001/XMLSchema}byte" />
+ *       &lt;attribute name="KEYLOCK" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="FXENABLE" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="PUNCHMODE" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="ACTIVE_CELL_INDEX" type="{http://www.w3.org/2001/XMLSchema}int" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -44,51 +43,49 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "content"
+    "cell"
 })
 @XmlRootElement(name = "SLOT")
 public class SLOT {
 
-    @XmlElementRef(name = "CELL", type = CELL.class, required = false)
-    @XmlMixed
-    protected List<Object> content;
+    @XmlElement(name = "CELL")
+    protected List<CELL> cell;
     @XmlAttribute(name = "KEYLOCK")
-    protected Byte keylock;
+    protected Integer keylock;
     @XmlAttribute(name = "FXENABLE")
-    protected Byte fxenable;
+    protected Integer fxenable;
     @XmlAttribute(name = "PUNCHMODE")
-    protected Byte punchmode;
+    protected Integer punchmode;
     @XmlAttribute(name = "ACTIVE_CELL_INDEX")
-    protected Byte activecellindex;
+    protected Integer activecellindex;
 
     /**
-     * Gets the value of the content property.
+     * Gets the value of the cell property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the content property.
+     * This is why there is not a <CODE>set</CODE> method for the cell property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getContent().add(newItem);
+     *    getCELL().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link String }
      * {@link CELL }
      * 
      * 
      */
-    public List<Object> getContent() {
-        if (content == null) {
-            content = new ArrayList<Object>();
+    public List<CELL> getCELL() {
+        if (cell == null) {
+            cell = new ArrayList<CELL>();
         }
-        return this.content;
+        return this.cell;
     }
 
     /**
@@ -96,10 +93,10 @@ public class SLOT {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getKEYLOCK() {
+    public Integer getKEYLOCK() {
         return keylock;
     }
 
@@ -108,10 +105,10 @@ public class SLOT {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setKEYLOCK(Byte value) {
+    public void setKEYLOCK(Integer value) {
         this.keylock = value;
     }
 
@@ -120,10 +117,10 @@ public class SLOT {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getFXENABLE() {
+    public Integer getFXENABLE() {
         return fxenable;
     }
 
@@ -132,10 +129,10 @@ public class SLOT {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setFXENABLE(Byte value) {
+    public void setFXENABLE(Integer value) {
         this.fxenable = value;
     }
 
@@ -144,10 +141,10 @@ public class SLOT {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getPUNCHMODE() {
+    public Integer getPUNCHMODE() {
         return punchmode;
     }
 
@@ -156,10 +153,10 @@ public class SLOT {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setPUNCHMODE(Byte value) {
+    public void setPUNCHMODE(Integer value) {
         this.punchmode = value;
     }
 
@@ -168,10 +165,10 @@ public class SLOT {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getACTIVECELLINDEX() {
+    public Integer getACTIVECELLINDEX() {
         return activecellindex;
     }
 
@@ -180,10 +177,10 @@ public class SLOT {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setACTIVECELLINDEX(Byte value) {
+    public void setACTIVECELLINDEX(Integer value) {
         this.activecellindex = value;
     }
 

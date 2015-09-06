@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2015.08.24 um 11:28:02 AM CEST 
+// Generiert: 2015.09.05 um 08:37:16 PM CEST 
 //
 
 
@@ -35,8 +35,9 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element ref="{}SLOT" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *       &lt;attribute name="TITLE" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="QUANT_VAlUE" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *       &lt;attribute name="QUANT_STATE" type="{http://www.w3.org/2001/XMLSchema}byte" />
+ *       &lt;attribute name="ARTIST" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="QUANT_VAlUE" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="QUANT_STATE" type="{http://www.w3.org/2001/XMLSchema}int" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -67,10 +68,12 @@ public class SET {
     protected List<SLOT> slot;
     @XmlAttribute(name = "TITLE")
     protected String title;
+    @XmlAttribute(name = "ARTIST")
+    protected String artist;
     @XmlAttribute(name = "QUANT_VAlUE")
-    protected Byte quantvAlUE;
+    protected Integer quantvAlUE;
     @XmlAttribute(name = "QUANT_STATE")
-    protected Byte quantstate;
+    protected Integer quantstate;
 
     /**
      * Ruft den Wert der location-Eigenschaft ab.
@@ -222,14 +225,38 @@ public class SET {
     }
 
     /**
+     * Ruft den Wert der artist-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getARTIST() {
+        return artist;
+    }
+
+    /**
+     * Legt den Wert der artist-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setARTIST(String value) {
+        this.artist = value;
+    }
+
+    /**
      * Ruft den Wert der quantvAlUE-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getQUANTVAlUE() {
+    public Integer getQUANTVAlUE() {
         return quantvAlUE;
     }
 
@@ -238,10 +265,10 @@ public class SET {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setQUANTVAlUE(Byte value) {
+    public void setQUANTVAlUE(Integer value) {
         this.quantvAlUE = value;
     }
 
@@ -250,10 +277,10 @@ public class SET {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getQUANTSTATE() {
+    public Integer getQUANTSTATE() {
         return quantstate;
     }
 
@@ -262,10 +289,10 @@ public class SET {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setQUANTSTATE(Byte value) {
+    public void setQUANTSTATE(Integer value) {
         this.quantstate = value;
     }
 

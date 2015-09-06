@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2015.08.24 um 11:28:02 AM CEST 
+// Generiert: 2015.09.05 um 08:37:16 PM CEST 
 //
 
 
@@ -24,9 +24,9 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="PERCEIVED_DB" type="{http://www.w3.org/2001/XMLSchema}float" />
- *       &lt;attribute name="PEAK_DB" type="{http://www.w3.org/2001/XMLSchema}float" />
- *       &lt;attribute name="ANALYZED_DB" type="{http://www.w3.org/2001/XMLSchema}float" />
+ *       &lt;attribute name="PEAK_DB" type="{http://www.w3.org/2001/XMLSchema}double" />
+ *       &lt;attribute name="PERCEIVED_DB" type="{http://www.w3.org/2001/XMLSchema}double" />
+ *       &lt;attribute name="ANALYZED_DB" type="{http://www.w3.org/2001/XMLSchema}double" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -39,46 +39,22 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "LOUDNESS")
 public class LOUDNESS {
 
-    @XmlAttribute(name = "PERCEIVED_DB")
-    protected Float perceiveddb;
     @XmlAttribute(name = "PEAK_DB")
-    protected Float peakdb;
+    protected Double peakdb;
+    @XmlAttribute(name = "PERCEIVED_DB")
+    protected Double perceiveddb;
     @XmlAttribute(name = "ANALYZED_DB")
-    protected Float analyzeddb;
-
-    /**
-     * Ruft den Wert der perceiveddb-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Float }
-     *     
-     */
-    public Float getPERCEIVEDDB() {
-        return perceiveddb;
-    }
-
-    /**
-     * Legt den Wert der perceiveddb-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Float }
-     *     
-     */
-    public void setPERCEIVEDDB(Float value) {
-        this.perceiveddb = value;
-    }
+    protected Double analyzeddb;
 
     /**
      * Ruft den Wert der peakdb-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link Float }
+     *     {@link Double }
      *     
      */
-    public Float getPEAKDB() {
+    public Double getPEAKDB() {
         return peakdb;
     }
 
@@ -87,11 +63,35 @@ public class LOUDNESS {
      * 
      * @param value
      *     allowed object is
-     *     {@link Float }
+     *     {@link Double }
      *     
      */
-    public void setPEAKDB(Float value) {
+    public void setPEAKDB(Double value) {
         this.peakdb = value;
+    }
+
+    /**
+     * Ruft den Wert der perceiveddb-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Double }
+     *     
+     */
+    public Double getPERCEIVEDDB() {
+        return perceiveddb;
+    }
+
+    /**
+     * Legt den Wert der perceiveddb-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Double }
+     *     
+     */
+    public void setPERCEIVEDDB(Double value) {
+        this.perceiveddb = value;
     }
 
     /**
@@ -99,10 +99,10 @@ public class LOUDNESS {
      * 
      * @return
      *     possible object is
-     *     {@link Float }
+     *     {@link Double }
      *     
      */
-    public Float getANALYZEDDB() {
+    public Double getANALYZEDDB() {
         return analyzeddb;
     }
 
@@ -111,10 +111,10 @@ public class LOUDNESS {
      * 
      * @param value
      *     allowed object is
-     *     {@link Float }
+     *     {@link Double }
      *     
      */
-    public void setANALYZEDDB(Float value) {
+    public void setANALYZEDDB(Double value) {
         this.analyzeddb = value;
     }
 

@@ -1,6 +1,6 @@
 package de.mknblch.nml.commands;
 
-import de.mknblch.nml.common.NMLDump;
+import de.mknblch.objectdump.ObjectDump;
 import de.mknblch.params.annotations.Command;
 import de.mknblch.params.annotations.Parameter;
 
@@ -19,7 +19,7 @@ public class Dump extends ANMLCommand implements Runnable {
     public void run() {
 
         try {
-            NMLDump.dump(getNML());
+            ObjectDump.dump(getNML());
         } catch (JAXBException e) {
             e.printStackTrace();
         }

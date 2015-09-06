@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2015.08.24 um 11:28:02 AM CEST 
+// Generiert: 2015.09.05 um 08:37:16 PM CEST 
 //
 
 
@@ -25,12 +25,12 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;attribute name="NAME" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="DISPL_ORDER" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *       &lt;attribute name="TYPE" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *       &lt;attribute name="START" type="{http://www.w3.org/2001/XMLSchema}float" />
- *       &lt;attribute name="LEN" type="{http://www.w3.org/2001/XMLSchema}float" />
- *       &lt;attribute name="REPEATS" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *       &lt;attribute name="HOTCUE" type="{http://www.w3.org/2001/XMLSchema}byte" />
+ *       &lt;attribute name="DISPL_ORDER" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="TYPE" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="START" type="{http://www.w3.org/2001/XMLSchema}double" />
+ *       &lt;attribute name="LEN" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="REPEATS" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="HOTCUE" type="{http://www.w3.org/2001/XMLSchema}int" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -46,17 +46,17 @@ public class CUEV2 {
     @XmlAttribute(name = "NAME")
     protected String name;
     @XmlAttribute(name = "DISPL_ORDER")
-    protected Byte displorder;
+    protected Integer displorder;
     @XmlAttribute(name = "TYPE")
-    protected Byte type;
+    protected Integer type;
     @XmlAttribute(name = "START")
-    protected Float start;
+    protected Double start;
     @XmlAttribute(name = "LEN")
-    protected Float len;
+    protected Integer len;
     @XmlAttribute(name = "REPEATS")
-    protected Byte repeats;
+    protected Integer repeats;
     @XmlAttribute(name = "HOTCUE")
-    protected Byte hotcue;
+    protected Integer hotcue;
 
     /**
      * Ruft den Wert der name-Eigenschaft ab.
@@ -87,10 +87,10 @@ public class CUEV2 {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getDISPLORDER() {
+    public Integer getDISPLORDER() {
         return displorder;
     }
 
@@ -99,10 +99,10 @@ public class CUEV2 {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setDISPLORDER(Byte value) {
+    public void setDISPLORDER(Integer value) {
         this.displorder = value;
     }
 
@@ -111,10 +111,10 @@ public class CUEV2 {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getTYPE() {
+    public Integer getTYPE() {
         return type;
     }
 
@@ -123,10 +123,10 @@ public class CUEV2 {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setTYPE(Byte value) {
+    public void setTYPE(Integer value) {
         this.type = value;
     }
 
@@ -135,10 +135,10 @@ public class CUEV2 {
      * 
      * @return
      *     possible object is
-     *     {@link Float }
+     *     {@link Double }
      *     
      */
-    public Float getSTART() {
+    public Double getSTART() {
         return start;
     }
 
@@ -147,10 +147,10 @@ public class CUEV2 {
      * 
      * @param value
      *     allowed object is
-     *     {@link Float }
+     *     {@link Double }
      *     
      */
-    public void setSTART(Float value) {
+    public void setSTART(Double value) {
         this.start = value;
     }
 
@@ -159,10 +159,10 @@ public class CUEV2 {
      * 
      * @return
      *     possible object is
-     *     {@link Float }
+     *     {@link Integer }
      *     
      */
-    public Float getLEN() {
+    public Integer getLEN() {
         return len;
     }
 
@@ -171,10 +171,10 @@ public class CUEV2 {
      * 
      * @param value
      *     allowed object is
-     *     {@link Float }
+     *     {@link Integer }
      *     
      */
-    public void setLEN(Float value) {
+    public void setLEN(Integer value) {
         this.len = value;
     }
 
@@ -183,10 +183,10 @@ public class CUEV2 {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getREPEATS() {
+    public Integer getREPEATS() {
         return repeats;
     }
 
@@ -195,10 +195,10 @@ public class CUEV2 {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setREPEATS(Byte value) {
+    public void setREPEATS(Integer value) {
         this.repeats = value;
     }
 
@@ -207,10 +207,10 @@ public class CUEV2 {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getHOTCUE() {
+    public Integer getHOTCUE() {
         return hotcue;
     }
 
@@ -219,10 +219,10 @@ public class CUEV2 {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setHOTCUE(Byte value) {
+    public void setHOTCUE(Integer value) {
         this.hotcue = value;
     }
 

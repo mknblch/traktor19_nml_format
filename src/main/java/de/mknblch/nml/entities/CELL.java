@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2015.08.24 um 11:28:02 AM CEST 
+// Generiert: 2015.09.05 um 08:37:16 PM CEST 
 //
 
 
@@ -24,21 +24,21 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="INDEX" type="{http://www.w3.org/2001/XMLSchema}byte" />
+ *       &lt;attribute name="INDEX" type="{http://www.w3.org/2001/XMLSchema}int" />
  *       &lt;attribute name="CELLNAME" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="COLOR" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *       &lt;attribute name="SYNC" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *       &lt;attribute name="REVERSE" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *       &lt;attribute name="MODE" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *       &lt;attribute name="TYPE" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *       &lt;attribute name="SPEED" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *       &lt;attribute name="TRANSPOSE" type="{http://www.w3.org/2001/XMLSchema}float" />
- *       &lt;attribute name="OFFSET" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *       &lt;attribute name="NUDGE" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *       &lt;attribute name="GAIN" type="{http://www.w3.org/2001/XMLSchema}float" />
- *       &lt;attribute name="START_MARKER" type="{http://www.w3.org/2001/XMLSchema}byte" />
- *       &lt;attribute name="END_MARKER" type="{http://www.w3.org/2001/XMLSchema}float" />
- *       &lt;attribute name="BPM" type="{http://www.w3.org/2001/XMLSchema}float" />
+ *       &lt;attribute name="COLOR" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="SYNC" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="REVERSE" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="MODE" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="TYPE" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="SPEED" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="TRANSPOSE" type="{http://www.w3.org/2001/XMLSchema}double" />
+ *       &lt;attribute name="OFFSET" type="{http://www.w3.org/2001/XMLSchema}double" />
+ *       &lt;attribute name="NUDGE" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="GAIN" type="{http://www.w3.org/2001/XMLSchema}double" />
+ *       &lt;attribute name="START_MARKER" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="END_MARKER" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="BPM" type="{http://www.w3.org/2001/XMLSchema}double" />
  *       &lt;attribute name="DIR" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="FILE" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="VOLUME" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -55,35 +55,35 @@ import javax.xml.bind.annotation.XmlType;
 public class CELL {
 
     @XmlAttribute(name = "INDEX")
-    protected Byte index;
+    protected Integer index;
     @XmlAttribute(name = "CELLNAME")
     protected String cellname;
     @XmlAttribute(name = "COLOR")
-    protected Byte color;
+    protected Integer color;
     @XmlAttribute(name = "SYNC")
-    protected Byte sync;
+    protected Integer sync;
     @XmlAttribute(name = "REVERSE")
-    protected Byte reverse;
+    protected Integer reverse;
     @XmlAttribute(name = "MODE")
-    protected Byte mode;
+    protected Integer mode;
     @XmlAttribute(name = "TYPE")
-    protected Byte type;
+    protected Integer type;
     @XmlAttribute(name = "SPEED")
-    protected Byte speed;
+    protected Integer speed;
     @XmlAttribute(name = "TRANSPOSE")
-    protected Float transpose;
+    protected Double transpose;
     @XmlAttribute(name = "OFFSET")
-    protected Byte offset;
+    protected Double offset;
     @XmlAttribute(name = "NUDGE")
-    protected Byte nudge;
+    protected Integer nudge;
     @XmlAttribute(name = "GAIN")
-    protected Float gain;
+    protected Double gain;
     @XmlAttribute(name = "START_MARKER")
-    protected Byte startmarker;
+    protected Integer startmarker;
     @XmlAttribute(name = "END_MARKER")
-    protected Float endmarker;
+    protected Integer endmarker;
     @XmlAttribute(name = "BPM")
-    protected Float bpm;
+    protected Double bpm;
     @XmlAttribute(name = "DIR")
     protected String dir;
     @XmlAttribute(name = "FILE")
@@ -96,10 +96,10 @@ public class CELL {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getINDEX() {
+    public Integer getINDEX() {
         return index;
     }
 
@@ -108,10 +108,10 @@ public class CELL {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setINDEX(Byte value) {
+    public void setINDEX(Integer value) {
         this.index = value;
     }
 
@@ -144,10 +144,10 @@ public class CELL {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getCOLOR() {
+    public Integer getCOLOR() {
         return color;
     }
 
@@ -156,10 +156,10 @@ public class CELL {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setCOLOR(Byte value) {
+    public void setCOLOR(Integer value) {
         this.color = value;
     }
 
@@ -168,10 +168,10 @@ public class CELL {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getSYNC() {
+    public Integer getSYNC() {
         return sync;
     }
 
@@ -180,10 +180,10 @@ public class CELL {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setSYNC(Byte value) {
+    public void setSYNC(Integer value) {
         this.sync = value;
     }
 
@@ -192,10 +192,10 @@ public class CELL {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getREVERSE() {
+    public Integer getREVERSE() {
         return reverse;
     }
 
@@ -204,10 +204,10 @@ public class CELL {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setREVERSE(Byte value) {
+    public void setREVERSE(Integer value) {
         this.reverse = value;
     }
 
@@ -216,10 +216,10 @@ public class CELL {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getMODE() {
+    public Integer getMODE() {
         return mode;
     }
 
@@ -228,10 +228,10 @@ public class CELL {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setMODE(Byte value) {
+    public void setMODE(Integer value) {
         this.mode = value;
     }
 
@@ -240,10 +240,10 @@ public class CELL {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getTYPE() {
+    public Integer getTYPE() {
         return type;
     }
 
@@ -252,10 +252,10 @@ public class CELL {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setTYPE(Byte value) {
+    public void setTYPE(Integer value) {
         this.type = value;
     }
 
@@ -264,10 +264,10 @@ public class CELL {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getSPEED() {
+    public Integer getSPEED() {
         return speed;
     }
 
@@ -276,10 +276,10 @@ public class CELL {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setSPEED(Byte value) {
+    public void setSPEED(Integer value) {
         this.speed = value;
     }
 
@@ -288,10 +288,10 @@ public class CELL {
      * 
      * @return
      *     possible object is
-     *     {@link Float }
+     *     {@link Double }
      *     
      */
-    public Float getTRANSPOSE() {
+    public Double getTRANSPOSE() {
         return transpose;
     }
 
@@ -300,10 +300,10 @@ public class CELL {
      * 
      * @param value
      *     allowed object is
-     *     {@link Float }
+     *     {@link Double }
      *     
      */
-    public void setTRANSPOSE(Float value) {
+    public void setTRANSPOSE(Double value) {
         this.transpose = value;
     }
 
@@ -312,10 +312,10 @@ public class CELL {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Double }
      *     
      */
-    public Byte getOFFSET() {
+    public Double getOFFSET() {
         return offset;
     }
 
@@ -324,10 +324,10 @@ public class CELL {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Double }
      *     
      */
-    public void setOFFSET(Byte value) {
+    public void setOFFSET(Double value) {
         this.offset = value;
     }
 
@@ -336,10 +336,10 @@ public class CELL {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getNUDGE() {
+    public Integer getNUDGE() {
         return nudge;
     }
 
@@ -348,10 +348,10 @@ public class CELL {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setNUDGE(Byte value) {
+    public void setNUDGE(Integer value) {
         this.nudge = value;
     }
 
@@ -360,10 +360,10 @@ public class CELL {
      * 
      * @return
      *     possible object is
-     *     {@link Float }
+     *     {@link Double }
      *     
      */
-    public Float getGAIN() {
+    public Double getGAIN() {
         return gain;
     }
 
@@ -372,10 +372,10 @@ public class CELL {
      * 
      * @param value
      *     allowed object is
-     *     {@link Float }
+     *     {@link Double }
      *     
      */
-    public void setGAIN(Float value) {
+    public void setGAIN(Double value) {
         this.gain = value;
     }
 
@@ -384,10 +384,10 @@ public class CELL {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getSTARTMARKER() {
+    public Integer getSTARTMARKER() {
         return startmarker;
     }
 
@@ -396,10 +396,10 @@ public class CELL {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setSTARTMARKER(Byte value) {
+    public void setSTARTMARKER(Integer value) {
         this.startmarker = value;
     }
 
@@ -408,10 +408,10 @@ public class CELL {
      * 
      * @return
      *     possible object is
-     *     {@link Float }
+     *     {@link Integer }
      *     
      */
-    public Float getENDMARKER() {
+    public Integer getENDMARKER() {
         return endmarker;
     }
 
@@ -420,10 +420,10 @@ public class CELL {
      * 
      * @param value
      *     allowed object is
-     *     {@link Float }
+     *     {@link Integer }
      *     
      */
-    public void setENDMARKER(Float value) {
+    public void setENDMARKER(Integer value) {
         this.endmarker = value;
     }
 
@@ -432,10 +432,10 @@ public class CELL {
      * 
      * @return
      *     possible object is
-     *     {@link Float }
+     *     {@link Double }
      *     
      */
-    public Float getBPM() {
+    public Double getBPM() {
         return bpm;
     }
 
@@ -444,10 +444,10 @@ public class CELL {
      * 
      * @param value
      *     allowed object is
-     *     {@link Float }
+     *     {@link Double }
      *     
      */
-    public void setBPM(Float value) {
+    public void setBPM(Double value) {
         this.bpm = value;
     }
 

@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2015.08.24 um 11:28:02 AM CEST 
+// Generiert: 2015.09.05 um 08:37:16 PM CEST 
 //
 
 
@@ -49,19 +49,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link HEAD }
+     * Create an instance of {@link PLAYLISTS }
      * 
      */
-    public HEAD createHEAD() {
-        return new HEAD();
+    public PLAYLISTS createPLAYLISTS() {
+        return new PLAYLISTS();
     }
 
     /**
-     * Create an instance of {@link COLLECTION }
+     * Create an instance of {@link NODE }
      * 
      */
-    public COLLECTION createCOLLECTION() {
-        return new COLLECTION();
+    public NODE createNODE() {
+        return new NODE();
+    }
+
+    /**
+     * Create an instance of {@link PLAYLIST }
+     * 
+     */
+    public PLAYLIST createPLAYLIST() {
+        return new PLAYLIST();
     }
 
     /**
@@ -70,14 +78,6 @@ public class ObjectFactory {
      */
     public ENTRY createENTRY() {
         return new ENTRY();
-    }
-
-    /**
-     * Create an instance of {@link ALBUM }
-     * 
-     */
-    public ALBUM createALBUM() {
-        return new ALBUM();
     }
 
     /**
@@ -113,22 +113,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link MUSICALKEY }
-     * 
-     */
-    public MUSICALKEY createMUSICALKEY() {
-        return new MUSICALKEY();
-    }
-
-    /**
-     * Create an instance of {@link LOOPINFO }
-     * 
-     */
-    public LOOPINFO createLOOPINFO() {
-        return new LOOPINFO();
-    }
-
-    /**
      * Create an instance of {@link CUEV2 }
      * 
      */
@@ -137,11 +121,51 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link MUSICALKEY }
+     * 
+     */
+    public MUSICALKEY createMUSICALKEY() {
+        return new MUSICALKEY();
+    }
+
+    /**
+     * Create an instance of {@link ALBUM }
+     * 
+     */
+    public ALBUM createALBUM() {
+        return new ALBUM();
+    }
+
+    /**
      * Create an instance of {@link PRIMARYKEY }
      * 
      */
     public PRIMARYKEY createPRIMARYKEY() {
         return new PRIMARYKEY();
+    }
+
+    /**
+     * Create an instance of {@link SUBNODES }
+     * 
+     */
+    public SUBNODES createSUBNODES() {
+        return new SUBNODES();
+    }
+
+    /**
+     * Create an instance of {@link HEAD }
+     * 
+     */
+    public HEAD createHEAD() {
+        return new HEAD();
+    }
+
+    /**
+     * Create an instance of {@link COLLECTION }
+     * 
+     */
+    public COLLECTION createCOLLECTION() {
+        return new COLLECTION();
     }
 
     /**
@@ -169,46 +193,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PLAYLISTS }
-     * 
-     */
-    public PLAYLISTS createPLAYLISTS() {
-        return new PLAYLISTS();
-    }
-
-    /**
-     * Create an instance of {@link NODE }
-     * 
-     */
-    public NODE createNODE() {
-        return new NODE();
-    }
-
-    /**
-     * Create an instance of {@link PLAYLIST }
-     * 
-     */
-    public PLAYLIST createPLAYLIST() {
-        return new PLAYLIST();
-    }
-
-    /**
-     * Create an instance of {@link SUBNODES }
-     * 
-     */
-    public SUBNODES createSUBNODES() {
-        return new SUBNODES();
-    }
-
-    /**
-     * Create an instance of {@link SORTINGDATA }
-     * 
-     */
-    public SORTINGDATA createSORTINGDATA() {
-        return new SORTINGDATA();
-    }
-
-    /**
      * Create an instance of {@link NML }
      * 
      */
@@ -222,14 +206,6 @@ public class ObjectFactory {
      */
     public SETS createSETS() {
         return new SETS();
-    }
-
-    /**
-     * Create an instance of {@link SORTINGORDER }
-     * 
-     */
-    public SORTINGORDER createSORTINGORDER() {
-        return new SORTINGORDER();
     }
 
     /**

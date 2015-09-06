@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2015.08.24 um 11:28:02 AM CEST 
+// Generiert: 2015.09.05 um 08:37:16 PM CEST 
 //
 
 
@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="VALUE" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="VALUE" type="{http://www.w3.org/2001/XMLSchema}int" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -38,17 +38,17 @@ import javax.xml.bind.annotation.XmlType;
 public class MUSICALKEY {
 
     @XmlAttribute(name = "VALUE")
-    protected String value;
+    protected Integer value;
 
     /**
      * Ruft den Wert der value-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Integer }
      *     
      */
-    public String getVALUE() {
+    public Integer getVALUE() {
         return value;
     }
 
@@ -57,10 +57,10 @@ public class MUSICALKEY {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Integer }
      *     
      */
-    public void setVALUE(String value) {
+    public void setVALUE(Integer value) {
         this.value = value;
     }
 

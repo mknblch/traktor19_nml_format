@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2015.08.24 um 11:28:02 AM CEST 
+// Generiert: 2015.09.05 um 08:37:16 PM CEST 
 //
 
 
@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element ref="{}ENTRY" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
- *       &lt;attribute name="ENTRIES" type="{http://www.w3.org/2001/XMLSchema}short" />
+ *       &lt;attribute name="ENTRIES" type="{http://www.w3.org/2001/XMLSchema}int" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -48,7 +48,7 @@ public class COLLECTION {
     @XmlElement(name = "ENTRY")
     protected List<ENTRY> entry;
     @XmlAttribute(name = "ENTRIES")
-    protected Short entries;
+    protected Integer entries;
 
     /**
      * Gets the value of the entry property.
@@ -84,10 +84,10 @@ public class COLLECTION {
      * 
      * @return
      *     possible object is
-     *     {@link Short }
+     *     {@link Integer }
      *     
      */
-    public Short getENTRIES() {
+    public Integer getENTRIES() {
         return entries;
     }
 
@@ -96,10 +96,10 @@ public class COLLECTION {
      * 
      * @param value
      *     allowed object is
-     *     {@link Short }
+     *     {@link Integer }
      *     
      */
-    public void setENTRIES(Short value) {
+    public void setENTRIES(Integer value) {
         this.entries = value;
     }
 

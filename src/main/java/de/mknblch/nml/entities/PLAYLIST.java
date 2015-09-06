@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2015.08.24 um 11:28:02 AM CEST 
+// Generiert: 2015.09.05 um 08:37:16 PM CEST 
 //
 
 
@@ -13,7 +13,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlMixed;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -30,7 +31,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element ref="{}ENTRY" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
- *       &lt;attribute name="ENTRIES" type="{http://www.w3.org/2001/XMLSchema}byte" />
+ *       &lt;attribute name="ENTRIES" type="{http://www.w3.org/2001/XMLSchema}int" />
  *       &lt;attribute name="TYPE" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="UUID" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
@@ -42,47 +43,49 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "entry"
+    "content"
 })
 @XmlRootElement(name = "PLAYLIST")
 public class PLAYLIST {
 
-    @XmlElement(name = "ENTRY")
-    protected List<ENTRY> entry;
+    @XmlElementRef(name = "ENTRY", type = ENTRY.class, required = false)
+    @XmlMixed
+    protected List<ENTRY> content;
     @XmlAttribute(name = "ENTRIES")
-    protected Byte entries;
+    protected Integer entries;
     @XmlAttribute(name = "TYPE")
     protected String type;
     @XmlAttribute(name = "UUID")
     protected String uuid;
 
     /**
-     * Gets the value of the entry property.
+     * Gets the value of the content property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the entry property.
+     * This is why there is not a <CODE>set</CODE> method for the content property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getENTRY().add(newItem);
+     *    getContent().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link ENTRY }
+     * {@link String }
      * 
      * 
      */
-    public List<ENTRY> getENTRY() {
-        if (entry == null) {
-            entry = new ArrayList<ENTRY>();
+    public List<ENTRY> getContent() {
+        if (content == null) {
+            content = new ArrayList<ENTRY>();
         }
-        return this.entry;
+        return this.content;
     }
 
     /**
@@ -90,10 +93,10 @@ public class PLAYLIST {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public Byte getENTRIES() {
+    public Integer getENTRIES() {
         return entries;
     }
 
@@ -102,10 +105,10 @@ public class PLAYLIST {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link Integer }
      *     
      */
-    public void setENTRIES(Byte value) {
+    public void setENTRIES(Integer value) {
         this.entries = value;
     }
 

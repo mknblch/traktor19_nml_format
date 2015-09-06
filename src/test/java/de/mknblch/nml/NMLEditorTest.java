@@ -1,9 +1,9 @@
 package de.mknblch.nml;
 
-import de.mknblch.nml.common.NMLDump;
 import de.mknblch.nml.common.NMLEditor;
 import de.mknblch.nml.common.XMLSerializer;
 import de.mknblch.nml.entities.NML;
+import de.mknblch.objectdump.ObjectDump;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -29,6 +29,14 @@ public class NMLEditorTest {
     }
 
     @Test
+    public void testGetPlaylistNode() throws Exception {
+
+
+        dump(editor.getPlaylistNode("Demo Tracks"));
+
+    }
+
+    @Test
     public void testGetPlaylistKeys() throws Exception {
 
         dump(editor.getPlaylistFiles("$ROOT"));
@@ -44,6 +52,10 @@ public class NMLEditorTest {
 
     private void dump(Object o) {
 
-        NMLDump.dump(o);
+        ObjectDump.INSTANCE
+                .setShowType(true)
+                .reset()
+                .scan(o)
+                .printDump();
     }
 }
