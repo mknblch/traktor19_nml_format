@@ -59,7 +59,8 @@ task jaxb () {
         ant.xjc(
                 destdir: '${jaxbTargetDir}',
                 package: 'de.mknblch.nml.entities',
-                schema: 'src/main/resources/collection.xsd'
+                schema: 'src/main/resources/collection.xsd',
+                binding: 'src/main/resources/binding.xml'
         )
     }
 }

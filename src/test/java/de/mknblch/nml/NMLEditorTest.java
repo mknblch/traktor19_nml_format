@@ -38,7 +38,7 @@ public class NMLEditorTest {
     @Test
     public void test() throws Exception {
 
-        dump(editor.selectMany("/PLAYLISTS//NODE[@NAME='test']/PLAYLIST/ENTRY", Object.class));
+        dump(editor.selectMany(("//PRIMARYKEY"), Object.class));
     }
 
     @Test
