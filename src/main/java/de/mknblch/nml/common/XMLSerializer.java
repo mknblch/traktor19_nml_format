@@ -22,9 +22,12 @@ public class XMLSerializer<T> {
     public XMLSerializer(Class<T> clazz) throws JAXBException {
 
         jaxbContext = JAXBContext.newInstance(clazz);
+
         marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+        marshaller.setProperty("com.sun.xml.internal.bind.xmlHeaders", "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
         unmarshaller = jaxbContext.createUnmarshaller();
-//        unmarshaller.setProperty();
     }
 
     public T unmarshal(File file) throws JAXBException {

@@ -1,0 +1,47 @@
+package de.mknblch.nml.common;
+
+import de.mknblch.nml.entities.ENTRY;
+import de.mknblch.nml.entities.PLAYLIST;
+
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+/**
+ * Created by mknblch on 13.09.2015.
+ */
+public class PlaylistDiffBuilder {
+
+    private final PLAYLIST playlist;
+
+    public PlaylistDiffBuilder(PLAYLIST playlist) {
+        this.playlist = playlist;
+    }
+
+    private boolean playlistContains(Path path) {
+        final String key = NMLHelper.pathToPrimaryKey(path);
+        return playlist.getENTRY().stream().anyMatch(e -> key.equals(NMLHelper.getPrimaryKey(e).getKEY()));
+    }
+
+    public PlaylistDiffResult build(List<Path> files) {
+
+        final Set<Path> notInPlaylist = files.stream()
+                .filter(p -> !playlistContains(p))
+                .collect(Collectors.toSet());
+
+        final List<String> pathKeys = files.stream().map(NMLHelper::pathToPrimaryKey)
+                .collect(Collectors.toList());
+
+        final Set<Path> notInFiles = playlist.getENTRY().stream()
+                .map(e -> NMLHelper.getPrimaryKey(e).getKEY())
+                .filter(k -> !pathKeys.contains(k))
+                .map(NMLHelper::primaryKeyToPath)
+//                .peek(e -> {
+//                    System.out.println(e);
+//                })
+                .collect(Collectors.toSet());
+
+        return new PlaylistDiffResult(notInFiles, notInPlaylist);
+    }
+}

@@ -2,7 +2,7 @@ apply plugin: 'java'
 //apply plugin: 'idea'
 
 sourceCompatibility = 1.8
-version = '1.0'
+version = '0.1'
 
 repositories {
     mavenLocal()
@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
 
-    compile 'de.mknblch.params:params:1.0.1'
+    compile 'de.mknblch.params:params:1.2.0'
     compile 'de.mknblch.objectdump:objectDump:1.0'
     compile 'commons-jxpath:commons-jxpath:1.3'
 
