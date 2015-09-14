@@ -8,15 +8,19 @@ import org.apache.commons.jxpath.Pointer;
 
 import javax.xml.bind.JAXBException;
 import java.nio.file.Path;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  *
  * Created by mknblch on 05.09.2015.
  */
-public class NMLEditor {
+public class NMLMediator {
+
 
     private final static String ROOT = "$ROOT";
+
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
 
     private final NML nml;
     private final JXPathContext context;
@@ -24,7 +28,7 @@ public class NMLEditor {
     private final Map<String, String> volumes = new HashMap<>();
     private final Path path;
 
-    public NMLEditor(Path pathToNML) throws JAXBException {
+    public NMLMediator(Path pathToNML) throws JAXBException {
         path = pathToNML;
         serializer = new XMLSerializer<>(NML.class);
         nml = serializer.unmarshal(pathToNML.toFile());
@@ -51,17 +55,27 @@ public class NMLEditor {
     }
 
     public ENTRY getCollectionEntry(Path path) {
-        final String[] location = NMLHelper.extractLocation(path);
-        return getEntryFromCollection(location[2], location[1], location[0]);
+        final FileLocation fileLocation = FileHelper.extractLocation(path);
+        return getEntryFromCollection(
+                NMLHelper.stringToTraktorKey(fileLocation.file),
+                NMLHelper.stringToTraktorKey(fileLocation.directory),
+                fileLocation.volume);
     }
 
-    public ENTRY addCollectionEntry(Path path) {
+    public ENTRY addOrGetCollectionEntry(Path path) {
         ENTRY entry = getCollectionEntry(path);
         if (null != entry) {
             return entry;
         }
         entry = new ENTRY();
-        entry.getCONTENT().add(createLocation(path));
+        final List<Object> contentList = entry.getCONTENT();
+        final MODIFICATIONINFO modificationinfo = new MODIFICATIONINFO();
+        modificationinfo.setAUTHORTYPE("importer");
+        final INFO info = new INFO();
+        info.setIMPORTDATE(DATE_FORMAT.format(new Date(System.currentTimeMillis())));
+        contentList.add(createLocation(path));
+        contentList.add(modificationinfo);
+        contentList.add(info);
         final COLLECTION collection = select("/COLLECTION", COLLECTION.class);
         collection.getENTRY().add(entry);
         normalizeCollection();
@@ -76,7 +90,7 @@ public class NMLEditor {
         final ENTRY e = new ENTRY();
         e.getCONTENT().add(toPrimaryKey((LOCATION) track.getCONTENT().get(0)));
         pl.getENTRY().add(e);
-        NMLHelper.normalize(pl);
+        NMLHelper.normalizePlaylist(pl);
     }
 
     public String findVolumeId (String volume) {
@@ -92,11 +106,11 @@ public class NMLEditor {
 
     private LOCATION createLocation(Path path) {
         final LOCATION location = new LOCATION();
-        final String[] s = NMLHelper.extractLocation(path);
-        location.setVOLUME(s[0]);
-        location.setDIR(s[1]);
-        location.setFILE(s[2]);
-        location.setVOLUMEID(findVolumeId(location.getVOLUME()));
+        final FileLocation fileLocation = FileHelper.extractLocation(path);
+        location.setVOLUME(NMLHelper.stringToTraktorKey(fileLocation.volume));
+        location.setDIR(NMLHelper.stringToTraktorKey(fileLocation.directory));
+        location.setFILE(fileLocation.file);
+        location.setVOLUMEID(findVolumeId(fileLocation.volume));
         return location;
     }
 
@@ -128,7 +142,7 @@ public class NMLEditor {
         return selectMany("/PLAYLISTS//NODE[@NAME!='$ROOT']/@NAME", String.class);
     }
 
-    public PLAYLIST createPlaylist(String name) {
+    public PLAYLIST getOrCreatePlaylist(String name) {
         final PLAYLIST orig = getPlaylist(name);
         if (null != orig) {
             return orig;
@@ -146,7 +160,7 @@ public class NMLEditor {
 
         final SUBNODES subnodes = root.getSUBNODES();
         subnodes.getNODE().add(node);
-        NMLHelper.normalize(subnodes);
+        NMLHelper.normalizeSubnodes(subnodes);
         return playlist;
     }
 
@@ -161,7 +175,7 @@ public class NMLEditor {
         final PLAYLIST pl = getPlaylist(playlist);
         if (null != pl) {
             pl.getENTRY().clear();
-            NMLHelper.normalize(pl);
+            NMLHelper.normalizePlaylist(pl);
         }
     }
 
@@ -171,7 +185,7 @@ public class NMLEditor {
 
     public void removePlaylists() {
         context.removeAll("/PLAYLISTS//NODE[@NAME!='$ROOT']");
-        NMLHelper.normalize(getPlaylistNode("$ROOT").getSUBNODES());
+        NMLHelper.normalizeSubnodes(getPlaylistNode("$ROOT").getSUBNODES());
     }
 
     public void clearCollection() {
@@ -190,13 +204,13 @@ public class NMLEditor {
                     iterator.remove();
                 }
             }
-            NMLHelper.normalize(playlist);
+            NMLHelper.normalizePlaylist(playlist);
         }
     }
 
     private void normalize(String playlist) {
         context.getVariables().declareVariable("PLNAME", playlist);
-        NMLHelper.normalize(select("/PLAYLISTS//NODE[@NAME=$PLNAME]/PLAYLIST", PLAYLIST.class));
+        NMLHelper.normalizePlaylist(select("/PLAYLISTS//NODE[@NAME=$PLNAME]/PLAYLIST", PLAYLIST.class));
     }
 
     private void normalizeCollection() {

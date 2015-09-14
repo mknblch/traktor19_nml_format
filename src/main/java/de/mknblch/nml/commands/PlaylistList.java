@@ -5,8 +5,6 @@ import de.mknblch.nml.entities.PRIMARYKEY;
 import de.mknblch.params.annotations.Argument;
 import de.mknblch.params.annotations.Command;
 
-import java.nio.file.Path;
-
 /**
  * Created by mknblch on 13.09.2015.
  */
@@ -21,10 +19,10 @@ public class PlaylistList extends WithCollection implements Runnable {
     @Override
     public void run() {
         System.out.println("Playlists: ");
-        for (String playlist : getEditor().getPlaylists()) {
+        for (String playlist : nml().getPlaylists()) {
             if (verbose) {
                 System.out.println(playlist);
-                for (PRIMARYKEY key : getEditor().getPlaylistPrimaryKeys(playlist)) {
+                for (PRIMARYKEY key : nml().getPlaylistPrimaryKeys(playlist)) {
                     System.out.printf("%s%s%n", INDENT, NMLHelper.traktorKeyToString(key.getKEY()));
                 }
             } else {

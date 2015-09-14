@@ -2,12 +2,9 @@ package de.mknblch.nml.common;
 
 import de.mknblch.nml.entities.*;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Random;
-import java.util.stream.Stream;
 
 /**
  * Created by mknblch on 13.09.2015.
@@ -15,8 +12,6 @@ import java.util.stream.Stream;
 public class NMLHelper {
 
     public static final char[] UUID_CHARS = "abcdef0123456789".toCharArray();
-//    public static final String PATH_CHARS = "abcdefghijklmnopqrstuvwxylABCDEFGHIJKLMNOPQRSTUVWXYZ0123456798_-.:()/'&$§!%?[] ";
-
 
     public static String toKey(LOCATION location) {
         return String.join("", location.getVOLUME(), location.getDIR(), location.getFILE());
@@ -27,7 +22,7 @@ public class NMLHelper {
     }
 
     public static String pathToPrimaryKey(Path path) {
-        return String.join("", extractLocation(path));
+        return FileHelper.extractLocation(path).toPrimaryKey();
     }
 
     public static Path primaryKeyToPath(String primaryKey) {
@@ -45,7 +40,7 @@ public class NMLHelper {
 
     private static String locationToString(String... location) {
         return String.format("%s%s%s",
-                location[0],
+                traktorKeyToString(location[0]),
                 traktorKeyToString(location[1]),
                 location[2]);
     }
@@ -54,24 +49,24 @@ public class NMLHelper {
         return key.replaceAll("/:", "/");
     }
 
-    public static String encode(String in) {
-        return in; // does nothing yet
+    public static String stringToTraktorKey(String str) {
+        return str.replaceAll("/", "/:");
     }
 
-    public static void addEntryToPlaylist(PLAYLIST playlist, ENTRY entry) {
+    public static void addToPlaylistIfUnknown(PLAYLIST playlist, ENTRY entry) {
         final PRIMARYKEY key = (PRIMARYKEY) entry.getCONTENT().get(0);
         if (playlist.getENTRY().stream().anyMatch(e -> primaryKeyEquals(e, entry))) {
             return;
         }
         playlist.getENTRY().add(entry);
-        normalize(playlist);
+        normalizePlaylist(playlist);
     }
 
-    public static void normalize(SUBNODES subnodes) {
+    public static void normalizeSubnodes(SUBNODES subnodes) {
         subnodes.setCOUNT(subnodes.getNODE().size());
     }
 
-    public static void normalize(PLAYLIST playlist) {
+    public static void normalizePlaylist(PLAYLIST playlist) {
         playlist.setENTRIES(playlist.getENTRY().size());
     }
 
@@ -87,22 +82,6 @@ public class NMLHelper {
         throw new IllegalArgumentException("Invalid ENTRY Type");
     }
 
-    public static String[] extractLocation(Path path) {
-        final String[] location = new String[3];
-        String pathString = path.toAbsolutePath().toString();
-        pathString = pathString.replaceAll("\\\\", "/:");
-        final int firstSlash = pathString.indexOf("/:");
-        final int lastSlash = pathString.lastIndexOf("/:");
-        if (firstSlash == -1 || lastSlash == -1) {
-            throw new IllegalArgumentException("Invalid path " + path);
-        }
-        if (firstSlash != lastSlash) {
-            location[1] = encode(pathString.substring(firstSlash, lastSlash + 2));
-        }
-        location[0] = encode(pathString.substring(0, firstSlash));
-        location[2] = encode(pathString.substring(lastSlash + 2));
-        return location;
-    }
 
     public static String generateUUID() {
         final Random random = new Random(System.currentTimeMillis());
@@ -124,15 +103,5 @@ public class NMLHelper {
         final ENTRY plEntry = new ENTRY();
         plEntry.getCONTENT().add(locationToPrimaryKey((LOCATION) e));
         return plEntry;
-    }
-
-    public static Path entryToPath(ENTRY entry) {
-        final Object e = entry.getCONTENT().get(0);
-        if (e instanceof LOCATION) {
-            return locationToPath((LOCATION) e);
-        } else if (e instanceof PRIMARYKEY) {
-            return Paths.get(traktorKeyToString(((PRIMARYKEY) e).getKEY()));
-        }
-        throw new IllegalArgumentException("Invalid ENTRY");
     }
 }

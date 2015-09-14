@@ -3,10 +3,6 @@ package de.mknblch.nml.commands;
 import de.mknblch.objectdump.ObjectDump;
 import de.mknblch.params.annotations.Argument;
 import de.mknblch.params.annotations.Command;
-import org.apache.commons.jxpath.JXPathContext;
-
-import javax.xml.bind.JAXBException;
-import java.util.List;
 
 /**
  * Created by mknblch on 13.09.2015.
@@ -27,7 +23,7 @@ public class Dump extends WithCollection implements Runnable {
         } else {
             new ObjectDump()
                     .setShowType(true)
-                    .scan(getEditor().selectMany(xpath, Object.class))
+                    .scan(nml().selectMany(xpath, Object.class))
                     .printDump();
         }
     }

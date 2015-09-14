@@ -1,10 +1,7 @@
 package de.mknblch.nml;
 
-import de.mknblch.nml.common.NMLEditor;
-import de.mknblch.nml.common.XMLSerializer;
+import de.mknblch.nml.common.NMLMediator;
 import de.mknblch.nml.entities.ENTRY;
-import de.mknblch.nml.entities.NML;
-import de.mknblch.nml.entities.NODE;
 import de.mknblch.nml.entities.PRIMARYKEY;
 import de.mknblch.objectdump.ObjectDump;
 import org.junit.BeforeClass;
@@ -12,7 +9,6 @@ import org.junit.Test;
 
 import javax.xml.bind.JAXBException;
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,16 +21,16 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by mknblch on 05.09.2015.
  */
-public class NMLEditorTest {
+public class NMLMediatorTest {
 
     public static final String COLLECTION_X = "C:\\Users\\mk\\Documents\\Native Instruments\\Traktor 2.9.0\\collection.nml";
     public static final String COLLECTION_A = "C:/Users/mk/Desktop/collection.nml";
 
-    private static NMLEditor editor;
+    private static NMLMediator editor;
 
     @BeforeClass
     public static void setup() throws JAXBException {
-        editor = new NMLEditor(Paths.get(COLLECTION_X));
+        editor = new NMLMediator(Paths.get(COLLECTION_X));
     }
 
     @Test
@@ -56,7 +52,7 @@ public class NMLEditorTest {
 
         assertTrue(Files.exists(path));
 
-        final ENTRY entry = editor.addCollectionEntry(path);
+        final ENTRY entry = editor.addOrGetCollectionEntry(path);
 
         editor.addToPlaylist("foo", entry);
 

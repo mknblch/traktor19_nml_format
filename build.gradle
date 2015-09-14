@@ -1,5 +1,5 @@
 apply plugin: 'java'
-//apply plugin: 'idea'
+apply plugin: 'idea'
 
 sourceCompatibility = 1.8
 version = '0.1'
@@ -65,3 +65,17 @@ task jaxb () {
     }
 }
 compileJava.dependsOn jaxb
+
+
+///////////////////////////////
+
+task expToWin(type: Copy) {
+    from 'build/libs/'
+    into 'C:/Users/mk/bin/jars'
+    include '*.jar'
+//    rename (project.name + "-" + version + ".jar", project.name + ".jar")
+}
+
+expToWin {}.dependsOn fatJar
+
+

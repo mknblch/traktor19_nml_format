@@ -6,7 +6,6 @@ import de.mknblch.nml.entities.LOCATION;
 import de.mknblch.params.annotations.Argument;
 import de.mknblch.params.annotations.Command;
 
-import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -21,7 +20,7 @@ public class CollectionList extends WithCollection implements Runnable {
     @Override
     public void run() {
 
-        final List<ENTRY> collection = getEditor().getCollection();
+        final List<ENTRY> collection = nml().getCollection();
         for (ENTRY entry : collection) {
             if (verbose) {
                 System.out.printf("%s :: %s - %s%n",

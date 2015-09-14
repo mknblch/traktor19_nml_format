@@ -21,6 +21,8 @@ public class Launcher {
                 .add(PlaylistImport.class)
                 .add(PlaylistList.class)
                 .add(PlaylistDiff.class)
+                .add(PlaylistSync.class)
+                .add(PlaylistSyncAll.class)
                 .runOrDie(args);
     }
 }

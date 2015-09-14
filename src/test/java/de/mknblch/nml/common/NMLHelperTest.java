@@ -12,8 +12,6 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by mknblch on 06.09.2015.
  */
@@ -37,7 +35,7 @@ public class NMLHelperTest {
 
 //    @Test
     public void testRemovePlaylist() throws Exception {
-        final NMLEditor editor = new NMLEditor(Paths.get(COLLECTION_X));
+        final NMLMediator editor = new NMLMediator(Paths.get(COLLECTION_X));
         editor.removePlaylists();
         editor.dump();
         editor.save();

@@ -30,16 +30,13 @@ public class PlaylistDiffBuilder {
                 .filter(p -> !playlistContains(p))
                 .collect(Collectors.toSet());
 
-        final List<String> pathKeys = files.stream().map(NMLHelper::pathToPrimaryKey)
-                .collect(Collectors.toList());
+        final Set<String> pathKeys = files.stream().map(NMLHelper::pathToPrimaryKey)
+                .collect(Collectors.toSet());
 
         final Set<Path> notInFiles = playlist.getENTRY().stream()
                 .map(e -> NMLHelper.getPrimaryKey(e).getKEY())
                 .filter(k -> !pathKeys.contains(k))
                 .map(NMLHelper::primaryKeyToPath)
-//                .peek(e -> {
-//                    System.out.println(e);
-//                })
                 .collect(Collectors.toSet());
 
         return new PlaylistDiffResult(notInFiles, notInPlaylist);

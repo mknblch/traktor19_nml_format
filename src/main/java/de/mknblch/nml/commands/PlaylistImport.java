@@ -41,15 +41,15 @@ public class PlaylistImport extends WithCollection implements Runnable {
         }
 
         System.out.printf("import %s -> %s%n", directory.toAbsolutePath().toString(), name.toString());
-        final PLAYLIST playlist = getEditor().createPlaylist(name.toString());
+        final PLAYLIST playlist = nml().getOrCreatePlaylist(name.toString());
         Files.walk(directory)
                 .filter(Files::isRegularFile)
                 .filter(TypeHelper.INSTANCE::isSupported)
                 .map(Path::toAbsolutePath)
-                .map(getEditor()::addCollectionEntry)
-                .peek(e -> System.out.println(NMLHelper.entryToPath(e).toString()))
+                .peek(p -> System.out.printf("[+] %s%n", p.toString()))
+                .map(nml()::addOrGetCollectionEntry)
                 .map(NMLHelper::collectionEntryToPlaylistEntry)
-                .forEach(e -> NMLHelper.addEntryToPlaylist(playlist, e));
-        getEditor().save();
+                .forEach(e -> NMLHelper.addToPlaylistIfUnknown(playlist, e));
+        nml().save();
     }
 }

@@ -24,9 +24,9 @@ public class CollectionImport extends WithCollection implements Runnable {
             Files.walk(directory)
                     .filter(Files::isRegularFile)
                     .filter(TypeHelper.INSTANCE::isSupported)
-                    .forEach(getEditor()::addCollectionEntry);
+                    .forEach(nml()::addOrGetCollectionEntry);
 
-            getEditor().save();
+            nml().save();
         } catch (IOException | JAXBException e) {
             e.printStackTrace();
         }
