@@ -13,8 +13,11 @@ public class Launcher {
     public static void main(String[] args) throws JAXBException {
 
         new Params()
-                .setDescription("Traktor(tm) Collection Editor")
+                .setDescription("Traktor Collection Editor")
                 .add(Dump.class)
+                .add(BackupCreate.class)
+                .add(BackupList.class)
+                .add(BackupRevert.class)
                 .add(Clear.class)
                 .add(CollectionImport.class)
                 .add(CollectionList.class)

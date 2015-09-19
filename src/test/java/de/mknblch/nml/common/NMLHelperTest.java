@@ -1,6 +1,9 @@
 package de.mknblch.nml.common;
 
 import de.mknblch.nml.entities.NML;
+import de.mknblch.nml.mediator.NMLHelper;
+import de.mknblch.nml.mediator.NMLMediator;
+import de.mknblch.nml.mediator.XMLSerializer;
 import de.mknblch.objectdump.ObjectDump;
 import org.apache.commons.jxpath.JXPathContext;
 import org.apache.commons.jxpath.Pointer;

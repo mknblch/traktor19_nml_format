@@ -3,6 +3,7 @@ package de.mknblch.nml.commands;
 import de.mknblch.nml.common.TypeHelper;
 import de.mknblch.params.annotations.Argument;
 import de.mknblch.params.annotations.Command;
+import de.mknblch.params.annotations.Description;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
@@ -12,10 +13,12 @@ import java.nio.file.Path;
 /**
  * Created by mknblch on 13.09.2015.
  */
-@Command(trigger = "collection", sub = "import", description = "Import tracks to collection")
-public class CollectionImport extends WithCollection implements Runnable {
+@Description("Import tracks to collection")
+@Command(trigger = {"collection", "import"})
+public class CollectionImport extends TraktorCollection implements Runnable {
 
-    @Argument(trigger = "-d", description = "Path to directory")
+    @Description("Path to directory")
+    @Argument(trigger = "-d")
     private Path directory;
 
     @Override

@@ -1,11 +1,10 @@
 package de.mknblch.nml.common;
 
 import de.mknblch.nml.entities.NML;
+import de.mknblch.nml.mediator.XMLSerializer;
 import org.junit.Test;
 
 import java.io.File;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by mknblch on 07.09.2015.

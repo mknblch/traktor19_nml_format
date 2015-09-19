@@ -1,10 +1,11 @@
 package de.mknblch.nml.commands;
 
-import de.mknblch.nml.common.NMLHelper;
+import de.mknblch.nml.mediator.NMLHelper;
 import de.mknblch.nml.common.TypeHelper;
 import de.mknblch.nml.entities.PLAYLIST;
 import de.mknblch.params.annotations.Argument;
 import de.mknblch.params.annotations.Command;
+import de.mknblch.params.annotations.Description;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
@@ -14,10 +15,12 @@ import java.nio.file.Path;
 /**
  * Created by mknblch on 13.09.2015.
  */
-@Command(trigger = "playlist", sub = "import", description = "Import all tracks into existing playlist or create new one by directory name")
-public class PlaylistImport extends WithCollection implements Runnable {
+@Description("Import all tracks into existing playlist or create new one by directory name")
+@Command(trigger = {"playlist", "import"})
+public class PlaylistImport extends TraktorCollection implements Runnable {
 
-    @Argument(trigger = "-d", description = "Path to directory")
+    @Description("Path to directory")
+    @Argument(trigger = "-d")
     private Path directory;
 
     @Override

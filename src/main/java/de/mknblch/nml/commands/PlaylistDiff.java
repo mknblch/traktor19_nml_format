@@ -1,12 +1,13 @@
 package de.mknblch.nml.commands;
 
 import de.mknblch.nml.common.FileHelper;
-import de.mknblch.nml.common.PlaylistDiffBuilder;
-import de.mknblch.nml.common.PlaylistDiffResult;
+import de.mknblch.nml.diff.PlaylistDiffBuilder;
+import de.mknblch.nml.diff.PlaylistDiffResult;
 import de.mknblch.nml.common.TypeHelper;
 import de.mknblch.nml.entities.PLAYLIST;
 import de.mknblch.params.annotations.Argument;
 import de.mknblch.params.annotations.Command;
+import de.mknblch.params.annotations.Description;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,11 +18,18 @@ import java.util.stream.Collectors;
 /**
  * Created by mknblch on 13.09.2015.
  */
-@Command(trigger = "playlist", sub = "diff", description = "Show difference between directory and playlist")
-public class PlaylistDiff extends WithCollection implements Runnable {
+@Description("Show difference between directory and playlist")
+@Command(trigger = {"playlist", "diff"})
+public class PlaylistDiff extends TraktorCollection implements Runnable {
 
-    @Argument(trigger = "-d", description = "Path to directory")
+    @Description("Path to directory")
+    @Argument(trigger = "-d")
     private Path directory;
+
+
+    @Description("Optional playlist name")
+    @Argument(trigger = "-p", optional = true)
+    protected String playlistName = null;
 
     @Override
     public void run() {
@@ -39,28 +47,39 @@ public class PlaylistDiff extends WithCollection implements Runnable {
                 .map(Path::toAbsolutePath)
                 .collect(Collectors.toList());
 
-        final String playlistName = pathToPlaylistName();
+        if (null == playlistName) {
+            playlistName = pathToPlaylistName();
+        }
         if (null == playlistName) {
             for (Path file : files) {
                 System.out.printf("[+] %s%n", file.toAbsolutePath().toString());
             }
             return;
         }
+
+        int newFiles = 0, removedFiles = 0;
+
         System.out.printf("[DIFF] %s -> %s%n", directory, playlistName);
         final PLAYLIST playlist = nml().getPlaylist(playlistName);
         if (null == playlist) {
             for (Path file : files) {
                 System.out.printf("[+] %s%n", file.toAbsolutePath().toString());
             }
+            newFiles = files.size();
         } else {
             final PlaylistDiffResult diffResult = new PlaylistDiffBuilder(playlist).build(files);
             for (Path file : diffResult.notInFiles) {
                 System.out.printf("[-] %s%n", file.toAbsolutePath().toString());
             }
+            removedFiles = diffResult.notInFiles.size();
             for (Path file : diffResult.notInPlaylist) {
                 System.out.printf("[+] %s%n", file.toAbsolutePath().toString());
             }
+            newFiles = diffResult.notInPlaylist.size();
         }
+
+        System.out.printf("[%d new | %d removed]",
+                newFiles, removedFiles);
     }
 
     private String pathToPlaylistName() {

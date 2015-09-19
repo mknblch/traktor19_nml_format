@@ -1,28 +1,26 @@
 package de.mknblch.nml.commands;
 
-import de.mknblch.nml.common.*;
-import de.mknblch.nml.entities.PLAYLIST;
+import de.mknblch.nml.diff.SyncTools;
 import de.mknblch.params.annotations.Argument;
 import de.mknblch.params.annotations.Command;
+import de.mknblch.params.annotations.Description;
 
 import javax.xml.bind.JAXBException;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by mknblch on 13.09.2015.
  */
-@Command(trigger = "playlist", sub = "sync", description = "Sync directory with playlist")
-public class PlaylistSync extends WithCollection implements Runnable {
+@Description("Sync directory to playlist")
+@Command(trigger = {"playlist", "sync"})
+public class PlaylistSync extends TraktorCollection implements Runnable {
 
-    @Argument(trigger = "-d", description = "Path to directory")
+    @Description("Path to directory")
+    @Argument(trigger = "-d")
     protected Path directory;
 
-    @Argument(trigger = "-p", description = "Optional playlist name", optional = true)
+    @Description("Optional playlist name")
+    @Argument(trigger = "-p", optional = true)
     protected String playlistName = null;
 
     @Override

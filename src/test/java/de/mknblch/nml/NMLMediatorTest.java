@@ -1,6 +1,6 @@
 package de.mknblch.nml;
 
-import de.mknblch.nml.common.NMLMediator;
+import de.mknblch.nml.mediator.NMLMediator;
 import de.mknblch.nml.entities.ENTRY;
 import de.mknblch.nml.entities.PRIMARYKEY;
 import de.mknblch.objectdump.ObjectDump;

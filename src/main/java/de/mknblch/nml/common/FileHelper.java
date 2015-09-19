@@ -35,7 +35,11 @@ public class FileHelper {
     }
 
     public static String normalizePathToString(Path in) {
-        return in.toAbsolutePath().normalize().toString().replaceAll("\\\\", "/");
+        return normalizePathString(in.toAbsolutePath().normalize().toString());
+    }
+
+    public static String normalizePathString(String in) {
+        return in.replaceAll("\\\\", "/");
     }
 
     public static List<Path> fetchSongPaths(Path directory) throws IOException {

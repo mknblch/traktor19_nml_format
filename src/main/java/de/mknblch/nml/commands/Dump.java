@@ -3,14 +3,17 @@ package de.mknblch.nml.commands;
 import de.mknblch.objectdump.ObjectDump;
 import de.mknblch.params.annotations.Argument;
 import de.mknblch.params.annotations.Command;
+import de.mknblch.params.annotations.Description;
 
 /**
  * Created by mknblch on 13.09.2015.
  */
-@Command(trigger = "dump", description = "Dump nml")
-public class Dump extends WithCollection implements Runnable {
+@Description("Dump nml")
+@Command(trigger = "dump")
+public class Dump extends TraktorCollection implements Runnable {
 
-    @Argument(trigger = {"-x", "--xpath"}, description = "XPath to subnode", optional = true)
+    @Description("XPath to subnode")
+    @Argument(trigger = {"-x", "--xpath"}, optional = true)
     private String xpath = null;
 
     @Override
