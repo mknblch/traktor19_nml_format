@@ -4,14 +4,13 @@ import de.mknblch.nml.common.FileHelper;
 import de.mknblch.nml.common.FileLocation;
 import de.mknblch.nml.entities.*;
 import de.mknblch.objectdump.ObjectDump;
-import org.apache.commons.jxpath.JXPathContext;
-import org.apache.commons.jxpath.JXPathNotFoundException;
-import org.apache.commons.jxpath.Pointer;
 
 import javax.xml.bind.JAXBException;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static de.mknblch.nml.mediator.NMLHelper.*;
 
 /**
  *
@@ -19,22 +18,18 @@ import java.util.*;
  */
 public class NMLMediator {
 
-
-    private final static String ROOT = "$ROOT";
-
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
+    public static final String ROOT = "$ROOT";
 
     private final NML nml;
-    private final JXPathContext context;
-    private final XMLSerializer<NML> serializer;
+    private final NMLSerializer<NML> serializer;
     private final Map<String, String> volumes = new HashMap<>();
     private final Path path;
 
     public NMLMediator(Path pathToNML) throws JAXBException {
         path = pathToNML;
-        serializer = new XMLSerializer<>(NML.class);
+        serializer = new NMLSerializer<>(NML.class);
         nml = serializer.unmarshal(pathToNML.toFile());
-        context = JXPathContext.newContext(nml);
     }
 
     public void save() throws JAXBException {
@@ -53,14 +48,14 @@ public class NMLMediator {
     }
 
     public List<ENTRY> getCollection() {
-        return selectMany("/COLLECTION/ENTRY", ENTRY.class);
+        return nml.getCOLLECTION().getENTRY();
     }
 
     public ENTRY getCollectionEntry(Path path) {
         final FileLocation fileLocation = FileHelper.extractLocation(path);
         return getEntryFromCollection(
-                NMLHelper.stringToTraktorKey(fileLocation.file),
-                NMLHelper.stringToTraktorKey(fileLocation.directory),
+                stringToTraktorKey(fileLocation.file),
+                stringToTraktorKey(fileLocation.directory),
                 fileLocation.volume);
     }
 
@@ -78,7 +73,7 @@ public class NMLMediator {
         contentList.add(createLocation(path));
         contentList.add(modificationinfo);
         contentList.add(info);
-        final COLLECTION collection = select("/COLLECTION", COLLECTION.class);
+        final COLLECTION collection = nml.getCOLLECTION();
         collection.getENTRY().add(entry);
         normalizeCollection();
         return entry;
@@ -90,9 +85,9 @@ public class NMLMediator {
             throw new IllegalArgumentException("Playlist " + playlist + " is unknown");
         }
         final ENTRY e = new ENTRY();
-        e.getCONTENT().add(toPrimaryKey((LOCATION) track.getCONTENT().get(0)));
+        e.getCONTENT().add(0, toPrimaryKey((LOCATION) getPrimaryContent(track)));
         pl.getENTRY().add(e);
-        NMLHelper.normalizePlaylist(pl);
+        normalizePlaylist(pl);
     }
 
     public String findVolumeId (String volume) {
@@ -100,8 +95,20 @@ public class NMLMediator {
         if (null != id) {
             return id;
         }
-        context.getVariables().declareVariable("VOLUME", volume);
-        id = select("/COLLECTION//ENTRY['LOCATION']/*[@VOLUME=$VOLUME]/@VOLUMEID", String.class, "");
+        final Optional<String> entryOptional = getCollection().parallelStream()
+                .filter(e -> belongsTo(e, volume))
+                .map(ENTRY::getCONTENT)
+                .map(c -> c.get(0))
+                .filter(c -> c instanceof LOCATION)
+                .map(c -> (LOCATION) c)
+                .map(LOCATION::getVOLUMEID)
+                .filter(Objects::nonNull)
+                .findFirst();
+
+        if (!entryOptional.isPresent()) {
+            return "";
+        }
+        id = entryOptional.get();
         volumes.put(volume, id);
         return id;
     }
@@ -109,30 +116,107 @@ public class NMLMediator {
     private LOCATION createLocation(Path path) {
         final LOCATION location = new LOCATION();
         final FileLocation fileLocation = FileHelper.extractLocation(path);
-        location.setVOLUME(NMLHelper.stringToTraktorKey(fileLocation.volume));
-        location.setDIR(NMLHelper.stringToTraktorKey(fileLocation.directory));
+        location.setVOLUME(stringToTraktorKey(fileLocation.volume));
+        location.setDIR(stringToTraktorKey(fileLocation.directory));
         location.setFILE(fileLocation.file);
         location.setVOLUMEID(findVolumeId(fileLocation.volume));
         return location;
     }
 
+
     private PRIMARYKEY toPrimaryKey(LOCATION location) {
         final PRIMARYKEY primarykey = new PRIMARYKEY();
         primarykey.setTYPE("TRACK");
-        primarykey.setKEY(NMLHelper.toKey(location));
+        primarykey.setKEY(toKey(location));
         return primarykey;
     }
 
     private ENTRY getEntryFromCollection(String file, String dir, String volume) {
-        context.getVariables().declareVariable("FILE", file);
-        context.getVariables().declareVariable("DIR", dir);
-        context.getVariables().declareVariable("VOLUME", volume);
-        return (ENTRY) context.selectSingleNode("/COLLECTION/ENTRY/CONTENT['LOCATION'][@FILE=$FILE and @DIR=$DIR and @VOLUME=$VOLUME]/..");
+        final Optional<ENTRY> entryOptional = nml.getCOLLECTION().getENTRY().parallelStream()
+                .filter(e -> belongsTo(e, file, dir, volume))
+                .findFirst();
+        return entryOptional.isPresent() ? entryOptional.get() : null;
+    }
+
+    private boolean belongsTo(ENTRY entry, String volume) {
+        final Object content = getPrimaryContent(entry);
+        if (content instanceof LOCATION) {
+            return volume.equals(((LOCATION) content).getVOLUME());
+        } else if (content instanceof PRIMARYKEY) {
+            return ((PRIMARYKEY) content).getKEY().startsWith(volume);
+        }
+        return false;
+    }
+
+    private boolean belongsTo(ENTRY entry, String file, String dir, String volume) {
+        if (null == entry) {
+            throw new IllegalArgumentException("LOCATION was null");
+        }
+        final Object content = getPrimaryContent(entry);
+        if (content instanceof LOCATION) {
+            return belongsTo((LOCATION) content, file, dir, volume);
+        } else if (content instanceof PRIMARYKEY) {
+            return belongsTo((PRIMARYKEY) content, file, dir, volume);
+        }
+        return false;
+    }
+
+    private boolean belongsTo(PRIMARYKEY content, String file, String dir, String volume) {
+        final String key = locationToString(volume, dir, file);
+        return key.equals(content.getKEY());
+    }
+
+    private boolean belongsTo(LOCATION location, String file, String dir, String volume) {
+        if (null == file) {
+            throw new IllegalArgumentException("FILE was null");
+        }
+        if (null != dir && !dir.equals(location.getDIR())) {
+            return false;
+        }
+        if (null != volume && !volume.equals(location.getVOLUME())) {
+            return false;
+        }
+        return file.equals(location.getFILE());
     }
 
     private NODE getPlaylistNode(String name) {
-        context.getVariables().declareVariable("PLNAME", name);
-        return (NODE) context.selectSingleNode("/PLAYLISTS//NODE[@NAME=$PLNAME]");
+        final NODE rootNode = getPlaylistRootNode();
+        if (ROOT.equals(name)) {
+            return rootNode;
+        }
+        final Optional<NODE> nodeOptional = getPlaylistNodes()
+                .parallelStream()
+                .filter(n -> name.equals(n.getNAME()))
+                .findFirst();
+
+        if (!nodeOptional.isPresent()) {
+            return null;
+        }
+        return nodeOptional.get();
+    }
+
+    public List<NODE> getPlaylistNodes() {
+        return getPlaylistRootNode()
+                .getSUBNODES()
+                .getNODE();
+    }
+
+    private NODE getPlaylistRootNode() {
+        final NODE root = nml.getPLAYLISTS().getNODE();
+        verifyPlaylistRoot(root);
+        return root;
+    }
+
+    private void verifyPlaylistRoot(NODE root) {
+        if (!ROOT.equals(root.getNAME())) {
+            throw new IllegalArgumentException("Invalid playlist");
+        }
+        if (!"FOLDER".equals(root.getTYPE())) {
+            throw new IllegalArgumentException("Invalid root node type");
+        }
+        if (null == root.getSUBNODES()) {
+            throw new IllegalArgumentException("Invalid root node - no subnodes");
+        }
     }
 
     public PLAYLIST getPlaylist(String name) {
@@ -140,20 +224,16 @@ public class NMLMediator {
         return node == null ? null : node.getPLAYLIST();
     }
 
-    public List<String> getPlaylists() {
-        return selectMany("/PLAYLISTS//NODE[@NAME!='$ROOT']/@NAME", String.class);
-    }
-
     public PLAYLIST getOrCreatePlaylist(String name) {
         final PLAYLIST orig = getPlaylist(name);
         if (null != orig) {
             return orig;
         }
-        final NODE root = getPlaylistNode(ROOT);
+        final NODE root = getPlaylistRootNode();
 
         final PLAYLIST playlist = new PLAYLIST();
         playlist.setTYPE("LIST");
-        playlist.setUUID(NMLHelper.generateUUID());
+        playlist.setUUID(generateUUID());
 
         final NODE node = new NODE();
         node.setNAME(name);
@@ -162,32 +242,23 @@ public class NMLMediator {
 
         final SUBNODES subnodes = root.getSUBNODES();
         subnodes.getNODE().add(node);
-        NMLHelper.normalizeSubnodes(subnodes);
+        normalizeSubnodes(subnodes);
         return playlist;
     }
 
     public void removeFromPlaylist(String playlistName, String primaryKey) {
-        context.getVariables().declareVariable("PLNAME", playlistName);
-        context.getVariables().declareVariable("TRACK", primaryKey);
-        context.removePath("/PLAYLISTS//NODE[@NAME=$PLNAME]//ENTRY/CONTENT['PRIMARYKEY'][@TYPE='TRACK' and @KEY=$TRACK]/..");
-        normalize(playlistName);
-    }
-
-    public void clearPlaylist(String playlist) {
-        final PLAYLIST pl = getPlaylist(playlist);
-        if (null != pl) {
-            pl.getENTRY().clear();
-            NMLHelper.normalizePlaylist(pl);
+        final PLAYLIST playlist = getPlaylist(playlistName);
+        if (null == playlist) {
+            throw new IllegalArgumentException("Unknown playlist: " + playlistName);
         }
-    }
-
-    public void removePlaylist(String playlist) {
-        context.removePath("/PLAYLISTS//NODE[@NAME=$PLNAME]//ENTRY/CONTENT['PRIMARYKEY'][@TYPE='TRACK' and @KEY=$TRACK]/..");
+        playlist.getENTRY().removeIf(e -> primaryKey.equals(getPrimaryContent(e, PRIMARYKEY.class).getKEY()));
+        normalizePlaylist(playlist);
     }
 
     public void removePlaylists() {
-        context.removeAll("/PLAYLISTS//NODE[@NAME!='$ROOT']");
-        NMLHelper.normalizeSubnodes(getPlaylistNode("$ROOT").getSUBNODES());
+        final SUBNODES subnodes = getPlaylistRootNode().getSUBNODES();
+        subnodes.getNODE().clear();
+        normalizeSubnodes(subnodes);
     }
 
     public void clearCollection() {
@@ -195,52 +266,7 @@ public class NMLMediator {
         normalizeCollection();
     }
 
-    public void removeFromPlaylists(String primaryKey) {
-        context.getVariables().declareVariable("TRACK", primaryKey);
-        final List<PLAYLIST> playlists = selectMany("/PLAYLISTS//ENTRY/CONTENT['PRIMARYKEY'][@TYPE='TRACK' and @KEY=$TRACK]/../..", PLAYLIST.class);
-        for (PLAYLIST playlist : playlists) {
-            final Iterator<ENTRY> iterator = playlist.getENTRY().iterator();
-            while (iterator.hasNext()) {
-                final ENTRY entry = iterator.next();
-                if (primaryKey.equals(((PRIMARYKEY) entry.getCONTENT().get(0)).getKEY())) {
-                    iterator.remove();
-                }
-            }
-            NMLHelper.normalizePlaylist(playlist);
-        }
-    }
-
-    private void normalize(String playlist) {
-        context.getVariables().declareVariable("PLNAME", playlist);
-        NMLHelper.normalizePlaylist(select("/PLAYLISTS//NODE[@NAME=$PLNAME]/PLAYLIST", PLAYLIST.class));
-    }
-
     private void normalizeCollection() {
         nml.getCOLLECTION().setENTRIES(nml.getCOLLECTION().getENTRY().size());
-    }
-
-    public List<PRIMARYKEY> getPlaylistPrimaryKeys(String name) {
-        context.getVariables().declareVariable("PLNAME", name);
-        return selectMany("/PLAYLISTS//NODE[@NAME=$PLNAME]//ENTRY/CONTENT['PRIMARYKEY']", PRIMARYKEY.class);
-    }
-
-    public <T> List<T> selectMany(String xpath, Class<T> clazz) {
-        final ArrayList<T> list = new ArrayList<>();
-        for (Iterator<Pointer> i = context.iteratePointers(xpath); i.hasNext(); ) {
-            list.add((T) i.next().getNode());
-        }
-        return list;
-    }
-
-    public <T> T select(String xpath, Class<T> clazz) {
-        return (T) context.selectSingleNode(xpath);
-    }
-
-    public <T> T select(String xpath, Class<T> clazz, T defaultReturn) {
-        try {
-            return (T) context.selectSingleNode(xpath);
-        } catch (JXPathNotFoundException e) {
-            return defaultReturn;
-        }
     }
 }

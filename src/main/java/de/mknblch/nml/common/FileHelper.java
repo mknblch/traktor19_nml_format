@@ -15,7 +15,7 @@ public class FileHelper {
     public static FileLocation extractLocation(Path path) {
         String pathString = normalizePathToString(path);
         pathString = pathString.replaceAll("\\\\", "/");
-        final int firstSlash = pathString.indexOf("/");
+        final int firstSlash = pathString.indexOf("/", 1);
         final int lastSlash = pathString.lastIndexOf("/");
         if (firstSlash == -1 || lastSlash == -1) {
             throw new IllegalArgumentException("Invalid path " + path);

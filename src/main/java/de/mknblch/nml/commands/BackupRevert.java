@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class BackupRevert extends TraktorCollection implements Runnable {
 
     @Description("Optional backup name")
-    @Argument(trigger = "-n", optional = true)
+    @Argument(trigger = "--name", alternative = "-n", optional = true)
     private String name = null;
 
     @Override

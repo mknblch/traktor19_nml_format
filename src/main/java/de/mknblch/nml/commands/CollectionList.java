@@ -17,7 +17,7 @@ import java.util.List;
 public class CollectionList extends TraktorCollection implements Runnable {
 
     @Description("Verbose output")
-    @Argument(trigger = {"-v", "--verbose"}, length = 0, optional = true)
+    @Argument(trigger = "--verbose", alternative = "-v", length = 0, optional = true)
     private boolean verbose = false;
 
     @Override

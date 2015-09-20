@@ -14,16 +14,17 @@ public class Launcher {
 
         new Params()
                 .setDescription("Traktor Collection Editor")
-                .add(Dump.class)
                 .add(BackupCreate.class)
                 .add(BackupList.class)
                 .add(BackupRevert.class)
                 .add(Clear.class)
                 .add(CollectionImport.class)
                 .add(CollectionList.class)
+                .add(Debug.class)
                 .add(PlaylistImport.class)
                 .add(PlaylistList.class)
                 .add(PlaylistDiff.class)
+                .add(PlaylistDiffAll.class)
                 .add(PlaylistSync.class)
                 .add(PlaylistSyncAll.class)
                 .runOrDie(args);

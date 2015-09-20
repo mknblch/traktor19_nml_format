@@ -23,12 +23,11 @@ import java.util.stream.Collectors;
 public class PlaylistDiff extends TraktorCollection implements Runnable {
 
     @Description("Path to directory")
-    @Argument(trigger = "-d")
+    @Argument(trigger = "--directory", alternative = "-d")
     private Path directory;
 
-
     @Description("Optional playlist name")
-    @Argument(trigger = "-p", optional = true)
+    @Argument(trigger = "--playlist", alternative = "-p", optional = true)
     protected String playlistName = null;
 
     @Override
@@ -78,7 +77,7 @@ public class PlaylistDiff extends TraktorCollection implements Runnable {
             newFiles = diffResult.notInPlaylist.size();
         }
 
-        System.out.printf("[%d new | %d removed]",
+        System.out.printf("[%d new | %d removed]%n",
                 newFiles, removedFiles);
     }
 

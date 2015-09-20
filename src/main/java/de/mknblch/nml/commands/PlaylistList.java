@@ -1,10 +1,16 @@
 package de.mknblch.nml.commands;
 
+import de.mknblch.nml.entities.ENTRY;
+import de.mknblch.nml.entities.NODE;
 import de.mknblch.nml.mediator.NMLHelper;
 import de.mknblch.nml.entities.PRIMARYKEY;
 import de.mknblch.params.annotations.Argument;
 import de.mknblch.params.annotations.Command;
 import de.mknblch.params.annotations.Description;
+
+import java.nio.file.Path;
+
+import static de.mknblch.nml.mediator.NMLHelper.*;
 
 /**
  * Created by mknblch on 13.09.2015.
@@ -16,17 +22,17 @@ public class PlaylistList extends TraktorCollection implements Runnable {
     private static final String INDENT = "   ";
 
     @Description("Verbose output")
-    @Argument(trigger = {"-v", "--verbose"}, length = 0, optional = true)
+    @Argument(trigger = "--verbose", alternative = "-v", length = 0, optional = true)
     private boolean verbose = false;
 
     @Override
     public void run() {
-        for (String playlist : nml().getPlaylists()) {
-            System.out.println("[" + playlist + "]");
+        for (NODE playlist : nml().getPlaylistNodes()) {
+            System.out.println(playlist.getNAME());
             if (verbose) {
-                for (PRIMARYKEY key : nml().getPlaylistPrimaryKeys(playlist)) {
-                    System.out.printf("%s%s%n", INDENT, NMLHelper.traktorKeyToString(key.getKEY()));
-                }
+                playlist.getPLAYLIST().getENTRY().stream().forEach(entry -> {
+                    System.out.printf("%s%s%n", INDENT, traktorKeyToString(getPrimaryContent(entry, PRIMARYKEY.class).getKEY()));
+                });
             }
         }
     }

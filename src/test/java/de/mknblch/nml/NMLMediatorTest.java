@@ -36,7 +36,6 @@ public class NMLMediatorTest {
     @Test
     public void test() throws Exception {
 
-        dump(editor.selectMany(("/PLAYLISTS//NODE[@NAME='test']//ENTRY/CONTENT['PRIMARYKEY'][@TYPE='TRACK' and @KEY='D:/:deleted/:Always There.mp3']/.."), Object.class));
     }
 
     @Test
@@ -63,22 +62,6 @@ public class NMLMediatorTest {
 
     private void save() throws JAXBException {
         editor.save();
-    }
-
-//    @Test
-    public void testGetPlaylistKeys() throws Exception {
-
-        final List<PRIMARYKEY> keys = editor.getPlaylistPrimaryKeys("$ROOT");
-        assertFalse(keys.isEmpty());
-        dump(keys);
-    }
-
-    @Test
-    public void testRemove() throws Exception {
-
-        editor.removeFromPlaylists("D:/:deleted/:Always There.mp3");
-        dump(editor.getNml());
-        save();
     }
 
     private void dump(Object o) {

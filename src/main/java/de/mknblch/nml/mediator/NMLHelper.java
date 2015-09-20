@@ -5,6 +5,7 @@ import de.mknblch.nml.entities.*;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -27,7 +28,8 @@ public class NMLHelper {
     }
 
     public static Path primaryKeyToPath(String primaryKey) {
-        primaryKey = primaryKey.replaceAll("&amp;", "&");
+        // TODO WATCH
+//        primaryKey = primaryKey.replaceAll("&amp;", "&");
         primaryKey = primaryKey.replaceAll("/:", "/");
         return Paths.get(primaryKey);
     }
@@ -39,7 +41,7 @@ public class NMLHelper {
         return primarykey;
     }
 
-    private static String locationToString(String... location) {
+    public static String locationToString(String... location) {
         return String.format("%s%s%s",
                 traktorKeyToString(location[0]),
                 traktorKeyToString(location[1]),
@@ -104,5 +106,24 @@ public class NMLHelper {
         final ENTRY plEntry = new ENTRY();
         plEntry.getCONTENT().add(locationToPrimaryKey((LOCATION) e));
         return plEntry;
+    }
+
+    public static <T> T getPrimaryContent(ENTRY e, Class<T> clazz) {
+        final Object content = getPrimaryContent(e);
+        if (clazz.isAssignableFrom(content.getClass())) {
+            return (T) content;
+        }
+//        if (content.getClass().isAssignableFrom(clazz)) {
+//        return (T) content;
+//        }
+        throw new IllegalArgumentException("Invalid class cast");
+    }
+
+    public static Object getPrimaryContent(ENTRY e) {
+        final List<Object> contentList = e.getCONTENT();
+        if (contentList.size() == 0) {
+            throw new IllegalArgumentException("Empty content");
+        }
+        return e.getCONTENT().get(0);
     }
 }

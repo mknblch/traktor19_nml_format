@@ -18,7 +18,7 @@ import java.nio.file.Path;
 public class CollectionImport extends TraktorCollection implements Runnable {
 
     @Description("Path to directory")
-    @Argument(trigger = "-d")
+    @Argument(trigger = "--directory", alternative = "-d")
     private Path directory;
 
     @Override

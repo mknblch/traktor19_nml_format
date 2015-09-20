@@ -46,34 +46,39 @@ public class SyncTools {
             System.out.printf("[SYNC] %s -> %s%n", directory, playlistName);
             // find playlist in collection
             final PLAYLIST playlist = nml.getPlaylist(playlistName);
-            
+            int newFiles = 0, removedFiles = 0;
             if (null == playlist) {
                 final PLAYLIST virginPlaylist = nml.getOrCreatePlaylist(playlistName);
-                importSongs(songs, virginPlaylist);
+                newFiles = importSongs(songs, virginPlaylist);
             } else {
                 final PlaylistDiffResult diffResult = new PlaylistDiffBuilder(playlist).build(songs);
                 // remove songs from playlist which cant be found in directory
-                removeSongs(diffResult.notInFiles, playlistName);
-                importSongs(diffResult.notInPlaylist, playlist);
+                removedFiles = removeSongs(diffResult.notInFiles, playlistName);
+                newFiles = importSongs(diffResult.notInPlaylist, playlist);
             }
+            System.out.printf("[%d new | %d removed]%n",
+                    newFiles, removedFiles);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
-    private void importSongs(Collection<Path> songs, PLAYLIST playlist) {
-        songs.stream()
+    private int importSongs(Collection<Path> songs, PLAYLIST playlist) {
+        return (int) songs.stream()
                 .peek(f -> System.out.printf("[+] %s%n", f.toString()))
                 .map(nml::addOrGetCollectionEntry)
                 .map(NMLHelper::collectionEntryToPlaylistEntry)
-                .forEach(playlist.getENTRY()::add);
+                .peek(playlist.getENTRY()::add)
+                .count();
     }
     
-    private void removeSongs(Collection<Path> songs, String playlistName) {
-        songs.stream()
+    private int removeSongs(Collection<Path> songs, String playlistName) {
+        return (int) songs.stream()
                 .peek(f -> System.out.printf("[-] %s%n", f.toString()))
                 .map(NMLHelper::pathToPrimaryKey)
-                .forEach(pk -> nml.removeFromPlaylist(playlistName, pk));
+                .peek(pk -> nml.removeFromPlaylist(playlistName, pk))
+                .count();
     }
     
     private String extractPlaylistName(Path directory) {

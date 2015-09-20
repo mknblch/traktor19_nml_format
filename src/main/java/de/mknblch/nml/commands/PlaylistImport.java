@@ -15,12 +15,12 @@ import java.nio.file.Path;
 /**
  * Created by mknblch on 13.09.2015.
  */
-@Description("Import all tracks into existing playlist or create new one by directory name")
+@Description("Import unknown tracks into existing playlist or create new playlist by directory name")
 @Command(trigger = {"playlist", "import"})
 public class PlaylistImport extends TraktorCollection implements Runnable {
 
     @Description("Path to directory")
-    @Argument(trigger = "-d")
+    @Argument(trigger = "--directory", alternative = "-d")
     private Path directory;
 
     @Override
