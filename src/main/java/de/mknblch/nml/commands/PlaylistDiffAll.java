@@ -45,7 +45,7 @@ public class PlaylistDiffAll extends TraktorCollection implements Runnable {
                     .filter(TypeHelper.INSTANCE::isSupported)
                     .collect(Collectors.toList());
 
-            final String playlistName = pathToPlaylistName();
+            final String playlistName = pathToPlaylistName(directory);
             if (null == playlistName) {
                 for (Path file : files) {
                     System.out.printf("[+] %s%n", file.toAbsolutePath().toString());
@@ -81,7 +81,7 @@ public class PlaylistDiffAll extends TraktorCollection implements Runnable {
         }
     }
 
-    private String pathToPlaylistName() {
+    private String pathToPlaylistName(Path directory) {
         return FileHelper.normalizePath(directory).getFileName().toString();
     }
 }
