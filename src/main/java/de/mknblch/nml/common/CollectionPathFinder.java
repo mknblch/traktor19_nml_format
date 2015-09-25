@@ -16,12 +16,17 @@ public class CollectionPathFinder {
 
     public static final CollectionPathFinder INSTANCE = new CollectionPathFinder();
 
-    private static final String NATIVE_INSTRUMENTS = "Native Instruments";
-    private static final String USER_HOME = "user.home";
-    private static final String COLLECTION_NML = "collection.nml";
-    private static final String DOCUMENTS = "Documents";
     private static final String TRAKTOR_RECOGNIZER = "traktor";
     private static final Pattern VERSION_PATTERN = Pattern.compile("(\\d+)\\.(\\d+)(?:\\.(\\d+).*)?");
+
+    /**
+     * [USER_HOME]/Documents/Native Instruments/Traktor [VERSION]/collection.nml
+     */
+    private static final String USER_HOME = "user.home";
+    private static final String SUBDIRECTORY_PART = "Documents";
+    private static final String NI_PART = "Native Instruments";
+    private static final String TRAKTOR_PATH_PREFIX = "Traktor ";
+    private static final String FILE_PART = "collection.nml";
 
     public Set<String> getTraktorVersions() throws IOException {
         return Files.walk(getNIPath(), 1)
@@ -37,16 +42,16 @@ public class CollectionPathFinder {
     public Path getTraktorPath() throws IOException {
         return Paths.get(
                 getUserHome(),
-                DOCUMENTS,
-                NATIVE_INSTRUMENTS,
-                "Traktor " + getHighestVersion(getTraktorVersions()))
+                SUBDIRECTORY_PART,
+                NI_PART,
+                TRAKTOR_PATH_PREFIX + getHighestVersion(getTraktorVersions()))
                 .toAbsolutePath();
     }
 
     public Path getCollectionPath() throws IOException {
         return Paths.get(
                 getTraktorPath().toString(),
-                COLLECTION_NML);
+                FILE_PART);
     }
 
     private static long rate(String version) {
@@ -67,7 +72,7 @@ public class CollectionPathFinder {
     }
 
     private Path getNIPath() {
-        return Paths.get(getUserHome(), "Documents", NATIVE_INSTRUMENTS);
+        return Paths.get(getUserHome(), SUBDIRECTORY_PART, NI_PART);
     }
 
     private String getUserHome() {

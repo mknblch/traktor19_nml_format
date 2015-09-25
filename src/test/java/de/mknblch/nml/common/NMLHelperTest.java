@@ -4,7 +4,6 @@ import de.mknblch.nml.entities.NML;
 import de.mknblch.nml.mediator.NMLHelper;
 import de.mknblch.nml.mediator.NMLMediator;
 import de.mknblch.nml.mediator.NMLSerializer;
-import de.mknblch.objectdump.ObjectDump;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

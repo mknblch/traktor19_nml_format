@@ -2,8 +2,8 @@ package de.mknblch.nml.mediator;
 
 import de.mknblch.nml.common.FileHelper;
 import de.mknblch.nml.common.FileLocation;
+import de.mknblch.nml.common.ObjectDump;
 import de.mknblch.nml.entities.*;
-import de.mknblch.objectdump.ObjectDump;
 
 import javax.xml.bind.JAXBException;
 import java.nio.file.Path;

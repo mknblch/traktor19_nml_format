@@ -2,7 +2,13 @@ apply plugin: 'java'
 apply plugin: 'idea'
 
 sourceCompatibility = 1.8
-version = '0.1.1'
+version = '0.1.1-SNAPSHOT'
+ext {
+    MAIN_CLASS='de.mknblch.nml.Launcher'
+    EXPORT_PATH = "C:/Users/mk/bin/"
+    JAR_PATH = "C:/Users/mk/bin/jars/"
+}
+apply from: 'tasks.gradle'
 
 repositories {
     mavenLocal()
@@ -12,26 +18,12 @@ repositories {
 
 dependencies {
 
-    compile 'de.mknblch.params:params:1.4.0-SNAPSHOT'
-    compile 'de.mknblch.objectdump:objectDump:1.0'
+    compile 'de.mknblch.params:params:1.4.1-SNAPSHOT'
 
     testCompile group: 'junit', name: 'junit', version: '4.11'
 
 }
 
-//create a single Jar with all dependencies
-task fatJar(type: Jar) {
-    manifest {
-        attributes 'Implementation-Title': 'NML',
-                'Implementation-Version': version,
-                'Main-Class': 'de.mknblch.nml.Launcher'
-    }
-    baseName = project.name
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-fatJar {}.dependsOn 'build'
 
 ///////////////////////
 
@@ -63,18 +55,13 @@ task jaxb () {
         )
     }
 }
+
+
+test.onlyIf {false}
+//compileJava.dependsOn clean
 compileJava.dependsOn jaxb
-
-
-///////////////////////////////
-
-task expToWin(type: Copy) {
-    from 'build/libs/'
-    into 'C:/Users/mk/bin/jars'
-    include '*.jar'
-//    rename (project.name + "-" + version + ".jar", project.name + ".jar")
-}
-
-expToWin {}.dependsOn fatJar
-
+compileJava.dependsOn writeVersion;
+fatJar.dependsOn build
+expToWin.dependsOn fatJar
+makeBat.dependsOn expToWin
 

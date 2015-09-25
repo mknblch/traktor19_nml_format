@@ -16,11 +16,11 @@ import java.nio.file.Path;
 public class PlaylistSync extends TraktorCollection implements Runnable {
 
     @Description("Path to directory")
-    @Argument(trigger = "--directory", alternative = "-d")
+    @Argument(trigger = "--directory", alt = "-d")
     protected Path directory;
 
     @Description("Optional playlist name")
-    @Argument(trigger = "--playlist", alternative = "-p", optional = true)
+    @Argument(trigger = "--playlist", alt = "-p", optional = true)
     protected String playlistName = null;
 
     @Override

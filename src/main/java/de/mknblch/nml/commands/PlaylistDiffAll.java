@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class PlaylistDiffAll extends TraktorCollection implements Runnable {
 
     @Description("Path to directory")
-    @Argument(trigger = "--directory", alternative = "-d")
+    @Argument(trigger = "--directory", alt = "-d")
     private Path directory;
 
     @Override

@@ -20,7 +20,7 @@ import java.nio.file.Path;
 public class PlaylistImport extends TraktorCollection implements Runnable {
 
     @Description("Path to directory")
-    @Argument(trigger = "--directory", alternative = "-d")
+    @Argument(trigger = "--directory", alt = "-d")
     private Path directory;
 
     @Override

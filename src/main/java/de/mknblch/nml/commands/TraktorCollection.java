@@ -19,7 +19,7 @@ public class TraktorCollection {
     private NMLMediator nml = null;
 
     @Description("Optional path to collection.nml")
-    @Argument(trigger = "--collection", alternative = "-c", transformer = PathTransformer.class, optional = true)
+    @Argument(trigger = "--collection", alt = "-c", transformer = PathTransformer.class, optional = true)
     protected Path collection = null;
 
     public NML getNml() {

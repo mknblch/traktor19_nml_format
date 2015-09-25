@@ -22,7 +22,7 @@ public class PlaylistList extends TraktorCollection implements Runnable {
     private static final String INDENT = "   ";
 
     @Description("Verbose output")
-    @Argument(trigger = "--verbose", alternative = "-v", length = 0, optional = true)
+    @Argument(trigger = "--verbose", alt = "-v", length = 0, optional = true)
     private boolean verbose = false;
 
     @Override

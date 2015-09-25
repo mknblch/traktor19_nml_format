@@ -17,15 +17,15 @@ import java.nio.file.Path;
 public class BackupCreate extends TraktorCollection implements Runnable {
 
     @Description("Verbose output")
-    @Argument(trigger = "--verbose", alternative = "-v", length = 0, optional = true)
+    @Argument(trigger = "--verbose", alt = "-v", length = 0, optional = true)
     private boolean verbose = false;
 
     @Description("Optional backup name")
-    @Argument(trigger = "--name", alternative = "-n", optional = true)
+    @Argument(trigger = "--name", alt = "-n", optional = true)
     private String name = null;
 
     @Description("Optional target path")
-    @Argument(trigger = "--target", alternative = "-t", transformer = PathTransformer.class, optional = true)
+    @Argument(trigger = "--target", alt = "-t", transformer = PathTransformer.class, optional = true)
     private Path target = null;
 
     @Override

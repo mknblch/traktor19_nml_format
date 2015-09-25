@@ -16,7 +16,7 @@ import java.nio.file.Path;
 public class PlaylistSyncAll extends TraktorCollection implements Runnable {
 
     @Description("Path to directory")
-    @Argument(trigger = "--directory", alternative = "-d")
+    @Argument(trigger = "--directory", alt = "-d")
     protected Path directory;
 
     @Override

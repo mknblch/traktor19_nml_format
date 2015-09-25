@@ -16,7 +16,7 @@ import java.util.Date;
 public class BackupList extends TraktorCollection implements Runnable {
 
     @Description("Verbose output")
-    @Argument(trigger = "--verbose", alternative = "-v", length = 0, optional = true)
+    @Argument(trigger = "--verbose", alt = "-v", length = 0, optional = true)
     private boolean verbose = false;
 
     @Override
