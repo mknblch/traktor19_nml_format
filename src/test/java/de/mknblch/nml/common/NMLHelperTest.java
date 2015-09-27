@@ -3,14 +3,13 @@ package de.mknblch.nml.common;
 import de.mknblch.nml.entities.NML;
 import de.mknblch.nml.mediator.NMLHelper;
 import de.mknblch.nml.mediator.NMLMediator;
-import de.mknblch.nml.mediator.NMLSerializer;
+import de.mknblch.nml.mediator.XMLSerializer;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.nio.file.Paths;
-import java.util.Iterator;
 
 /**
  * Created by mknblch on 06.09.2015.
@@ -22,7 +21,7 @@ public class NMLHelperTest {
 
     @BeforeClass
     public static void setup() throws JAXBException {
-        nml = new NMLSerializer<>(NML.class).unmarshal(new File(COLLECTION_X));
+        nml = new XMLSerializer<>(NML.class).unmarshal(new File(COLLECTION_X));
     }
 
 
@@ -30,7 +29,6 @@ public class NMLHelperTest {
     public void testRemovePlaylist() throws Exception {
         final NMLMediator editor = new NMLMediator(Paths.get(COLLECTION_X));
         editor.removePlaylists();
-        editor.dump();
         editor.save();
     }
 

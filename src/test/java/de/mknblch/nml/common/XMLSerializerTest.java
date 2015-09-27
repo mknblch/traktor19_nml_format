@@ -1,7 +1,7 @@
 package de.mknblch.nml.common;
 
 import de.mknblch.nml.entities.NML;
-import de.mknblch.nml.mediator.NMLSerializer;
+import de.mknblch.nml.mediator.XMLSerializer;
 import org.junit.Test;
 
 import java.io.File;
@@ -18,7 +18,7 @@ public class XMLSerializerTest {
     @Test
     public void testLoadAndSave() throws Exception {
 
-        final NMLSerializer<NML> serializer = new NMLSerializer<>(NML.class);
+        final XMLSerializer<NML> serializer = new XMLSerializer<>(NML.class);
 
         final NML nml = serializer.unmarshal(new File(COLLECTION_X));
 

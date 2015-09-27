@@ -8,23 +8,33 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static java.nio.file.StandardCopyOption.*;
 
 /**
  * Created by mknblch on 18.09.2015.
  */
 public class BackupTools {
 
-    public static final String COLLECTION_BACKUP = "collection_backup";
-    public static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMddhhmmss");
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmmss");
+    private static final String COLLECTION_NAME_FORMAT = "%s_%s.nml";
+    private static final String COLLECTION_BACKUP = "collection_backup";
+    private static final String FILE_SUFFIX = ".nml";
+
+    private static final Comparator<File> BY_MODIFIED_DATE = (a, b) -> {
+        final long am = a.lastModified();
+        final long bm = b.lastModified();
+        return am > bm ? -1 : 1;
+    };
+
+    //
 
     private final Path traktorPath;
     private Path collectionPath;
+
+    //
 
     public BackupTools() throws IOException {
         this.traktorPath = CollectionPathFinder.INSTANCE.getTraktorPath();
@@ -55,23 +65,19 @@ public class BackupTools {
                 .map(Path::toAbsolutePath)
                 .filter(this::isBackupFile)
                 .map(Path::toFile)
-                .sorted((a, b) -> {
-                    final long am = a.lastModified();
-                    final long bm = b.lastModified();
-                    return am > bm ? -1 : 1;
-                });
+                .sorted(BY_MODIFIED_DATE);
     }
 
     public void revertTo(Path backup) throws IOException {
         Files.copy(backup, collectionPath,
-                REPLACE_EXISTING,
-                COPY_ATTRIBUTES);
+                StandardCopyOption.REPLACE_EXISTING,
+                StandardCopyOption.COPY_ATTRIBUTES);
     }
 
 
     public Path revertNamed(String name) throws IOException {
         final List<File> collect = backupFiles()
-                .filter(p -> p.toString().endsWith(COLLECTION_BACKUP + "_" + name + ".nml"))
+                .filter(p -> p.toString().endsWith(COLLECTION_BACKUP + "_" + name + FILE_SUFFIX))
                 .collect(Collectors.toList());
         if (collect.size() == 0) {
             throw new IllegalArgumentException("Backup " + name + " not found");
@@ -89,16 +95,19 @@ public class BackupTools {
     }
 
     private String buildCollectionName(String name) {
-        return String.format("%s_%s.nml",
+        return String.format(COLLECTION_NAME_FORMAT,
                 COLLECTION_BACKUP,
                 name);
     }
 
     private boolean isBackupFile(Path path) {
-        if (!path.toString().toLowerCase().endsWith(".nml")) {
-            return false;
-        }
-        return path.getFileName().toString().startsWith(COLLECTION_BACKUP);
+        return path.toString()
+                .toLowerCase()
+                .endsWith(FILE_SUFFIX) &&
+
+                path.getFileName()
+                .toString()
+                .startsWith(COLLECTION_BACKUP);
     }
 
 }

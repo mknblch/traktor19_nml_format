@@ -2,7 +2,6 @@ package de.mknblch.nml.mediator;
 
 import de.mknblch.nml.common.FileHelper;
 import de.mknblch.nml.common.FileLocation;
-import de.mknblch.nml.common.ObjectDump;
 import de.mknblch.nml.entities.*;
 
 import javax.xml.bind.JAXBException;
@@ -20,27 +19,21 @@ public class NMLMediator {
 
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
     public static final String ROOT = "$ROOT";
+    public static final String AUTHORTYPE = "importer";
 
     private final NML nml;
-    private final NMLSerializer<NML> serializer;
+    private final XMLSerializer<NML> serializer;
     private final Map<String, String> volumes = new HashMap<>();
     private final Path path;
 
     public NMLMediator(Path pathToNML) throws JAXBException {
         path = pathToNML;
-        serializer = new NMLSerializer<>(NML.class);
+        serializer = new XMLSerializer<>(NML.class);
         nml = serializer.unmarshal(pathToNML.toFile());
     }
 
     public void save() throws JAXBException {
         serializer.marshal(nml, path.toFile());
-    }
-
-    public void dump() {
-        new ObjectDump()
-                .setShowType(true)
-                .scan(nml)
-                .printDump();
     }
 
     public NML getNml() {
@@ -64,18 +57,26 @@ public class NMLMediator {
         if (null != entry) {
             return entry;
         }
-        entry = new ENTRY();
-        final List<Object> contentList = entry.getCONTENT();
-        final MODIFICATIONINFO modificationinfo = new MODIFICATIONINFO();
-        modificationinfo.setAUTHORTYPE("importer");
+        entry = createCollectionEntry(path);
+        nml.getCOLLECTION().getENTRY().add(entry);
+        normalizeCollection();
+        return entry;
+    }
+
+    private ENTRY createCollectionEntry(Path path) {
+        final ENTRY entry = new ENTRY();
+
         final INFO info = new INFO();
         info.setIMPORTDATE(DATE_FORMAT.format(new Date(System.currentTimeMillis())));
+
+        final MODIFICATIONINFO modificationinfo = new MODIFICATIONINFO();
+        modificationinfo.setAUTHORTYPE(AUTHORTYPE);
+
+        final List<Object> contentList = entry.getCONTENT();
         contentList.add(createLocation(path));
         contentList.add(modificationinfo);
         contentList.add(info);
-        final COLLECTION collection = nml.getCOLLECTION();
-        collection.getENTRY().add(entry);
-        normalizeCollection();
+
         return entry;
     }
 
@@ -84,9 +85,9 @@ public class NMLMediator {
         if (null == pl) {
             throw new IllegalArgumentException("Playlist " + playlist + " is unknown");
         }
-        final ENTRY e = new ENTRY();
-        e.getCONTENT().add(0, toPrimaryKey((LOCATION) getPrimaryContent(track)));
-        pl.getENTRY().add(e);
+        final ENTRY entry = new ENTRY();
+        entry.getCONTENT().add(0, toPrimaryKey((LOCATION) getPrimaryContent(track)));
+        pl.getENTRY().add(entry);
         normalizePlaylist(pl);
     }
 

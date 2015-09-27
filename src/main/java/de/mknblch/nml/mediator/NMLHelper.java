@@ -57,7 +57,6 @@ public class NMLHelper {
     }
 
     public static void addToPlaylistIfUnknown(PLAYLIST playlist, ENTRY entry) {
-        final PRIMARYKEY key = (PRIMARYKEY) entry.getCONTENT().get(0);
         if (playlist.getENTRY().stream().anyMatch(e -> primaryKeyEquals(e, entry))) {
             return;
         }
