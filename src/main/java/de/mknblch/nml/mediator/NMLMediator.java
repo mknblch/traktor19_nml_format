@@ -4,7 +4,6 @@ import de.mknblch.nml.common.FileHelper;
 import de.mknblch.nml.common.FileLocation;
 import de.mknblch.nml.entities.*;
 
-import javax.xml.bind.JAXBException;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -22,18 +21,10 @@ public class NMLMediator {
     public static final String AUTHORTYPE = "importer";
 
     private final NML nml;
-    private final XMLSerializer<NML> serializer;
     private final Map<String, String> volumes = new HashMap<>();
-    private final Path path;
 
-    public NMLMediator(Path pathToNML) throws JAXBException {
-        path = pathToNML;
-        serializer = new XMLSerializer<>(NML.class);
-        nml = serializer.unmarshal(pathToNML.toFile());
-    }
-
-    public void save() throws JAXBException {
-        serializer.marshal(nml, path.toFile());
+    public NMLMediator(NML nml) {
+        this.nml = nml;
     }
 
     public NML getNml() {

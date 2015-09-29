@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'idea'
 
 sourceCompatibility = 1.8
-version = '0.1.1-SNAPSHOT'
+version = '0.2.0-SNAPSHOT'
 ext {
     MAIN_CLASS='de.mknblch.nml.Launcher'
     EXPORT_PATH = "C:/Users/mk/bin/"
