@@ -1,0 +1,65 @@
+import java.nio.file.Files
+import java.nio.file.Paths
+
+task writeVersion << {
+    def currentVersion = "version=" + rootProject.name+"-"+rootProject.version
+    println(":writeVersion " + currentVersion)
+    def versionFile = Paths.get(rootProject.rootDir.toString(), "src", "main", "resources", "properties")
+    versionFile.toFile().text = currentVersion
+}
+
+task setupEnvironment << {
+    def root = rootProject.rootDir.toString()
+    def srcMainJava = Paths.get(root, "src", "main", "java")
+    def srcTestJava = Paths.get(root, "src", "test", "java")
+    def srcMainResources = Paths.get(root, "src", "main", "resources")
+    def srcTestResources = Paths.get(root, "src", "test", "resources")
+
+    println ("Creating directory structure..")
+    Files.createDirectories(srcMainJava)
+    Files.createDirectories(srcTestJava)
+    Files.createDirectories(srcMainResources)
+    Files.createDirectories(srcTestResources)
+}
+
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': project.name,
+                'Implementation-Version': project.version,
+                'Main-Class': MAIN_CLASS
+    }
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+//
+
+task expToWin(type: Copy) {
+    from 'build/libs/'
+    into JAR_PATH
+    include '*.jar'
+}
+
+//
+
+task makeBat << {
+    def jarName = rootProject.name + "-" + rootProject.version + ".jar"
+    Paths.get(EXPORT_PATH, rootProject.name + ".bat")
+        .toFile()
+        .text =
+            "@ECHO OFF" + "\r\n" +
+            "java -jar " + JAR_PATH + jarName + " %*"
+}
+
+task makeBash << {
+    def jarName = rootProject.name + "-" + rootProject.version + ".jar"
+    Paths.get(EXPORT_PATH, rootProject.name)
+        .toFile()
+        .text =
+            "#!/bin/bash" + "\n" +
+            "java -jar /Users/pexx/bin/" + jarName + ' $@'
+}
+
