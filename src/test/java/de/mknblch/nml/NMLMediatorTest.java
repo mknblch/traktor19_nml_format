@@ -2,8 +2,7 @@ package de.mknblch.nml;
 
 import de.mknblch.nml.common.ObjectDump;
 import de.mknblch.nml.mediator.NMLMediator;
-import de.mknblch.nml.entities.ENTRY;
-import de.mknblch.nml.entities.PRIMARYKEY;
+import de.mknblch.nml.entities.traktor.v2_9_1.ENTRY;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -12,7 +11,6 @@ import javax.xml.bind.JAXBException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;

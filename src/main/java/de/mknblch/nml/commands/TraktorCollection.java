@@ -2,7 +2,7 @@ package de.mknblch.nml.commands;
 
 import de.mknblch.nml.common.CollectionPathFinder;
 import de.mknblch.nml.mediator.NMLMediator;
-import de.mknblch.nml.entities.NML;
+import de.mknblch.nml.entities.traktor.v2_9_1.NML;
 import de.mknblch.params.annotations.Argument;
 import de.mknblch.params.annotations.Description;
 import de.mknblch.params.transformer.PathTransformer;

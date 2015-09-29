@@ -1,6 +1,6 @@
 package de.mknblch.nml.common;
 
-import de.mknblch.nml.entities.NML;
+import de.mknblch.nml.entities.traktor.v2_9_1.NML;
 import de.mknblch.nml.mediator.XMLSerializer;
 import org.junit.Test;
 

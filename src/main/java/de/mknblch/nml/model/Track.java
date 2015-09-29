@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by mknblch on 28.09.2015.
  */
-public interface Track {
+public interface Track<T extends Context> {
 
     Path getPath();
 

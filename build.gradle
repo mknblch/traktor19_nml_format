@@ -16,7 +16,13 @@ repositories {
 }
 
 
+configurations {
+    jaxb
+}
+
+
 dependencies {
+    jaxb group: 'com.sun.xml.bind', name: 'jaxb-xjc', version: '2.2.4-1'
 
     compile 'de.mknblch.params:params:1.4.1-SNAPSHOT'
 
@@ -27,34 +33,28 @@ dependencies {
 
 ///////////////////////
 
-
-configurations {
-    jaxb
-}
-
-dependencies {
-    jaxb group: 'com.sun.xml.bind', name: 'jaxb-xjc', version: '2.2.4-1'
-}
-
-task jaxb () {
+def compileXSD = { String source ->
     // output directory
 
-    // perform actions
-    doLast {
-
-        ant.taskdef(name: 'xjc', classname: 'com.sun.tools.xjc.XJCTask', classpath: configurations.jaxb.asPath)
+    ant.taskdef(name: 'xjc', classname: 'com.sun.tools.xjc.XJCTask', classpath: configurations.jaxb.asPath)
 //        ant.jaxbTargetDir = file("${buildDir}/generated-sources")
-        ant.jaxbTargetDir = file("src/main/java")
+    ant.jaxbTargetDir = file("src/main/java")
 
-        // My-Webservice v1.10
-        ant.xjc(
-                destdir: '${jaxbTargetDir}',
-                package: 'de.mknblch.nml.entities',
-                schema: 'src/main/resources/collection.xsd',
-                binding: 'src/main/resources/binding.xml'
-        )
-    }
+    // My-Webservice v1.10
+    ant.xjc(
+            destdir: '${jaxbTargetDir}',
+            package: 'de.mknblch.nml.entities.' + source,
+            schema: 'src/main/resources/entities/' + source.replace('.', '/') + '/collection.xsd',
+            binding: 'src/main/resources/entities/' + source.replace('.', '/') + '/binding.xml'
+    )
 }
+
+task jaxb() {
+
+    compileXSD("traktor.v2_9_1")
+
+}
+
 
 
 test.onlyIf {false}

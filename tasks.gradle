@@ -1,6 +1,7 @@
 import java.nio.file.Files
 import java.nio.file.Paths
 
+
 task writeVersion << {
     def currentVersion = "version=" + rootProject.name+"-"+rootProject.version
     println(":writeVersion " + currentVersion)
@@ -62,4 +63,3 @@ task makeBash << {
             "#!/bin/bash" + "\n" +
             "java -jar /Users/pexx/bin/" + jarName + ' $@'
 }
-

@@ -8,24 +8,18 @@ import java.util.Set;
 /**
  * Created by mknblch on 28.09.2015.
  */
-public interface Library extends Set<Track> {
+public interface Library<T extends Context> extends Set<Track<T>> {
 
     /**
-     * @return mother program name e.g. Traktor / Scratch Live
+     * import track at path and return a track view to it.
+     * if the track is already contained in this set the known
+     * value is returned
+     * @param path to the Track
+     * @return Track-View to Track at path
+     * @throws FileNotFoundException
+     * @throws IOException
      */
-    String getName();
-
-    /**
-     * @return program version e.g. 2.10.0
-     */
-    String getVersion();
-
-    /**
-     * import track at path
-     * @param path
-     * @return
-     */
-    Track importTrack(Path path) throws LibraryException, FileNotFoundException, IOException;
+    Track<T> importTrack(Path path) throws FileNotFoundException, IOException;
 
     boolean containsTrackAt(Path path) throws FileNotFoundException;
 }

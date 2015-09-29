@@ -4,7 +4,7 @@ import de.mknblch.nml.common.FileHelper;
 import de.mknblch.nml.diff.PlaylistDiffBuilder;
 import de.mknblch.nml.diff.PlaylistDiffResult;
 import de.mknblch.nml.common.TypeHelper;
-import de.mknblch.nml.entities.PLAYLIST;
+import de.mknblch.nml.entities.traktor.v2_9_1.PLAYLIST;
 import de.mknblch.params.annotations.Argument;
 import de.mknblch.params.annotations.Command;
 import de.mknblch.params.annotations.Description;

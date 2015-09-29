@@ -1,9 +1,5 @@
 package de.mknblch.nml.mediator;
 
-import de.mknblch.nml.entities.ENTRY;
-import de.mknblch.nml.entities.NML;
-import de.mknblch.nml.entities.PRIMARYKEY;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;

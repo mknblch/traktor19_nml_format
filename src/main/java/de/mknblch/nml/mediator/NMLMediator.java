@@ -2,7 +2,7 @@ package de.mknblch.nml.mediator;
 
 import de.mknblch.nml.common.FileHelper;
 import de.mknblch.nml.common.FileLocation;
-import de.mknblch.nml.entities.*;
+import de.mknblch.nml.entities.traktor.v2_9_1.*;
 
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;

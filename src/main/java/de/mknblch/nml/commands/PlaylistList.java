@@ -1,14 +1,10 @@
 package de.mknblch.nml.commands;
 
-import de.mknblch.nml.entities.ENTRY;
-import de.mknblch.nml.entities.NODE;
-import de.mknblch.nml.mediator.NMLHelper;
-import de.mknblch.nml.entities.PRIMARYKEY;
+import de.mknblch.nml.entities.traktor.v2_9_1.NODE;
+import de.mknblch.nml.entities.traktor.v2_9_1.PRIMARYKEY;
 import de.mknblch.params.annotations.Argument;
 import de.mknblch.params.annotations.Command;
 import de.mknblch.params.annotations.Description;
-
-import java.nio.file.Path;
 
 import static de.mknblch.nml.mediator.NMLHelper.*;
 

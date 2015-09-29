@@ -1,7 +1,7 @@
 package de.mknblch.nml.diff;
 
 import de.mknblch.nml.common.FileHelper;
-import de.mknblch.nml.entities.PLAYLIST;
+import de.mknblch.nml.entities.traktor.v2_9_1.PLAYLIST;
 import de.mknblch.nml.mediator.NMLHelper;
 import de.mknblch.nml.mediator.NMLMediator;
 
