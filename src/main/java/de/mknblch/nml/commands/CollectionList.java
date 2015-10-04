@@ -1,8 +1,8 @@
 package de.mknblch.nml.commands;
 
 import de.mknblch.nml.mediator.NMLHelper;
-import de.mknblch.nml.entities.traktor.v2_9_1.ENTRY;
-import de.mknblch.nml.entities.traktor.v2_9_1.LOCATION;
+import de.mknblch.nml.entities.traktor_2_9_1.ENTRY;
+import de.mknblch.nml.entities.traktor_2_9_1.LOCATION;
 import de.mknblch.params.annotations.Argument;
 import de.mknblch.params.annotations.Command;
 import de.mknblch.params.annotations.Description;

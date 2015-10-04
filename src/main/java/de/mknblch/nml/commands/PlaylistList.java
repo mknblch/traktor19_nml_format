@@ -1,7 +1,7 @@
 package de.mknblch.nml.commands;
 
-import de.mknblch.nml.entities.traktor.v2_9_1.NODE;
-import de.mknblch.nml.entities.traktor.v2_9_1.PRIMARYKEY;
+import de.mknblch.nml.entities.traktor_2_9_1.NODE;
+import de.mknblch.nml.entities.traktor_2_9_1.PRIMARYKEY;
 import de.mknblch.params.annotations.Argument;
 import de.mknblch.params.annotations.Command;
 import de.mknblch.params.annotations.Description;

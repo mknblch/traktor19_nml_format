@@ -10,7 +10,5 @@ public interface Track<T extends Context> {
 
     Path getPath();
 
-    Path getFile();
-
-    Map<String, Object> getProperties();
+    String getFileName();
 }

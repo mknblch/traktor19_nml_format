@@ -51,7 +51,7 @@ def compileXSD = { String source ->
 
 task jaxb() {
 
-    compileXSD("traktor.v2_9_1")
+    compileXSD("traktor_2_9_1")
 
 }
 

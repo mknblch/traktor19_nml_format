@@ -2,7 +2,7 @@ package de.mknblch.nml;
 
 import de.mknblch.nml.common.ObjectDump;
 import de.mknblch.nml.mediator.NMLMediator;
-import de.mknblch.nml.entities.traktor.v2_9_1.ENTRY;
+import de.mknblch.nml.entities.traktor_2_9_1.ENTRY;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
