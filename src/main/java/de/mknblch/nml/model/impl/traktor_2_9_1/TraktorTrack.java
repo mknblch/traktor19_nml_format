@@ -6,17 +6,16 @@ import de.mknblch.nml.mediator.NMLHelper;
 import de.mknblch.nml.model.Track;
 
 import java.nio.file.Path;
-import java.util.Map;
 import java.util.Objects;
 
 /**
  * Created by mknblch on 02.10.2015.
  */
-public class TraktorTrack implements Track<Traktor> {
+public class TraktorTrack implements Track<Traktor291> {
 
     private final ENTRY entry;
 
-    public TraktorTrack(ENTRY entry) {
+    TraktorTrack(ENTRY entry) {
         this.entry = entry;
     }
 

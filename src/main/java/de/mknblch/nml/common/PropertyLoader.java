@@ -2,7 +2,11 @@ package de.mknblch.nml.common;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by mknblch on 20.09.2015.
@@ -21,6 +25,13 @@ public class PropertyLoader {
 
     public String get(String name, String def) {
         return properties.getProperty(name, def);
+    }
+
+    public List<String> getList(String name) {
+        return Stream.of(get(name, "").split("(;\\s*)"))
+                .filter(Objects::nonNull)
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.toList());
     }
 
     public static PropertyLoader init(String path) {

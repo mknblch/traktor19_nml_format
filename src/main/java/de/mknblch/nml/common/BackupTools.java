@@ -37,8 +37,8 @@ public class BackupTools {
     //
 
     public BackupTools() throws IOException {
-        this.traktorPath = CollectionPathFinder.INSTANCE.getTraktorPath();
-        this.collectionPath = CollectionPathFinder.INSTANCE.getCollectionPath();
+        this.traktorPath = TraktorPathFinder.INSTANCE.getTraktorPath("2.9.1");
+        this.collectionPath = TraktorPathFinder.INSTANCE.getCollectionPath("2.9.1");
     }
 
     public Path createBackup(Path target) throws IOException {

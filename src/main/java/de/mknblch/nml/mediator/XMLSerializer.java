@@ -11,18 +11,19 @@ import java.io.File;
  */
 public class XMLSerializer<T> {
 
-    private final JAXBContext jaxbContext;
     private final Unmarshaller unmarshaller;
     private final Marshaller marshaller;
 
-    public XMLSerializer(Class<T> clazz) throws JAXBException {
+    public XMLSerializer(Class<T> clazz, boolean standalone) throws JAXBException {
 
-        jaxbContext = JAXBContext.newInstance(clazz);
+        final JAXBContext jaxbContext = JAXBContext.newInstance(clazz);
 
         marshaller = jaxbContext.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
-        marshaller.setProperty("com.sun.xml.internal.bind.xmlHeaders", "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
+        if (standalone) {
+            marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+            marshaller.setProperty("com.sun.xml.internal.bind.xmlHeaders", "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
+        }
         unmarshaller = jaxbContext.createUnmarshaller();
     }
 

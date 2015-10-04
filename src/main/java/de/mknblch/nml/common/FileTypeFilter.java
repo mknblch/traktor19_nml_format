@@ -7,9 +7,9 @@ import java.util.List;
 /**
  * Created by mknblch on 13.09.2015.
  */
-public class TypeHelper {
+public class FileTypeFilter {
 
-    public static final TypeHelper INSTANCE = new TypeHelper();
+    public static final FileTypeFilter INSTANCE = new FileTypeFilter();
 
     private final List<String> supported = new ArrayList<String>() {{
         add(".mp3");

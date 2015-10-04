@@ -14,17 +14,17 @@ import static de.mknblch.nml.mediator.NMLHelper.getPrimaryContent;
 /**
  * Created by mknblch on 04.10.2015.
  */
-public class TraktorPlaylists implements Playlists<Traktor> {
+public class TraktorPlaylists implements Playlists<Traktor291> {
 
     private final PLAYLISTS playlists;
 
-    public TraktorPlaylists(PLAYLISTS playlists) {
+    TraktorPlaylists(PLAYLISTS playlists) {
         this.playlists = playlists;
     }
 
     @Override
-    public Playlist<Traktor> create(String playlistName) {
-        final Playlist<Traktor> playlist = get(playlistName);
+    public Playlist<Traktor291> create(String playlistName) {
+        final Playlist<Traktor291> playlist = get(playlistName);
         if (null != playlist) {
             return playlist;
         }
@@ -46,7 +46,7 @@ public class TraktorPlaylists implements Playlists<Traktor> {
     }
 
     @Override
-    public Playlist<Traktor> get(String name) {
+    public Playlist<Traktor291> get(String name) {
         final Optional<NODE> node = playlists.getNODE().getSUBNODES().getNODE().parallelStream()
                 .filter(n -> name.equals(n.getNAME()))
                 .findFirst();
@@ -54,13 +54,13 @@ public class TraktorPlaylists implements Playlists<Traktor> {
     }
 
     @Override
-    public List<Playlist<Traktor>> list() {
+    public List<Playlist<Traktor291>> list() {
         return playlists.getNODE().getSUBNODES().getNODE().stream()
                 .map(TraktorPlaylist::new)
                 .collect(Collectors.toList());
     }
 
-    private Playlist<Traktor> createNewPlaylist(String playlistName) {
+    private Playlist<Traktor291> createNewPlaylist(String playlistName) {
         final NODE root = playlists.getNODE();
 
         final PLAYLIST tPlaylist = new PLAYLIST();

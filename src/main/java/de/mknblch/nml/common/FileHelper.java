@@ -45,7 +45,7 @@ public class FileHelper {
     public static List<Path> fetchSongPaths(Path directory) throws IOException {
         return Files.walk(normalizePath(directory))
                 .map(FileHelper::normalizePath)
-                .filter(TypeHelper.INSTANCE::isSupported)
+                .filter(FileTypeFilter.INSTANCE::isSupported)
                 .collect(Collectors.toList());
     }
 

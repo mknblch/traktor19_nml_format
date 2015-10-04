@@ -1,6 +1,5 @@
 package de.mknblch.nml;
 
-import de.mknblch.nml.commands.*;
 import de.mknblch.nml.common.PropertyLoader;
 import de.mknblch.params.Params;
 
@@ -17,19 +16,6 @@ public class Launcher {
 
         new Params()
                 .setDescription(loader.get("version"))
-                .add(BackupCreate.class)
-                .add(BackupList.class)
-                .add(BackupRevert.class)
-                .add(Clear.class)
-                .add(CollectionImport.class)
-                .add(CollectionList.class)
-                .add(Dump.class)
-                .add(PlaylistImport.class)
-                .add(PlaylistList.class)
-                .add(PlaylistDiff.class)
-                .add(PlaylistDiffAll.class)
-                .add(PlaylistSync.class)
-                .add(PlaylistSyncAll.class)
                 .runOrDie(args);
     }
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,9 +13,9 @@ import java.util.stream.Collectors;
 /**
  * Created by mknblch on 14.09.2015.
  */
-public class CollectionPathFinder {
+public class TraktorPathFinder {
 
-    public static final CollectionPathFinder INSTANCE = new CollectionPathFinder();
+    public static final TraktorPathFinder INSTANCE = new TraktorPathFinder();
 
     private static final String TRAKTOR_RECOGNIZER = "traktor";
     private static final Pattern VERSION_PATTERN = Pattern.compile("(\\d+)\\.(\\d+)(?:\\.(\\d+).*)?");
@@ -39,19 +40,33 @@ public class CollectionPathFinder {
                 .collect(Collectors.toSet());
     }
 
-    public Path getTraktorPath() throws IOException {
+    public Path getTraktorPath(String version) throws IOException {
         return Paths.get(
                 getUserHome(),
                 SUBDIRECTORY_PART,
                 NI_PART,
-                TRAKTOR_PATH_PREFIX + getHighestVersion(getTraktorVersions()))
-                .toAbsolutePath();
+                TRAKTOR_PATH_PREFIX + version)
+                    .toAbsolutePath();
     }
 
-    public Path getCollectionPath() throws IOException {
+    public Path getCollectionPath(String version) throws IOException {
         return Paths.get(
-                getTraktorPath().toString(),
+                getTraktorPath(version).toString(),
                 FILE_PART);
+    }
+
+    public String getHighestVersion() throws IOException {
+        return getTraktorVersions()
+                .stream()
+                .reduce("", (a, b) -> rate(a) > rate(b) ? a : b);
+    }
+
+    private Path getNIPath() {
+        return Paths.get(getUserHome(), SUBDIRECTORY_PART, NI_PART);
+    }
+
+    private String getUserHome() {
+        return FileHelper.normalizePathString(System.getProperty(USER_HOME));
     }
 
     private static long rate(String version) {
@@ -65,17 +80,5 @@ public class CollectionPathFinder {
         v += null != g2 ? Long.parseLong(g2) * 1000 : 0;
         v += null != g3 ? Long.parseLong(g3) : 0;
         return v;
-    }
-
-    private static String getHighestVersion(Set<String> versions) throws IOException {
-        return versions.stream().reduce("", (a, b) -> rate(a) > rate(b) ? a : b);
-    }
-
-    private Path getNIPath() {
-        return Paths.get(getUserHome(), SUBDIRECTORY_PART, NI_PART);
-    }
-
-    private String getUserHome() {
-        return FileHelper.normalizePathString(System.getProperty(USER_HOME));
     }
 }

@@ -3,7 +3,6 @@ package de.mknblch.nml.model.impl.traktor_2_9_1;
 import de.mknblch.nml.common.FileHelper;
 import de.mknblch.nml.common.FileLocation;
 import de.mknblch.nml.entities.traktor_2_9_1.*;
-import de.mknblch.nml.mediator.NMLHelper;
 import de.mknblch.nml.model.Library;
 import de.mknblch.nml.model.Playlists;
 import de.mknblch.nml.model.Track;
@@ -15,25 +14,24 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static de.mknblch.nml.mediator.NMLHelper.getPrimaryContent;
-import static de.mknblch.nml.mediator.NMLHelper.locationToString;
 import static de.mknblch.nml.mediator.NMLHelper.stringToTraktorKey;
 
 /**
  * Created by mknblch on 02.10.2015.
  */
-public class TraktorLibrary implements Library<Traktor>{
+public class TraktorLibrary implements Library<Traktor291>{
 
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
     public static final String AUTHORTYPE = "importer";
 
-    private final NML nml;
+    final NML nml;
 
-    public TraktorLibrary(NML nml) {
+    TraktorLibrary(NML nml) {
         this.nml = nml;
     }
 
     @Override
-    public Track<Traktor> importTrack(Path path) throws IOException {
+    public Track<Traktor291> importTrack(Path path) throws IOException {
         final ENTRY entry = getCollectionEntry(path);
         if (null != entry) {
             return new TraktorTrack(entry);
@@ -45,14 +43,14 @@ public class TraktorLibrary implements Library<Traktor>{
     }
 
     @Override
-    public List<Track<Traktor>> getTracks() {
+    public List<Track<Traktor291>> getTracks() {
         return nml.getCOLLECTION().getENTRY().stream()
                 .map(TraktorTrack::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Playlists<Traktor> getPlaylists() {
+    public Playlists<Traktor291> getPlaylists() {
         return new TraktorPlaylists(nml.getPLAYLISTS());
     }
     private ENTRY getCollectionEntry(Path path) {
