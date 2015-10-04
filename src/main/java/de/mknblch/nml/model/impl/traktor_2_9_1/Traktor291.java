@@ -17,7 +17,6 @@ public class Traktor291 implements Context {
     private final Path collectionPath;
     private TraktorLibrary library;
 
-
     Traktor291(Path collectionPath) throws Exception {
         this.collectionPath = collectionPath;
         serializer = new XMLSerializer<>(NML.class, true);

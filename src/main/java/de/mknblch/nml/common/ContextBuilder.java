@@ -32,9 +32,7 @@ public class ContextBuilder {
         final Class<?> contextClass = registry.get(version);
         final Path collectionPath = pathFinder.getCollectionPath(version);
         final Constructor<?> constructor = contextClass.getDeclaredConstructor(Path.class);
-        final Object instance = constructor.newInstance(collectionPath);
-
-        return null;
+        return (Context) constructor.newInstance(collectionPath);
     }
 
     private void verifyVersion(String version) {
