@@ -23,11 +23,7 @@ public class BackupTools {
     private static final String COLLECTION_BACKUP = "collection_backup";
     private static final String FILE_SUFFIX = ".nml";
 
-    private static final Comparator<File> BY_MODIFIED_DATE = (a, b) -> {
-        final long am = a.lastModified();
-        final long bm = b.lastModified();
-        return am > bm ? -1 : 1;
-    };
+    private static final Comparator<File> BY_MODIFIED_DATE = (a, b) -> a.lastModified() > b.lastModified() ? -1 : 1;
 
     //
 
@@ -36,9 +32,9 @@ public class BackupTools {
 
     //
 
-    public BackupTools() throws IOException {
-        this.traktorPath = TraktorPathFinder.INSTANCE.getTraktorPath("2.9.1");
-        this.collectionPath = TraktorPathFinder.INSTANCE.getCollectionPath("2.9.1");
+    public BackupTools(String version) throws IOException {
+        this.traktorPath = TraktorPathFinder.INSTANCE.getTraktorPath(version);
+        this.collectionPath = TraktorPathFinder.INSTANCE.getCollectionPath(version);
     }
 
     public Path createBackup(Path target) throws IOException {
@@ -48,7 +44,6 @@ public class BackupTools {
         Files.copy(collectionPath, target);
         return target;
     }
-
 
     public Path createNamedBackup(String name) throws IOException {
         final Path target = Paths.get(

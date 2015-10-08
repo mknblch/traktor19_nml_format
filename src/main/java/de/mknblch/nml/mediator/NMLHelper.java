@@ -28,8 +28,6 @@ public class NMLHelper {
     }
 
     public static Path primaryKeyToPath(String primaryKey) {
-        // TODO WATCH
-//        primaryKey = primaryKey.replaceAll("&amp;", "&");
         primaryKey = primaryKey.replaceAll("/:", "/");
         return Paths.get(primaryKey);
     }
@@ -112,9 +110,6 @@ public class NMLHelper {
         if (clazz.isAssignableFrom(content.getClass())) {
             return (T) content;
         }
-//        if (content.getClass().isAssignableFrom(clazz)) {
-//        return (T) content;
-//        }
         throw new IllegalArgumentException("Invalid class cast");
     }
 
