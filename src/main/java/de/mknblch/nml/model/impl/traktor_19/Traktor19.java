@@ -1,7 +1,7 @@
 package de.mknblch.nml.model.impl.traktor_19;
 
-import de.mknblch.nml.entities.traktor_19.NML;
 import de.mknblch.nml.common.XMLSerializer;
+import de.mknblch.nml.entities.traktor_19.NML;
 import de.mknblch.nml.model.Context;
 import de.mknblch.nml.model.LibraryException;
 

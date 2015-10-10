@@ -15,10 +15,6 @@ class NMLHelper {
 
     public static final char[] UUID_CHARS = "abcdef0123456789".toCharArray();
 
-    public static String toKey(LOCATION location) {
-        return String.join("", location.getVOLUME(), location.getDIR(), location.getFILE());
-    }
-
     public static Path locationToPath(LOCATION location) {
         return Paths.get(locationToString(location.getVOLUME(), location.getDIR(), location.getFILE()));
     }
@@ -30,13 +26,6 @@ class NMLHelper {
     public static Path primaryKeyToPath(String primaryKey) {
         primaryKey = primaryKey.replaceAll("/:", "/");
         return Paths.get(primaryKey);
-    }
-
-    public static PRIMARYKEY locationToPrimaryKey(LOCATION location) {
-        final PRIMARYKEY primarykey = new PRIMARYKEY();
-        primarykey.setTYPE("TRACK");
-        primarykey.setKEY(toKey(location));
-        return primarykey;
     }
 
     public static String locationToString(String... location) {
@@ -66,7 +55,6 @@ class NMLHelper {
         throw new IllegalArgumentException("Invalid ENTRY Type");
     }
 
-
     public static String generateUUID() {
         final Random random = new Random(System.currentTimeMillis());
         final StringBuilder builder = new StringBuilder();
@@ -81,9 +69,6 @@ class NMLHelper {
         if (clazz.isAssignableFrom(content.getClass())) {
             return (T) content;
         }
-//        if (content.getClass().isAssignableFrom(clazz)) {
-//        return (T) content;
-//        }
         throw new IllegalArgumentException("Invalid class cast");
     }
 
