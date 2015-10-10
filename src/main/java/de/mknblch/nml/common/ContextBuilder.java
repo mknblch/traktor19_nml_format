@@ -1,7 +1,7 @@
 package de.mknblch.nml.common;
 
 import de.mknblch.nml.model.Context;
-import de.mknblch.nml.model.impl.traktor_2_9_1.Traktor291;
+import de.mknblch.nml.model.impl.traktor_19.Traktor19;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -16,7 +16,7 @@ import java.util.Map;
 public class ContextBuilder {
 
     private final Map<String, Class<?>> registry = new HashMap<String, Class<?>>() {{
-        put("2.9.1", Traktor291.class);
+        put("19", Traktor19.class);
     }};
 
     private final TraktorPathFinder pathFinder;
@@ -25,19 +25,15 @@ public class ContextBuilder {
         pathFinder = new TraktorPathFinder();
     }
 
-
-    public Context build() throws IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public Context build() throws IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, VersionExtractor.NoCollectionException {
         final String version = pathFinder.getHighestVersion();
-        verifyVersion(version);
-        final Class<?> contextClass = registry.get(version);
         final Path collectionPath = pathFinder.getCollectionPath(version);
-        final Constructor<?> constructor = contextClass.getDeclaredConstructor(Path.class);
-        return (Context) constructor.newInstance(collectionPath);
-    }
-
-    private void verifyVersion(String version) {
+        final String collectionVersion = VersionExtractor.getCollectionVersion(collectionPath);
         if (!registry.containsKey(version)) {
             throw new IllegalArgumentException("Actual Traktor version [" + version + "] is not supported!");
         }
+        final Class<?> contextClass = registry.get(collectionVersion);
+        final Constructor<?> constructor = contextClass.getDeclaredConstructor(Path.class);
+        return (Context) constructor.newInstance(collectionPath);
     }
 }

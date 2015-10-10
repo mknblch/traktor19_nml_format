@@ -40,6 +40,10 @@ public class TraktorPathFinder {
                 .collect(Collectors.toSet());
     }
 
+    public Path getTraktorPath() throws IOException {
+        return getTraktorPath(getHighestVersion());
+    }
+
     public Path getTraktorPath(String version) throws IOException {
         return Paths.get(
                 getUserHome(),
@@ -47,6 +51,10 @@ public class TraktorPathFinder {
                 NI_PART,
                 TRAKTOR_PATH_PREFIX + version)
                     .toAbsolutePath();
+    }
+
+    public Path getCollectionPath() throws IOException {
+        return getCollectionPath(getHighestVersion());
     }
 
     public Path getCollectionPath(String version) throws IOException {

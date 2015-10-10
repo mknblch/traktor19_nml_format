@@ -10,11 +10,6 @@ import java.nio.file.Path;
 public interface Context {
 
     /**
-     * @return mother program name e.g. Traktor / Scratch Live
-     */
-    String getName();
-
-    /**
      * @return program version e.g. 2.9.1
      */
     String getVersion();
