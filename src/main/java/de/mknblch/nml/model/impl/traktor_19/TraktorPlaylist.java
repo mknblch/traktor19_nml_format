@@ -47,7 +47,7 @@ public class TraktorPlaylist implements Playlist<Traktor19> {
     @Override
     public void removeTrack(Track<Traktor19> track) {
         node.getPLAYLIST().getENTRY().removeIf(entry ->
-                track.getPath().equals(NMLHelper.primaryKeyToPath(((PRIMARYKEY) entry.getCONTENT().get(0)).getKEY())));
+                track.getPath().equals(NMLHelper19.primaryKeyToPath(((PRIMARYKEY) entry.getCONTENT().get(0)).getKEY())));
     }
 
     @Override
@@ -57,14 +57,14 @@ public class TraktorPlaylist implements Playlist<Traktor19> {
     }
 
     @Override
-    public void addAll(List<Track<Traktor19>> tracks) {
+    public void addTracks(List<Track<Traktor19>> tracks) {
         tracks.stream().forEach(this::addTrack);
     }
 
     private PRIMARYKEY toPrimaryKey(Path path) {
         final PRIMARYKEY primarykey = new PRIMARYKEY();
         primarykey.setTYPE("TRACK");
-        primarykey.setKEY(NMLHelper.pathToPrimaryKey(path));
+        primarykey.setKEY(NMLHelper19.pathToPrimaryKey(path));
         return primarykey;
     }
 }

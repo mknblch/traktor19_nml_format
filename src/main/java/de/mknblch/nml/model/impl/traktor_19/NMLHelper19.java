@@ -1,17 +1,21 @@
 package de.mknblch.nml.model.impl.traktor_19;
 
 import de.mknblch.nml.common.FileHelper;
+import de.mknblch.nml.model.FileLocation;
 import de.mknblch.nml.entities.traktor_19.*;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Random;
 
 /**
  * Created by mknblch on 13.09.2015.
  */
-class NMLHelper {
+class NMLHelper19 {
+
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
 
     public static final char[] UUID_CHARS = "abcdef0123456789".toCharArray();
 
@@ -20,12 +24,16 @@ class NMLHelper {
     }
 
     public static String pathToPrimaryKey(Path path) {
-        return FileHelper.extractLocation(path).toPrimaryKey();
+        return extractLocation(path).toPrimaryKey();
     }
 
     public static Path primaryKeyToPath(String primaryKey) {
         primaryKey = primaryKey.replaceAll("/:", "/");
         return Paths.get(primaryKey);
+    }
+
+    public static Path primaryKeyToPath(PRIMARYKEY primaryKey) {
+        return primaryKeyToPath(primaryKey.getKEY());
     }
 
     public static String locationToString(String... location) {
@@ -36,6 +44,9 @@ class NMLHelper {
     }
 
     public static String traktorKeyToString(String key) {
+        if (null == key) {
+            return "";
+        }
         return key.replaceAll("/:", "/");
     }
 
@@ -79,4 +90,37 @@ class NMLHelper {
         }
         return e.getCONTENT().get(0);
     }
+
+    public static Path getPath(ENTRY entry) {
+        final Object primaryContent = getPrimaryContent(entry);
+        if (null == primaryContent) {
+            return null;
+        }
+        if (primaryContent instanceof PRIMARYKEY) {
+            return NMLHelper19.primaryKeyToPath((PRIMARYKEY) primaryContent);
+        }
+        if (primaryContent instanceof LOCATION) {
+            return NMLHelper19.locationToPath((LOCATION) primaryContent);
+        }
+        return null;
+    }
+
+    public static FileLocation extractLocation(Path path) {
+        String pathString = FileHelper.normalizePathToString(path);
+//        pathString = pathString.replaceAll("\\\\", "/");
+        final int firstSlash = pathString.indexOf("/", 1);
+        final int lastSlash = pathString.lastIndexOf("/");
+        if (firstSlash == -1 || lastSlash == -1) {
+            throw new IllegalArgumentException("Invalid path " + path);
+        }
+        String directory = null;
+        if (firstSlash != lastSlash) {
+            directory = pathString.substring(firstSlash, lastSlash + 1);
+        }
+        return new FileLocation(
+                pathString.substring(0, firstSlash),
+                directory,
+                pathString.substring(lastSlash + 1));
+    }
+
 }

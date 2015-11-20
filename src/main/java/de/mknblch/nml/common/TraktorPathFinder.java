@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collection;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -54,12 +53,12 @@ public class TraktorPathFinder {
     }
 
     public Path getCollectionPath() throws IOException {
-        return getCollectionPath(getHighestVersion());
+        return getCollectionPath(getTraktorPath());
     }
 
-    public Path getCollectionPath(String version) throws IOException {
+    public static Path getCollectionPath(Path traktorPath) {
         return Paths.get(
-                getTraktorPath(version).toString(),
+                traktorPath.toAbsolutePath().toString(),
                 FILE_PART);
     }
 

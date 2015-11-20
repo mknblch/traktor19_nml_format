@@ -15,10 +15,10 @@ public interface Playlist<T extends Context> {
 
     void addTrack(Track<T> track);
 
+    void addTracks(List<Track<T>> tracks);
+
     void removeTrack(Track<T> track);
 
     void clear();
-
-    void addAll(List<Track<T>> tracks);
 
 }

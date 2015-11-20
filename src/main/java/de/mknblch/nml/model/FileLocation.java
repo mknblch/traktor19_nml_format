@@ -1,4 +1,4 @@
-package de.mknblch.nml.common;
+package de.mknblch.nml.model;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

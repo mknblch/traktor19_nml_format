@@ -1,18 +1,23 @@
 apply plugin: 'java'
 apply plugin: 'idea'
+apply from: 'tasks.gradle'
+apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.8
-version = '0.2.0-SNAPSHOT'
-ext {
-    MAIN_CLASS='de.mknblch.nml.Launcher'
-    EXPORT_PATH = "C:/Users/mk/bin/"
-    JAR_PATH = "C:/Users/mk/bin/jars/"
-}
-apply from: 'tasks.gradle'
+version = '0.3.0-SNAPSHOT'
+group = "de.mknblch.nml"
 
 repositories {
     mavenLocal()
     mavenCentral()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
 }
 
 
@@ -23,8 +28,6 @@ configurations {
 
 dependencies {
     jaxb group: 'com.sun.xml.bind', name: 'jaxb-xjc', version: '2.2.4-1'
-
-    compile 'de.mknblch.params:params:1.4.1-SNAPSHOT'
 
     testCompile group: 'junit', name: 'junit', version: '4.11'
 
@@ -58,10 +61,8 @@ task jaxb() {
 
 
 test.onlyIf {false}
-//compileJava.dependsOn clean
 compileJava.dependsOn jaxb
-compileJava.dependsOn writeVersion;
-fatJar.dependsOn build
-expToWin.dependsOn fatJar
-makeBat.dependsOn expToWin
+//fatJar.dependsOn build
+//expToWin.dependsOn fatJar
+//makeBat.dependsOn expToWin
 

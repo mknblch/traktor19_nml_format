@@ -12,24 +12,6 @@ import java.util.stream.Collectors;
  */
 public class FileHelper {
 
-    public static FileLocation extractLocation(Path path) {
-        String pathString = normalizePathToString(path);
-        pathString = pathString.replaceAll("\\\\", "/");
-        final int firstSlash = pathString.indexOf("/", 1);
-        final int lastSlash = pathString.lastIndexOf("/");
-        if (firstSlash == -1 || lastSlash == -1) {
-            throw new IllegalArgumentException("Invalid path " + path);
-        }
-        String directory = null;
-        if (firstSlash != lastSlash) {
-            directory = pathString.substring(firstSlash, lastSlash + 1);
-        }
-        return new FileLocation(
-                pathString.substring(0, firstSlash),
-                directory,
-                pathString.substring(lastSlash + 1));
-    }
-
     public static Path normalizePath(Path in) {
         return Paths.get(normalizePathToString(in));
     }

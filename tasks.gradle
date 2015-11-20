@@ -8,6 +8,7 @@ task writeVersion << {
     def versionFile = Paths.get(rootProject.rootDir.toString(), "src", "main", "resources", "properties")
     versionFile.toFile().text = currentVersion
 }
+/*
 
 task setupEnvironment << {
     def root = rootProject.rootDir.toString()
@@ -63,3 +64,4 @@ task makeBash << {
             "#!/bin/bash" + "\n" +
             "java -jar /Users/pexx/bin/" + jarName + ' $@'
 }
+*/
