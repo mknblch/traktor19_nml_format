@@ -14,33 +14,50 @@ import static de.mknblch.nml.model.impl.traktor_19.NMLHelper19.stringToTraktorKe
 /**
  * Created by mknblch on 02.10.2015.
  */
-public class TraktorLibrary implements Library{
+public class TraktorLibrary implements Library {
 
     public static final String AUTHORTYPE = "importer";
 
-    final NML nml;
+    private final Context context;
 
-    TraktorLibrary(NML nml) {
+    private final NML nml;
+
+    TraktorLibrary(Context context, NML nml) {
+        this.context = context;
         this.nml = nml;
     }
 
     @Override
+    public Track getTrackById(String traktorKey) {
+        final Optional<ENTRY> entryOptional = nml.getCOLLECTION().getENTRY().parallelStream()
+                .filter(e -> traktorKey.equals(NMLHelper19.getTraktorKey(e)))
+                .findFirst();
+
+        return entryOptional.isPresent() ? new TraktorTrack(context, entryOptional.get()) : null;
+    }
+
+    @Override
+    public Track getTrack(Path path) {
+        return getTrackById(NMLHelper19.pathToTraktorKey(path));
+    }
+
+    @Override
+    public List<Track> listTracks() {
+        return nml.getCOLLECTION().getENTRY().stream()
+                .map(e -> new TraktorTrack(context, e))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Track importTrack(Path path) throws IOException {
-        final TraktorTrack track = getTrack(path);
+        final Track track = getTrack(path);
         if (null != track) {
             return track;
         }
         final ENTRY newEntry = createCollectionEntry(path);
         nml.getCOLLECTION().getENTRY().add(newEntry);
         nml.getCOLLECTION().setENTRIES(nml.getCOLLECTION().getENTRY().size());
-        return new TraktorTrack(newEntry);
-    }
-
-    @Override
-    public List<Track> listTracks() {
-        return nml.getCOLLECTION().getENTRY().stream()
-                .map(TraktorTrack::new)
-                .collect(Collectors.toList());
+        return new TraktorTrack(context, newEntry);
     }
 
     @Override
@@ -71,47 +88,19 @@ public class TraktorLibrary implements Library{
         final Optional<NODE> node = nml.getPLAYLISTS().getNODE().getSUBNODES().getNODE().parallelStream()
                 .filter(n -> nameOrPath.equals(n.getNAME()))
                 .findFirst();
-        return node.isPresent() ? new TraktorPlaylist(node.get()) : null;
+        return node.isPresent() ? new TraktorPlaylist(context, node.get()) : null;
     }
 
     @Override
     public List<Playlist> listPlaylists() {
         return nml.getPLAYLISTS().getNODE().getSUBNODES().getNODE().stream()
-                .map(TraktorPlaylist::new)
+                .map(e -> new TraktorPlaylist(context, e))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public TraktorTrack getTrack(Path path) {
-        final FileLocation fileLocation = NMLHelper19.extractLocation(path);
-        final String fileKey = stringToTraktorKey(fileLocation.file);
-        final String dirKey = stringToTraktorKey(fileLocation.directory);
-        final Optional<ENTRY> entryOptional = nml.getCOLLECTION().getENTRY().parallelStream()
-                .filter(e -> belongsTo(e, fileKey, dirKey, fileLocation.volume))
-                .findFirst();
-
-        return entryOptional.isPresent() ? new TraktorTrack(entryOptional.get()) : null;
-    }
-
-    private boolean belongsTo(ENTRY e, String file, String dir, String volume) {
-        final List<Object> content = e.getCONTENT();
-        if (null == content) {
-            return false;
-        }
-        final Object first = content.get(0);
-        if (null == first) {
-            return false;
-        }
-        if (null == file) {
-            throw new IllegalArgumentException("FILE was null");
-        }
-        if (null != dir && !dir.equals(((LOCATION) first).getDIR())) {
-            return false;
-        }
-        if (null != volume && !volume.equals(((LOCATION) first).getVOLUME())) {
-            return false;
-        }
-        return file.equals(((LOCATION) first).getFILE());
+    public Context getContext() {
+        return context;
     }
 
     private ENTRY createCollectionEntry(Path path) {
@@ -144,7 +133,7 @@ public class TraktorLibrary implements Library{
     private String findVolumeId (String volume) {
 
         final Optional<String> entryOptional = nml.getCOLLECTION().getENTRY().parallelStream()
-                .filter(e -> belongsTo(e, volume))
+                .filter(e -> belongsToVolume(e, volume))
                 .map(ENTRY::getCONTENT)
                 .map(c -> c.get(0))
                 .filter(c -> c instanceof LOCATION)
@@ -158,7 +147,7 @@ public class TraktorLibrary implements Library{
         return entryOptional.get();
     }
 
-    private boolean belongsTo(ENTRY entry, String volume) {
+    private boolean belongsToVolume(ENTRY entry, String volume) {
         final Object content = getPrimaryContent(entry);
         if (content instanceof LOCATION) {
             return volume.equals(((LOCATION) content).getVOLUME());
@@ -184,6 +173,6 @@ public class TraktorLibrary implements Library{
         subnodes.getNODE().add(node);
         subnodes.setCOUNT(subnodes.getNODE().size());
 
-        return new TraktorPlaylist(node);
+        return new TraktorPlaylist(context, node);
     }
 }

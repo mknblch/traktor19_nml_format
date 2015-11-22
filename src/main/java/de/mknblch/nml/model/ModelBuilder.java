@@ -2,6 +2,7 @@ package de.mknblch.nml.model;
 
 import de.mknblch.nml.common.TraktorPathFinder;
 import de.mknblch.nml.common.VersionExtractor;
+import de.mknblch.nml.entities.traktor_19.NML;
 import de.mknblch.nml.model.impl.traktor_19.Traktor19;
 
 import java.io.IOException;
@@ -42,17 +43,16 @@ public class ModelBuilder {
      * build specific version
      */
     public Context build(String version) throws ModelException {
-        return build(TraktorPathFinder.getCollectionPath(pathFinder.getTraktorPath(version)));
+        return build(pathFinder.getCollectionPath(pathFinder.getTraktorPath(version)));
     }
 
     /**
      * build from specified path
      */
     public Context build(Path pathToCollection) throws ModelException {
-        final String collectionVersion;
         try {
-            collectionVersion = VersionExtractor.getCollectionVersion(pathToCollection);
-            final Class<?> contextClass = getImplementation(collectionVersion);
+            final String nmlVersion = VersionExtractor.getCollectionVersion(pathToCollection);
+            final Class<?> contextClass = getImplementation(nmlVersion);
             final Constructor<?> constructor = contextClass.getDeclaredConstructor(Path.class);
             return (Context) constructor.newInstance(pathToCollection);
         } catch (VersionExtractor.NoCollectionException | InvocationTargetException | NoSuchMethodException | IllegalAccessException | InstantiationException e) {

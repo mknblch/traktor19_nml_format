@@ -13,7 +13,9 @@ import java.util.Set;
  */
 public interface Library {
 
-    public Track getTrack(Path path);
+    Track getTrackById(String traktorKey);
+
+    Track getTrack(Path path);
 
     /**
      * import track at path and return a track view to it.
@@ -51,4 +53,5 @@ public interface Library {
 
     List<Playlist> listPlaylists();
 
+    Context getContext();
 }

@@ -56,7 +56,7 @@ public class TraktorPathFinder {
         return getCollectionPath(getTraktorPath());
     }
 
-    public static Path getCollectionPath(Path traktorPath) {
+    public Path getCollectionPath(Path traktorPath) {
         return Paths.get(
                 traktorPath.toAbsolutePath().toString(),
                 FILE_PART);

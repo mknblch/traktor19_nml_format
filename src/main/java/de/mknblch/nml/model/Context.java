@@ -7,7 +7,7 @@ import java.nio.file.Path;
  */
 public interface Context {
 
-    Library getLibrary() throws ModelException;
+    Library getLibrary();
 
     void saveLibrary() throws ModelException;
 

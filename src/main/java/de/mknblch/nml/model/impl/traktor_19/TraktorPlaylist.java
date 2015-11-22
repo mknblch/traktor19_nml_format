@@ -1,11 +1,11 @@
 package de.mknblch.nml.model.impl.traktor_19;
 
 import de.mknblch.nml.entities.traktor_19.*;
-import de.mknblch.nml.model.Playlist;
-import de.mknblch.nml.model.Track;
+import de.mknblch.nml.model.*;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -15,7 +15,10 @@ public class TraktorPlaylist implements Playlist {
 
     private final NODE node;
 
-    TraktorPlaylist(NODE node) {
+    private final Context context;
+
+    TraktorPlaylist(Context context, NODE node) {
+        this.context = context;
         this.node = node;
     }
 
@@ -31,8 +34,13 @@ public class TraktorPlaylist implements Playlist {
 
     @Override
     public List<Track> getTracks() {
+
+        final Library library = context.getLibrary();
+
         return node.getPLAYLIST().getENTRY().stream()
-                .map(TraktorTrack::new)
+                .map(NMLHelper19::getTraktorKey)
+                .map(library::getTrackById)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
@@ -52,14 +60,20 @@ public class TraktorPlaylist implements Playlist {
         if (null == track) {
             return;
         }
-        node.getPLAYLIST().getENTRY().removeIf(entry ->
-                track.getPath().equals(NMLHelper19.primaryKeyToPath(((PRIMARYKEY) entry.getCONTENT().get(0)).getKEY())));
+        node.getPLAYLIST()
+                .getENTRY()
+                .removeIf(entry -> track.getTrackId().equals(NMLHelper19.getTraktorKey(entry)));
     }
 
     @Override
     public void clear() {
         node.getPLAYLIST().getENTRY().clear();
         node.getPLAYLIST().setENTRIES(0);
+    }
+
+    @Override
+    public Context getContext() {
+        return context;
     }
 
     @Override
@@ -70,7 +84,7 @@ public class TraktorPlaylist implements Playlist {
     private PRIMARYKEY toPrimaryKey(Path path) {
         final PRIMARYKEY primarykey = new PRIMARYKEY();
         primarykey.setTYPE("TRACK");
-        primarykey.setKEY(NMLHelper19.pathToPrimaryKey(path));
+        primarykey.setKEY(NMLHelper19.pathToTraktorKey(path));
         return primarykey;
     }
 }

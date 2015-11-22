@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -19,11 +20,30 @@ class NMLHelper19 {
 
     public static final char[] UUID_CHARS = "abcdef0123456789".toCharArray();
 
+    public static String getTraktorKey(ENTRY entry) {
+        if (null == entry) {
+            throw new IllegalArgumentException("Entry was null");
+        }
+
+        final Optional<PRIMARYKEY> primarykeyOptional = findContent(entry, PRIMARYKEY.class);
+        if (primarykeyOptional.isPresent()) {
+            return primarykeyOptional.get().getKEY();
+        }
+
+        final Optional<LOCATION> locationOptional = findContent(entry, LOCATION.class);
+        if (locationOptional.isPresent()) {
+            final LOCATION location = locationOptional.get();
+            return String.join("", location.getVOLUME(), location.getDIR(), location.getFILE());
+        }
+
+        throw new IllegalArgumentException("Entry has no Key");
+    }
+
     public static Path locationToPath(LOCATION location) {
         return Paths.get(locationToString(location.getVOLUME(), location.getDIR(), location.getFILE()));
     }
 
-    public static String pathToPrimaryKey(Path path) {
+    public static String pathToTraktorKey(Path path) {
         return extractLocation(path).toPrimaryKey();
     }
 
@@ -52,18 +72,6 @@ class NMLHelper19 {
 
     public static String stringToTraktorKey(String str) {
         return str.replaceAll("/", "/:");
-    }
-
-    public static boolean primaryKeyEquals(ENTRY a, ENTRY b) {
-        return getPrimaryKey(a).getKEY().equals(getPrimaryKey(b).getKEY());
-    }
-
-    public static PRIMARYKEY getPrimaryKey(ENTRY entry) {
-        final Object o = entry.getCONTENT().get(0);
-        if (o instanceof PRIMARYKEY) {
-            return (PRIMARYKEY) o;
-        }
-        throw new IllegalArgumentException("Invalid ENTRY Type");
     }
 
     public static String generateUUID() {
@@ -122,5 +130,13 @@ class NMLHelper19 {
                 directory,
                 pathString.substring(lastSlash + 1));
     }
+
+    public static <T> Optional<T> findContent(ENTRY entry, Class<T> type) {
+        return entry.getCONTENT().stream()
+                .filter(o -> type.isAssignableFrom(o.getClass()))
+                .map(type::cast)
+                .findFirst();
+    }
+
 
 }

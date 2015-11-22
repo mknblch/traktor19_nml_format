@@ -3,6 +3,7 @@ package de.mknblch.nml.model.impl.traktor_19;
 import de.mknblch.nml.common.XMLSerializer;
 import de.mknblch.nml.entities.traktor_19.NML;
 import de.mknblch.nml.model.Context;
+import de.mknblch.nml.model.Library;
 import de.mknblch.nml.model.ModelException;
 
 import javax.xml.bind.JAXBException;
@@ -15,24 +16,30 @@ import java.nio.file.Path;
  */
 public class Traktor19 implements Context {
 
-    private final XMLSerializer<NML> serializer;
+    private final XMLSerializer<NML> serializer = new XMLSerializer<>(NML.class, true);
+
     private final Path collectionPath;
+    private final NML nml;
     private TraktorLibrary library;
+
+    public Traktor19(Path collectionPath, NML nml) throws Exception {
+        this.collectionPath = collectionPath;
+        this.nml = nml;
+        library = new TraktorLibrary(this, nml);
+    }
 
     public Traktor19(Path collectionPath) throws Exception {
         this.collectionPath = collectionPath;
-        serializer = new XMLSerializer<>(NML.class, true);
+        try {
+            nml = serializer.unmarshal(collectionPath.toFile());
+        } catch (JAXBException e) {
+            throw new ModelException("Cannot load library", e);
+        }
+        library = new TraktorLibrary(this, nml);
     }
 
     @Override
-    public TraktorLibrary getLibrary() throws ModelException {
-        if (null == library) {
-            try {
-                library = new TraktorLibrary(serializer.unmarshal(collectionPath.toFile()));
-            } catch (JAXBException e) {
-                throw new ModelException("Cannot load library", e);
-            }
-        }
+    public Library getLibrary() {
         return library;
     }
 
@@ -47,7 +54,7 @@ public class Traktor19 implements Context {
             throw new ModelException("Library was not initialized");
         }
         try {
-            serializer.marshal(library.nml, path.toFile());
+            serializer.marshal(nml, path.toFile());
         } catch (JAXBException e) {
             throw new ModelException("Cannot save library", e);
         }

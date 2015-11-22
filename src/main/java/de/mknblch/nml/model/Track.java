@@ -9,6 +9,8 @@ import java.util.Map;
  */
 public interface Track {
 
+    String getTrackId();
+
     Path getPath();
 
     String getFileName();
@@ -25,10 +27,11 @@ public interface Track {
 
     Date getLastPlayed();
 
-    String getKey();
+    String getMusicalKey();
 
     boolean isAnalyzed();
 
-    String getAudioID();
+    String getAudioId();
 
+    Context getContext();
 }

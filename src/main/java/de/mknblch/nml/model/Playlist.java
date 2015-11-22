@@ -21,4 +21,5 @@ public interface Playlist {
 
     void clear();
 
+    Context getContext();
 }

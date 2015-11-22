@@ -23,7 +23,7 @@ public class ModelBuilderTest {
         final Traktor19 build = (Traktor19) new ModelBuilder()
                 .build(path);
 
-        final TraktorLibrary library = build.getLibrary();
+        final Library library = build.getLibrary();
 
         assertNotNull(library);
     }
@@ -34,7 +34,7 @@ public class ModelBuilderTest {
         final Traktor19 build = (Traktor19) new ModelBuilder()
                 .build();
 
-        final TraktorLibrary library = build.getLibrary();
+        final Library library = build.getLibrary();
 
         final List<Track> tracks = library.listTracks();
     

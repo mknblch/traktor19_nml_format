@@ -2,6 +2,7 @@ package de.mknblch.nml.model.impl.traktor_19;
 
 import de.mknblch.nml.entities.traktor_19.ENTRY;
 import de.mknblch.nml.entities.traktor_19.INFO;
+import de.mknblch.nml.model.Context;
 import de.mknblch.nml.model.Track;
 
 import java.nio.file.Path;
@@ -15,10 +16,18 @@ import java.util.Optional;
  */
 public class TraktorTrack implements Track {
 
+    private final Context context;
+
     private final ENTRY entry;
 
-    TraktorTrack(ENTRY entry) {
+    TraktorTrack(Context context, ENTRY entry) {
+        this.context = context;
         this.entry = entry;
+    }
+
+    @Override
+    public String getTrackId() {
+        return NMLHelper19.getTraktorKey(entry);
     }
 
     @Override
@@ -37,12 +46,7 @@ public class TraktorTrack implements Track {
     }
 
     private Optional<INFO> getInfo() {
-        return entry
-                    .getCONTENT()
-                    .parallelStream()
-                    .filter(o -> o instanceof INFO)
-                    .map(o -> (INFO) o)
-                    .findFirst();
+        return NMLHelper19.findContent(entry, INFO.class);
     }
 
     @Override
@@ -97,7 +101,7 @@ public class TraktorTrack implements Track {
     }
 
     @Override
-    public String getKey() {
+    public String getMusicalKey() {
         final Optional<INFO> opt = getInfo();
         if (!opt.isPresent()) {
             return null;
@@ -107,12 +111,17 @@ public class TraktorTrack implements Track {
 
     @Override
     public boolean isAnalyzed() {
-        return getAudioID() != null;
+        return getAudioId() != null;
     }
 
     @Override
-    public String getAudioID() {
+    public String getAudioId() {
         return entry.getAUDIOID();
+    }
+
+    @Override
+    public Context getContext() {
+        return context;
     }
 
     @Override
@@ -120,12 +129,12 @@ public class TraktorTrack implements Track {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TraktorTrack that = (TraktorTrack) o;
-        return null != that.entry && this.entry == that.entry;
+        return null != that.getTrackId() && this.getTrackId() == that.getTrackId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPath());
+        return Objects.hash(getTrackId());
     }
 
     @Override
@@ -141,7 +150,7 @@ public class TraktorTrack implements Track {
                 .append(getTitle()).append(" ");
 
         final Integer bitrate = getBitrate();
-        final String key = getKey();
+        final String key = getMusicalKey();
         if (null == key && null == bitrate) {
             return builder.toString();
         }
