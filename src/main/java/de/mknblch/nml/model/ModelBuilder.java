@@ -53,8 +53,8 @@ public class ModelBuilder {
         try {
             collectionVersion = VersionExtractor.getCollectionVersion(pathToCollection);
             final Class<?> contextClass = getImplementation(collectionVersion);
-            final Constructor<?> constructor = contextClass.getDeclaredConstructor(Path.class, Path.class);
-            return (Context) constructor.newInstance(pathToCollection, pathToCollection);
+            final Constructor<?> constructor = contextClass.getDeclaredConstructor(Path.class);
+            return (Context) constructor.newInstance(pathToCollection);
         } catch (VersionExtractor.NoCollectionException | InvocationTargetException | NoSuchMethodException | IllegalAccessException | InstantiationException e) {
             throw new ModelException("Error building Context.", e);
         }

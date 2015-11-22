@@ -17,6 +17,4 @@ public interface Context {
 
     Path getLibraryPath();
 
-    Path getHomePath();
-
 }

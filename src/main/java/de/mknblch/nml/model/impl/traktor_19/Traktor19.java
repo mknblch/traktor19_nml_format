@@ -17,12 +17,10 @@ public class Traktor19 implements Context {
 
     private final XMLSerializer<NML> serializer;
     private final Path collectionPath;
-    private final Path homePath;
     private TraktorLibrary library;
 
-    public Traktor19(Path collectionPath, Path homePath) throws Exception {
+    public Traktor19(Path collectionPath) throws Exception {
         this.collectionPath = collectionPath;
-        this.homePath = homePath;
         serializer = new XMLSerializer<>(NML.class, true);
     }
 
@@ -65,8 +63,4 @@ public class Traktor19 implements Context {
         return collectionPath;
     }
 
-    @Override
-    public Path getHomePath() {
-        return homePath;
-    }
 }

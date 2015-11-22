@@ -4,7 +4,7 @@ apply from: 'tasks.gradle'
 apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.8
-version = '0.3.0-SNAPSHOT'
+version = '0.3.1-SNAPSHOT'
 group = "de.mknblch.nml"
 
 repositories {

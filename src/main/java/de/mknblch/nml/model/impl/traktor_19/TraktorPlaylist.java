@@ -38,6 +38,9 @@ public class TraktorPlaylist implements Playlist {
 
     @Override
     public void addTrack(Track track) {
+        if (null == track) {
+            return;
+        }
         final ENTRY entry = new ENTRY();
         entry.getCONTENT().add(0, toPrimaryKey(track.getPath()));
         node.getPLAYLIST().getENTRY().add(entry);
@@ -46,6 +49,9 @@ public class TraktorPlaylist implements Playlist {
 
     @Override
     public void removeTrack(Track track) {
+        if (null == track) {
+            return;
+        }
         node.getPLAYLIST().getENTRY().removeIf(entry ->
                 track.getPath().equals(NMLHelper19.primaryKeyToPath(((PRIMARYKEY) entry.getCONTENT().get(0)).getKEY())));
     }
