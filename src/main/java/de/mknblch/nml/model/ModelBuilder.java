@@ -30,25 +30,34 @@ public class ModelBuilder {
     /**
      * build from highest traktor version found
      */
-    public Context build() throws IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, VersionExtractor.NoCollectionException {
-        return build(pathFinder.getHighestVersion());
+    public Context build() throws ModelException {
+        try {
+            return build(pathFinder.getHighestVersion());
+        } catch (IOException e) {
+            throw new ModelException(e);
+        }
     }
 
     /**
      * build specific version
      */
-    public Context build(String version) throws IOException, VersionExtractor.NoCollectionException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public Context build(String version) throws ModelException {
         return build(TraktorPathFinder.getCollectionPath(pathFinder.getTraktorPath(version)));
     }
 
     /**
      * build from specified path
      */
-    public Context build(Path pathToCollection) throws VersionExtractor.NoCollectionException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        final String collectionVersion = VersionExtractor.getCollectionVersion(pathToCollection);
-        final Class<?> contextClass = getImplementation(collectionVersion);
-        final Constructor<?> constructor = contextClass.getDeclaredConstructor(Path.class, Path.class);
-        return (Context) constructor.newInstance(pathToCollection, pathToCollection);
+    public Context build(Path pathToCollection) throws ModelException {
+        final String collectionVersion;
+        try {
+            collectionVersion = VersionExtractor.getCollectionVersion(pathToCollection);
+            final Class<?> contextClass = getImplementation(collectionVersion);
+            final Constructor<?> constructor = contextClass.getDeclaredConstructor(Path.class, Path.class);
+            return (Context) constructor.newInstance(pathToCollection, pathToCollection);
+        } catch (VersionExtractor.NoCollectionException | InvocationTargetException | NoSuchMethodException | IllegalAccessException | InstantiationException e) {
+            throw new ModelException("Error building Context.", e);
+        }
     }
 
     private Class<?> getImplementation(String collectionVersion) {

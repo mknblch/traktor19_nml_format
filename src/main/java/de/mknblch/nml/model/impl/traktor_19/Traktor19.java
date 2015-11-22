@@ -2,16 +2,11 @@ package de.mknblch.nml.model.impl.traktor_19;
 
 import de.mknblch.nml.common.XMLSerializer;
 import de.mknblch.nml.entities.traktor_19.NML;
-import de.mknblch.nml.entities.traktor_19.NODE;
-import de.mknblch.nml.entities.traktor_19.PLAYLIST;
-import de.mknblch.nml.entities.traktor_19.SUBNODES;
 import de.mknblch.nml.model.Context;
-import de.mknblch.nml.model.LibraryException;
-import de.mknblch.nml.model.Playlist;
+import de.mknblch.nml.model.ModelException;
 
 import javax.xml.bind.JAXBException;
 import java.nio.file.Path;
-import java.util.List;
 
 /**
  * Created by mknblch on 02.10.2015.
@@ -32,31 +27,31 @@ public class Traktor19 implements Context {
     }
 
     @Override
-    public TraktorLibrary getLibrary() throws LibraryException {
+    public TraktorLibrary getLibrary() throws ModelException {
         if (null == library) {
             try {
                 library = new TraktorLibrary(serializer.unmarshal(collectionPath.toFile()));
             } catch (JAXBException e) {
-                throw new LibraryException("Cannot load library", e);
+                throw new ModelException("Cannot load library", e);
             }
         }
         return library;
     }
 
     @Override
-    public void saveLibrary() throws LibraryException {
+    public void saveLibrary() throws ModelException {
         saveLibrary(collectionPath);
     }
 
     @Override
-    public void saveLibrary(Path path) throws LibraryException {
+    public void saveLibrary(Path path) throws ModelException {
         if (null == library) {
-            throw new LibraryException("Library was not initialized");
+            throw new ModelException("Library was not initialized");
         }
         try {
             serializer.marshal(library.nml, path.toFile());
         } catch (JAXBException e) {
-            throw new LibraryException("Cannot save library", e);
+            throw new ModelException("Cannot save library", e);
         }
     }
 

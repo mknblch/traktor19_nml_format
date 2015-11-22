@@ -5,19 +5,19 @@ import java.util.List;
 /**
  * Created by mknblch on 28.09.2015.
  */
-public interface Playlist<T extends Context> {
+public interface Playlist {
 
     String getName();
 
     void setName(String name);
 
-    List<Track<T>> getTracks();
+    List<Track> getTracks();
 
-    void addTrack(Track<T> track);
+    void addTrack(Track track);
 
-    void addTracks(List<Track<T>> tracks);
+    void addTracks(List<Track> tracks);
 
-    void removeTrack(Track<T> track);
+    void removeTrack(Track track);
 
     void clear();
 

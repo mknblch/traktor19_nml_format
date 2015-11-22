@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Created by mknblch on 28.09.2015.
  */
-public interface Track<T extends Context> {
+public interface Track {
 
     Path getPath();
 
@@ -26,5 +26,9 @@ public interface Track<T extends Context> {
     Date getLastPlayed();
 
     String getKey();
+
+    boolean isAnalyzed();
+
+    String getAudioID();
 
 }

@@ -11,9 +11,9 @@ import java.util.Set;
  *
  * library interface. must be implemented for specific contexts
  */
-public interface Library<T extends Context> {
+public interface Library {
 
-    public Track<T> getTrack(Path path);
+    public Track getTrack(Path path);
 
     /**
      * import track at path and return a track view to it.
@@ -23,13 +23,13 @@ public interface Library<T extends Context> {
      * @return Track-View to Track at path
      * @throws IOException
      */
-    Track<T> importTrack(Path path) throws IOException;
+    Track importTrack(Path path) throws IOException;
 
     /**
      * get a list of all tracks
      * @return
      */
-    List<Track<T>> listTracks();
+    List<Track> listTracks();
 
     /**
      * create a new playlist with specified name
@@ -37,7 +37,7 @@ public interface Library<T extends Context> {
      * @param playlistName
      * @return
      */
-    Playlist<T> createPlaylist(String playlistName);
+    Playlist createPlaylist(String playlistName);
 
     /**
      * remove playlist if exists
@@ -47,8 +47,8 @@ public interface Library<T extends Context> {
 
     void clearPlaylists();
 
-    Playlist<T> getPlaylist(String name);
+    Playlist getPlaylist(String name);
 
-    List<Playlist<T>> listPlaylists();
+    List<Playlist> listPlaylists();
 
 }

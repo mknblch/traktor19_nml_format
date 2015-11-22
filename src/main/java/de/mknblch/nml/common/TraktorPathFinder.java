@@ -43,7 +43,7 @@ public class TraktorPathFinder {
         return getTraktorPath(getHighestVersion());
     }
 
-    public Path getTraktorPath(String version) throws IOException {
+    public Path getTraktorPath(String version) {
         return Paths.get(
                 getUserHome(),
                 SUBDIRECTORY_PART,

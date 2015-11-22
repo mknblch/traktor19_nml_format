@@ -34,7 +34,7 @@ public class FileHelper {
     public static List<Path> fetchSubdirectories(Path baseDirectory) throws IOException {
         return Files.walk(FileHelper.normalizePath(baseDirectory), 1)
                 .filter(Files::isDirectory)
-                .filter(f -> !baseDirectory.equals(f))
+                .filter(f -> baseDirectory.compareTo(f) != 0)
                 .collect(Collectors.toList());
     }
 }

@@ -13,7 +13,7 @@ import java.util.Optional;
 /**
  * Created by mknblch on 02.10.2015.
  */
-public class TraktorTrack implements Track<Traktor19> {
+public class TraktorTrack implements Track {
 
     private final ENTRY entry;
 
@@ -106,14 +106,21 @@ public class TraktorTrack implements Track<Traktor19> {
     }
 
     @Override
+    public boolean isAnalyzed() {
+        return getAudioID() != null;
+    }
+
+    @Override
+    public String getAudioID() {
+        return entry.getAUDIOID();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         TraktorTrack that = (TraktorTrack) o;
-
         return null != that.entry && this.entry == that.entry;
-
     }
 
     @Override
@@ -125,14 +132,16 @@ public class TraktorTrack implements Track<Traktor19> {
     public String toString() {
 
         final StringBuilder builder = new StringBuilder();
-
-        builder.append(getFileName()).append(" ")
+        builder.append(getFileName());
+        if (!isAnalyzed()) {
+            return builder.toString();
+        }
+        builder.append(" ")
                 .append(getArtist()).append(" : ")
                 .append(getTitle()).append(" ");
 
         final Integer bitrate = getBitrate();
         final String key = getKey();
-
         if (null == key && null == bitrate) {
             return builder.toString();
         }

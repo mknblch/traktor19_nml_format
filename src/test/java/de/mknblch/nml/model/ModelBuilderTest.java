@@ -36,9 +36,9 @@ public class ModelBuilderTest {
 
         final TraktorLibrary library = build.getLibrary();
 
-        final List<Track<Traktor19>> tracks = library.listTracks();
+        final List<Track> tracks = library.listTracks();
     
-        for (Track<? extends Context> track : tracks) {
+        for (Track track : tracks) {
             System.out.println(track);
         }
     

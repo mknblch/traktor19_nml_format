@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * Created by mknblch on 04.10.2015.
  */
-public class TraktorPlaylist implements Playlist<Traktor19> {
+public class TraktorPlaylist implements Playlist {
 
     private final NODE node;
 
@@ -30,14 +30,14 @@ public class TraktorPlaylist implements Playlist<Traktor19> {
     }
 
     @Override
-    public List<Track<Traktor19>> getTracks() {
+    public List<Track> getTracks() {
         return node.getPLAYLIST().getENTRY().stream()
                 .map(TraktorTrack::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void addTrack(Track<Traktor19> track) {
+    public void addTrack(Track track) {
         final ENTRY entry = new ENTRY();
         entry.getCONTENT().add(0, toPrimaryKey(track.getPath()));
         node.getPLAYLIST().getENTRY().add(entry);
@@ -45,7 +45,7 @@ public class TraktorPlaylist implements Playlist<Traktor19> {
     }
 
     @Override
-    public void removeTrack(Track<Traktor19> track) {
+    public void removeTrack(Track track) {
         node.getPLAYLIST().getENTRY().removeIf(entry ->
                 track.getPath().equals(NMLHelper19.primaryKeyToPath(((PRIMARYKEY) entry.getCONTENT().get(0)).getKEY())));
     }
@@ -57,7 +57,7 @@ public class TraktorPlaylist implements Playlist<Traktor19> {
     }
 
     @Override
-    public void addTracks(List<Track<Traktor19>> tracks) {
+    public void addTracks(List<Track> tracks) {
         tracks.stream().forEach(this::addTrack);
     }
 

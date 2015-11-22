@@ -14,7 +14,7 @@ import static de.mknblch.nml.model.impl.traktor_19.NMLHelper19.stringToTraktorKe
 /**
  * Created by mknblch on 02.10.2015.
  */
-public class TraktorLibrary implements Library<Traktor19>{
+public class TraktorLibrary implements Library{
 
     public static final String AUTHORTYPE = "importer";
 
@@ -25,7 +25,7 @@ public class TraktorLibrary implements Library<Traktor19>{
     }
 
     @Override
-    public Track<Traktor19> importTrack(Path path) throws IOException {
+    public Track importTrack(Path path) throws IOException {
         final TraktorTrack track = getTrack(path);
         if (null != track) {
             return track;
@@ -37,15 +37,15 @@ public class TraktorLibrary implements Library<Traktor19>{
     }
 
     @Override
-    public List<Track<Traktor19>> listTracks() {
+    public List<Track> listTracks() {
         return nml.getCOLLECTION().getENTRY().stream()
                 .map(TraktorTrack::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Playlist<Traktor19> createPlaylist(String playlistName) {
-        final Playlist<Traktor19> playlist = getPlaylist(playlistName);
+    public Playlist createPlaylist(String playlistName) {
+        final Playlist playlist = getPlaylist(playlistName);
         if (null != playlist) {
             return playlist;
         }
@@ -67,16 +67,15 @@ public class TraktorLibrary implements Library<Traktor19>{
     }
 
     @Override
-    public Playlist<Traktor19> getPlaylist(String name) {
-
+    public Playlist getPlaylist(String nameOrPath) {
         final Optional<NODE> node = nml.getPLAYLISTS().getNODE().getSUBNODES().getNODE().parallelStream()
-                .filter(n -> name.equals(n.getNAME()))
+                .filter(n -> nameOrPath.equals(n.getNAME()))
                 .findFirst();
         return node.isPresent() ? new TraktorPlaylist(node.get()) : null;
     }
 
     @Override
-    public List<Playlist<Traktor19>> listPlaylists() {
+    public List<Playlist> listPlaylists() {
         return nml.getPLAYLISTS().getNODE().getSUBNODES().getNODE().stream()
                 .map(TraktorPlaylist::new)
                 .collect(Collectors.toList());
@@ -169,7 +168,7 @@ public class TraktorLibrary implements Library<Traktor19>{
         return false;
     }
 
-    private Playlist<Traktor19> createNewPlaylist(String playlistName) {
+    private Playlist createNewPlaylist(String playlistName) {
         final NODE root = nml.getPLAYLISTS().getNODE();
 
         final PLAYLIST tPlaylist = new PLAYLIST();
