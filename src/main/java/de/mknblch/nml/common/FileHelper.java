@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class FileHelper {
 
     public static Path normalizePath(Path in) {
-        return Paths.get(normalizePathToString(in));
+        return in.toAbsolutePath().normalize();
     }
 
     public static String normalizePathToString(Path in) {
@@ -25,16 +25,17 @@ public class FileHelper {
     }
 
     public static List<Path> fetchSongPaths(Path directory) throws IOException {
-        return Files.walk(normalizePath(directory))
+        return Files.walk(directory)
                 .map(FileHelper::normalizePath)
                 .filter(FileTypeFilter.INSTANCE::isSupported)
                 .collect(Collectors.toList());
     }
 
     public static List<Path> fetchSubdirectories(Path baseDirectory) throws IOException {
-        return Files.walk(FileHelper.normalizePath(baseDirectory), 1)
+        final Path normalized = normalizePath(baseDirectory);
+        return Files.walk(normalized, 1)
                 .filter(Files::isDirectory)
-                .filter(f -> baseDirectory.compareTo(f) != 0)
+                .filter(f -> normalized.compareTo(f) != 0)
                 .collect(Collectors.toList());
     }
 }
